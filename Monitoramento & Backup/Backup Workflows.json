@@ -3,7 +3,18 @@
   "activeVersion": null,
   "activeVersionId": null,
   "connections": {
-    "Code in JavaScript": {
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Msg Relatório Backup",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Comparação Arquivo n8n - Github": {
       "main": [
         [
           {
@@ -52,7 +63,7 @@
         [
           {
             "index": 0,
-            "node": "Code in JavaScript",
+            "node": "Comparação Arquivo n8n - Github",
             "type": "main"
           }
         ]
@@ -74,7 +85,7 @@
         [
           {
             "index": 0,
-            "node": "Msg Encerramento Backup",
+            "node": "Code in JavaScript1",
             "type": "main"
           }
         ],
@@ -87,18 +98,7 @@
         ]
       ]
     },
-    "Msg Inicio Backup": {
-      "main": [
-        [
-          {
-            "index": 0,
-            "node": "GET Workflows",
-            "type": "main"
-          }
-        ]
-      ]
-    },
-    "No Operation, do nothing": {
+    "Same file, do nothing": {
       "main": [
         [
           {
@@ -150,7 +150,7 @@
         [
           {
             "index": 0,
-            "node": "No Operation, do nothing",
+            "node": "Same file, do nothing",
             "type": "main"
           }
         ]
@@ -161,7 +161,7 @@
         [
           {
             "index": 0,
-            "node": "Msg Inicio Backup",
+            "node": "GET Workflows",
             "type": "main"
           }
         ]
@@ -224,7 +224,7 @@
               "id": "96b8688c-3a55-4e3f-a2fb-691ddfa51254",
               "name": "timestamp",
               "type": "string",
-              "value": "={{ $json.timestamp }}"
+              "value": "={{ $now }}"
             },
             {
               "id": "f82dc2b0-0128-4314-85d2-fc0e8f347458",
@@ -243,7 +243,7 @@
         "options": {}
       },
       "position": [
-        -80,
+        -16,
         -240
       ],
       "type": "n8n-nodes-base.set",
@@ -263,25 +263,10 @@
       "typeVersion": 3
     },
     {
-      "id": "a58e94f4-48ca-4f8e-bd3a-283c5e925cab",
-      "name": "Code in JavaScript",
-      "parameters": {
-        "jsCode": "// 1. Função auxiliar para ordenar as chaves do JSON de forma idêntica\nconst orderJsonKeys = (jsonObj) => {\n  if (typeof jsonObj !== 'object' || jsonObj === null) return jsonObj;\n  \n  // Se for um array (como a lista de nós), ordena as chaves de cada item de forma recursiva\n  if (Array.isArray(jsonObj)) {\n    return jsonObj.map(orderJsonKeys);\n  }\n\n  const ordered = {};\n  Object.keys(jsonObj).sort().forEach(key => {\n    ordered[key] = orderJsonKeys(jsonObj[key]);\n  });\n  return ordered;\n};\n\n// 2. Função para remover metadados que mudam sozinhos no n8n e quebram a comparação\nconst sanitizeWorkflow = (wf) => {\n  const clean = { ...wf };\n  delete clean.versionId;\n  delete clean.updatedAt;\n  delete clean.createdAt;\n  return clean;\n};\n\n// 3. Captura o workflow atual vindo do Loop (Dados do n8n)\nconst rawN8nWorkflow = $('Loop Over Items').item.json;\nconst n8nWorkflowClean = sanitizeWorkflow(rawN8nWorkflow);\nconst orderedActual = orderJsonKeys(n8nWorkflowClean);\n\n// 4. Captura a resposta do nó anterior (GET Arquivo do GitHub)\nconst githubResponse = $input.item.json;\n\n// 5. Variáveis de controle de caminhos (Tags)\nlet folderName = 'Sem-Pasta';\nif (rawN8nWorkflow.tags && rawN8nWorkflow.tags.length > 0) {\n  folderName = rawN8nWorkflow.tags[0].name.trim().replace(/[\\/\\\\?%*:|\"<>]/g, '-');\n}\nconst defaultPath = `${folderName}/${rawN8nWorkflow.name}.json`;\n\n// 6. EXECUÇÃO DA LÓGICA DE COMPARAÇÃO\nlet githubStatus = \"new\";\nlet filePath = defaultPath;\n\n// Se o arquivo existe no GitHub (contém a chave \"content\")\nif (githubResponse && githubResponse.content) {\n  try {\n    // Decodifica o Base64 do GitHub\n    const githubBase64 = githubResponse.content.replace(/\\s/g, '');\n    const githubTextContent = Buffer.from(githubBase64, 'base64').toString('utf-8');\n    const origWorkflow = JSON.parse(githubTextContent);\n    \n    // Limpa e ordena ambos para comparação justa\n    const orderedOriginal = orderJsonKeys(sanitizeWorkflow(origWorkflow));\n\n    // Determina se são estritamente iguais\n    if (JSON.stringify(orderedOriginal) === JSON.stringify(orderedActual)) {\n      githubStatus = \"do_nothing\"; // Totalmente igual\n    } else {\n      githubStatus = \"update\";     // Houve alteração real\n    }\n  } catch (e) {\n    githubStatus = \"update\"; // Se falhar na decodificação, força update por segurança\n  }\n  filePath = githubResponse.path || defaultPath;\n} \n\n// 7. Monta o payload final que será injetado no fluxo\nconst outputJson = {\n  ...rawN8nWorkflow, // Mantém os dados originais se precisar deles nos nós seguintes\n  github_status: githubStatus,\n  github_file_path: filePath,\n  formatted_content: JSON.stringify(orderedActual, null, 2) // Envia o JSON perfeitamente ordenado para o Git\n};\n\nreturn { json: outputJson };"
-      },
-      "position": [
-        1440,
-        -224
-      ],
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2
-    },
-    {
       "id": "db7c458c-f98d-468b-b121-4ceec18d4d97",
       "name": "Switch",
       "parameters": {
-        "options": {
-          "fallbackOutput": "extra"
-        },
+        "options": {},
         "rules": {
           "values": [
             {
@@ -290,7 +275,7 @@
                 "conditions": [
                   {
                     "id": "8b77cd7e-b9a9-477b-94cb-d6f43d2f70e6",
-                    "leftValue": "={{ $json.github_status }}",
+                    "leftValue": "={{ $json.result.github_status }}",
                     "operator": {
                       "operation": "equals",
                       "type": "string"
@@ -314,7 +299,7 @@
                 "conditions": [
                   {
                     "id": "1744b814-ab9f-4ef2-a1f0-18744dee02dd",
-                    "leftValue": "={{ $json.github_status }}",
+                    "leftValue": "={{ $json.result.github_status }}",
                     "operator": {
                       "name": "filter.operator.equals",
                       "operation": "equals",
@@ -332,6 +317,31 @@
               },
               "outputKey": "update",
               "renameOutput": true
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "5df16f7d-91ec-491d-b87b-b1360166752b",
+                    "leftValue": "={{ $json.result.github_status }}",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "do_nothing"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                }
+              },
+              "outputKey": "do_nothing",
+              "renameOutput": true
             }
           ]
         }
@@ -344,17 +354,6 @@
       "typeVersion": 3.4
     },
     {
-      "id": "23aa35b8-2b1a-494b-89a6-d59d92959e7f",
-      "name": "No Operation, do nothing",
-      "parameters": {},
-      "position": [
-        1936,
-        -48
-      ],
-      "type": "n8n-nodes-base.noOp",
-      "typeVersion": 1
-    },
-    {
       "credentials": {
         "githubApi": {
           "id": "oySABCzwTkxdBpAo",
@@ -363,10 +362,11 @@
       },
       "id": "bcd30262-1e93-4a3e-abfe-9465111e38a9",
       "name": "Create a file",
+      "onError": "continueRegularOutput",
       "parameters": {
-        "commitMessage": "=[Criado] Workflow: {{ $json.name }} (ID: {{ $json.id }})",
-        "fileContent": "={{ $json.formatted_content }}",
-        "filePath": "={{ $json.github_file_path }}",
+        "commitMessage": "=[Criado] Workflow: {{ $json.n8nRawData.name }} (ID: {{ $json.n8nRawData.id }})",
+        "fileContent": "={{ $json.result.n8nCleanData.content }}",
+        "filePath": "={{ $json.result.github_file_path }}",
         "owner": {
           "__rl": true,
           "mode": "name",
@@ -396,10 +396,11 @@
       },
       "id": "1ae850a5-c1d4-41ff-aec8-4c79e0e585f5",
       "name": "Edit a file",
+      "onError": "continueRegularOutput",
       "parameters": {
-        "commitMessage": "=[Atualizado] Workflow: {{ $json.name }} (ID: {{ $json.id }})",
-        "fileContent": "={{ $json.formatted_content }}",
-        "filePath": "={{ $json.github_file_path }}",
+        "commitMessage": "=[Atualizado] Workflow: {{ $json.n8nRawData.name }} (ID: {{ $json.n8nRawData.id }})",
+        "fileContent": "={{ $json.result.n8nCleanData.content }}",
+        "filePath": "={{ $json.result.github_file_path }}",
         "operation": "edit",
         "owner": {
           "__rl": true,
@@ -432,6 +433,18 @@
               "name": "Done",
               "type": "boolean",
               "value": true
+            },
+            {
+              "id": "b07f77a5-bcc2-49c5-b0e9-debb612089b5",
+              "name": "=backup_status",
+              "type": "string",
+              "value": "={{ $json.error || $json.status === '409' || $json.message ? 'erro' : 'sucesso' }}"
+            },
+            {
+              "id": "e15b8be0-457f-4710-a489-a632e2114b5a",
+              "name": "workflow_id",
+              "type": "string",
+              "value": "={{ $('Loop Over Items').item.json.id }}"
             }
           ]
         },
@@ -443,28 +456,6 @@
       ],
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4
-    },
-    {
-      "credentials": {
-        "telegramApi": {
-          "id": "IvZ7I7au9XWrIVZ1",
-          "name": "[bot] T.A.C.O."
-        }
-      },
-      "id": "0af6e363-c679-4ef5-9587-97b6ed13f074",
-      "name": "Msg Inicio Backup",
-      "parameters": {
-        "additionalFields": {},
-        "chatId": "6329122319",
-        "text": "=Iniciando execução de Backup dos Workflows em {{ new Date($now).toLocaleString('pt-br', { timeZone: 'America/Sao_Paulo'}) }}"
-      },
-      "position": [
-        144,
-        -240
-      ],
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "webhookId": "26a9ef34-3ae2-4aa0-9dfc-87486231c4bd"
     },
     {
       "credentials": {
@@ -480,7 +471,7 @@
         "requestOptions": {}
       },
       "position": [
-        368,
+        256,
         -240
       ],
       "type": "n8n-nodes-base.n8n",
@@ -513,33 +504,11 @@
         "options": {}
       },
       "position": [
-        592,
+        528,
         -240
       ],
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.3
-    },
-    {
-      "credentials": {
-        "telegramApi": {
-          "id": "IvZ7I7au9XWrIVZ1",
-          "name": "[bot] T.A.C.O."
-        }
-      },
-      "id": "8e037113-6ecb-4da0-8c98-8e2bddb7da5a",
-      "name": "Msg Encerramento Backup",
-      "parameters": {
-        "additionalFields": {},
-        "chatId": "6329122319",
-        "text": "=Backup finalizado com sucesso. {{ $('Filtro Workflows Ativos').all().length }} workflows processados."
-      },
-      "position": [
-        1136,
-        -464
-      ],
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "webhookId": "7120711d-0b7e-4dff-a890-972b5638230d"
     },
     {
       "alwaysOutputData": true,
@@ -577,6 +546,65 @@
       "type": "n8n-nodes-base.github",
       "typeVersion": 1.1,
       "webhookId": "4397968f-2127-4221-9b9e-5acf46e5da9b"
+    },
+    {
+      "id": "13e1211b-09a3-40e7-8994-4d02ea112c88",
+      "name": "Code in JavaScript1",
+      "parameters": {
+        "jsCode": "const execucoes = $('Set Done').all();\n\nlet criados = 0;\nlet alterados = 0;\nlet ignorados = 0;\nlet erros = 0;\n\nfor (const item of execucoes) {\n  if (item.json.backup_status === 'erro') {\n    erros++;\n  } else {\n    const statusOriginal = item.json.github_status;\n    if (statusOriginal === 'new') criados++;\n    if (statusOriginal === 'update') alterados++;\n    if (statusOriginal === 'do_nothing') ignorados++;\n  }\n}\n\nreturn [{\n  json: {\n    total_workflows: execucoes.length,\n    criados,\n    alterados,\n    ignorados,\n    erros\n  }\n}];"
+      },
+      "position": [
+        1136,
+        -480
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "credentials": {
+        "telegramApi": {
+          "id": "IvZ7I7au9XWrIVZ1",
+          "name": "[bot] T.A.C.O."
+        }
+      },
+      "id": "8e037113-6ecb-4da0-8c98-8e2bddb7da5a",
+      "name": "Msg Relatório Backup",
+      "parameters": {
+        "additionalFields": {},
+        "chatId": "6329122319",
+        "text": "=📊 *Relatório do Backup Automatizado de Workflows*\n📅 *Data:* {{ new Date($('Variaveis_Globais').item.json.timestamp).toLocaleString('pt-br', { timeZone: 'America/Sao_Paulo'}) }}\n━━━━━━━━━━━━━━━━━━━━━━━━\n✨ *Novos Criados:* {{ $json.criados }}\n🔄 *Atualizados:* {{ $json.alterados }}\n😴 *Sem alterações:* {{ $json.ignorados_sem_mudanca }}\n❌ *Falhas encontradas:* {{ $json.com_erro }}\n━━━━━━━━━━━━━━━━━━━━━━━━\n📈 *Total de fluxos avaliados:* {{ $json.total_processado }}"
+      },
+      "position": [
+        1424,
+        -480
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "7120711d-0b7e-4dff-a890-972b5638230d"
+    },
+    {
+      "id": "a58e94f4-48ca-4f8e-bd3a-283c5e925cab",
+      "name": "Comparação Arquivo n8n - Github",
+      "parameters": {
+        "jsCode": "// Função auxiliar para ordenar as chaves do JSON de forma idêntica\nconst orderJsonKeys = (jsonObj) => {\n    if (typeof jsonObj !== 'object' || jsonObj === null) return jsonObj;\n    \n    if (Array.isArray(jsonObj)) {\n        return jsonObj.map(orderJsonKeys);\n    }\n\n    const ordered = {};\n    Object.keys(jsonObj).sort().forEach(key => {\n        ordered[key] = orderJsonKeys(jsonObj[key]);\n    });\n    return ordered;\n};\n\n// Função para remover metadados que quebram a comparação\nconst sanitizeWorkflow = (workflow) => {\n    const data = { ...workflow };\n    delete data.versionId;\n    delete data.updatedAt;\n    delete data.createdAt;\n    return data;\n};\n\n// Captura o workflow vindo do Loop e faz o tratamento\nconst rawN8nWorkflow = $('Loop Over Items').item.json;\nconst n8nWorkflowClean = sanitizeWorkflow(rawN8nWorkflow);\nconst n8nItem = orderJsonKeys(n8nWorkflowClean);\n\n// Captura a resposta vinda do Github (pode ou não ser um arquivo)\nconst githubResponse = $input.item.json;\n\n// Define o caminho no Github baseado nas tags do workflow\nlet folderName = '';\nif (rawN8nWorkflow.tags && rawN8nWorkflow.tags.length > 0) {\n    folderName = rawN8nWorkflow.tags[0].name.trim().replace(/[\\/\\\\?%*:|\"<>]/g, '-');\n}\nconst defaultPath = `${folderName}/${rawN8nWorkflow.name}.json`;\nlet githubStatus = \"new\";\nlet filePath = defaultPath;\n\n// Se o arquivo existe no GitHub (contém a chave \"content\")\nif (githubResponse && githubResponse.content) {\n    try {\n        // Decodifica o Base64 do GitHub\n        const githubBase64 = githubResponse.content.replace(/\\s/g, '');\n        const githubTextContent = Buffer.from(githubBase64, 'base64').toString('utf-8');\n        const githubWorkflow = JSON.parse(githubTextContent);\n        \n        // Limpa e ordena ambos para comparação justa\n        const githubItem = orderJsonKeys(sanitizeWorkflow(githubWorkflow));\n\n        // Compara o workflow n8n com o workflow github\n        if (JSON.stringify(githubItem) === JSON.stringify(n8nItem)) {\n            // Totalmente igual\n            githubStatus = \"do_nothing\"; \n        } else {\n            // Houve alteração real\n            githubStatus = \"update\";     \n        }\n    } catch (e) {\n        // Se falhar na decodificação, força update por segurança\n        githubStatus = \"update\"; \n    }\n    filePath = githubResponse.path || defaultPath;\n} \n\n// 7. Monta o payload final que será injetado no fluxo\nconst outputJson = {\n    result: {\n      github_status: githubStatus,\n      github_file_path: filePath,\n      n8nCleanData: {\n        content: JSON.stringify(n8nItem, null, 2)\n      }\n    },\n    n8nRawData: {\n      ...rawN8nWorkflow\n    },\n};\n\nreturn { json: outputJson };"
+      },
+      "position": [
+        1424,
+        -224
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "23aa35b8-2b1a-494b-89a6-d59d92959e7f",
+      "name": "Same file, do nothing",
+      "parameters": {},
+      "position": [
+        1936,
+        -48
+      ],
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1
     }
   ],
   "pinData": {},
