@@ -1,0 +1,204 @@
+{
+  "active": true,
+  "activeVersion": {
+    "authors": "Marcos Lima",
+    "autosaved": true,
+    "connections": {
+      "Code in JavaScript": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Send a text message",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Webhook": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Code in JavaScript",
+              "type": "main"
+            }
+          ]
+        ]
+      }
+    },
+    "createdAt": "2026-06-17T14:05:22.788Z",
+    "description": "",
+    "name": "Version 18800d33",
+    "nodeGroups": [],
+    "nodes": [
+      {
+        "credentials": {
+          "telegramApi": {
+            "id": "8lzTgy1fvGio8liY",
+            "name": "[bot] B.I.U."
+          }
+        },
+        "id": "78787e8e-ea29-4dbd-934f-0aa2d588a924",
+        "name": "Send a text message",
+        "parameters": {
+          "additionalFields": {
+            "appendAttribution": false
+          },
+          "chatId": "6329122319",
+          "text": "=💼 Novo Contato Recebido • Portfólio\n\nFormulário de Contato\n───────────────────────\n👤 Nome: {{ $json.nome }}\n📧 E-mail: {{ $json.email }}\n\n📋 Detalhes da Mensagem\n───────────────────────\n🔹 Assunto: {{ $json.assunto }}\n💬 Mensagem:\n{{ $json.msg }}\n\n───────────────────────\n📅 Registro: {{ $json.timestamp }}"
+        },
+        "position": [
+          448,
+          0
+        ],
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "webhookId": "cb4edf78-2420-44a4-a449-6ce282eed646"
+      },
+      {
+        "id": "63e24ac1-393a-490f-9d55-8b6949b4ff51",
+        "name": "Webhook",
+        "parameters": {
+          "httpMethod": "POST",
+          "options": {},
+          "path": "699f355e-cdd3-47ed-9af4-1cb7e781c2ce"
+        },
+        "position": [
+          -64,
+          0
+        ],
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2.1,
+        "webhookId": "699f355e-cdd3-47ed-9af4-1cb7e781c2ce"
+      },
+      {
+        "id": "a2df5cb0-afd4-4b96-863d-d8e541a4c861",
+        "name": "Code in JavaScript",
+        "parameters": {
+          "jsCode": "const input =  $input.first().json;\nconst nome = input.body.nome;\nconst email = input.body.email;\nconst assunto = input.body.assunto;\nconst msg = input.body.mensagem;\n\nconst rawTimestamp = input.body.timestamp;\nconst timestamp = new Date(rawTimestamp ? rawTimestamp : Date.now()).toLocaleString('pt-br', { timeZone: 'America/Sao_Paulo'});\n\nconst output = { nome, email, assunto, msg, timestamp };\n\nreturn [{ json: output }];"
+        },
+        "position": [
+          192,
+          0
+        ],
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2
+      }
+    ],
+    "updatedAt": "2026-06-17T14:06:23.000Z",
+    "versionId": "18800d33-0d60-4059-8d74-ebdc88e93a4f",
+    "workflowId": "OFQCYVPHa4z27CjF"
+  },
+  "activeVersionId": "18800d33-0d60-4059-8d74-ebdc88e93a4f",
+  "connections": {
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send a text message",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Code in JavaScript",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "OFQCYVPHa4z27CjF",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Notificar_Mensagens_Contato",
+  "nodes": [
+    {
+      "credentials": {
+        "telegramApi": {
+          "id": "8lzTgy1fvGio8liY",
+          "name": "[bot] B.I.U."
+        }
+      },
+      "id": "78787e8e-ea29-4dbd-934f-0aa2d588a924",
+      "name": "Send a text message",
+      "parameters": {
+        "additionalFields": {
+          "appendAttribution": false
+        },
+        "chatId": "6329122319",
+        "text": "=💼 Novo Contato Recebido • Portfólio\n\nFormulário de Contato\n───────────────────────\n👤 Nome: {{ $json.nome }}\n📧 E-mail: {{ $json.email }}\n\n📋 Detalhes da Mensagem\n───────────────────────\n🔹 Assunto: {{ $json.assunto }}\n💬 Mensagem:\n{{ $json.msg }}\n\n───────────────────────\n📅 Registro: {{ $json.timestamp }}"
+      },
+      "position": [
+        448,
+        0
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "cb4edf78-2420-44a4-a449-6ce282eed646"
+    },
+    {
+      "id": "63e24ac1-393a-490f-9d55-8b6949b4ff51",
+      "name": "Webhook",
+      "parameters": {
+        "httpMethod": "POST",
+        "options": {},
+        "path": "699f355e-cdd3-47ed-9af4-1cb7e781c2ce"
+      },
+      "position": [
+        -64,
+        0
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "webhookId": "699f355e-cdd3-47ed-9af4-1cb7e781c2ce"
+    },
+    {
+      "id": "a2df5cb0-afd4-4b96-863d-d8e541a4c861",
+      "name": "Code in JavaScript",
+      "parameters": {
+        "jsCode": "const input =  $input.first().json;\nconst nome = input.body.nome;\nconst email = input.body.email;\nconst assunto = input.body.assunto;\nconst msg = input.body.mensagem;\n\nconst rawTimestamp = input.body.timestamp;\nconst timestamp = new Date(rawTimestamp ? rawTimestamp : Date.now()).toLocaleString('pt-br', { timeZone: 'America/Sao_Paulo'});\n\nconst output = { nome, email, assunto, msg, timestamp };\n\nreturn [{ json: output }];"
+      },
+      "position": [
+        192,
+        0
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "availableInMCP": false,
+    "binaryMode": "separate",
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-06-15T21:46:23.373Z",
+      "projectId": "kCVHFkXvuUipUeFN",
+      "role": "workflow:owner",
+      "updatedAt": "2026-06-15T21:46:23.373Z",
+      "workflowId": "OFQCYVPHa4z27CjF"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2026-06-27T04:10:59.213Z",
+      "id": "0TXj6tSZQHNsUCSl",
+      "name": "Monitoramento & Backup",
+      "updatedAt": "2026-06-27T04:13:32.986Z"
+    }
+  ],
+  "triggerCount": 1
+}
