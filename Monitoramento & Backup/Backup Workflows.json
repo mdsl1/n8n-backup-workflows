@@ -438,7 +438,7 @@
               "id": "b07f77a5-bcc2-49c5-b0e9-debb612089b5",
               "name": "=backup_status",
               "type": "string",
-              "value": "={{ $json.error || $json.status === '409' || $json.message ? 'erro' : 'sucesso' }}"
+              "value": "={{ $json.error || $json.status === '409' || $json.message ? 'erro' : $('Switch').item.json.result.github_status }}"
             },
             {
               "id": "e15b8be0-457f-4710-a489-a632e2114b5a",
