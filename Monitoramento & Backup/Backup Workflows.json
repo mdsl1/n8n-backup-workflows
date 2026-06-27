@@ -570,9 +570,11 @@
       "id": "8e037113-6ecb-4da0-8c98-8e2bddb7da5a",
       "name": "Msg Relatório Backup",
       "parameters": {
-        "additionalFields": {},
+        "additionalFields": {
+          "appendAttribution": false
+        },
         "chatId": "6329122319",
-        "text": "=📊 *Relatório do Backup Automatizado de Workflows*\n📅 *Data:* {{ new Date($('Variaveis_Globais').item.json.timestamp).toLocaleString('pt-br', { timeZone: 'America/Sao_Paulo'}) }}\n━━━━━━━━━━━━━━━━━━━━━━━━\n✨ *Novos Criados:* {{ $json.criados }}\n🔄 *Atualizados:* {{ $json.alterados }}\n😴 *Sem alterações:* {{ $json.ignorados }}\n❌ *Falhas encontradas:* {{ $json.erros }}\n━━━━━━━━━━━━━━━━━━━━━━━━\n📈 *Total de fluxos avaliados:* {{ $json.total_workflows }}"
+        "text": "=📊 Relatório do Backup Automatizado de Workflows\n📅 Data: {{ new Date($('Variaveis_Globais').item.json.timestamp).toLocaleString('pt-br', { timeZone: 'America/Sao_Paulo'}) }}\n━━━━━━━━━━━━━━━━━━━━━━━━\n✨ Novos Criados: {{ $json.criados }}\n🔄 Atualizados: {{ $json.alterados }}\n😴 Sem alterações: {{ $json.ignorados }}\n❌ Erros: {{ $json.erros }}\n━━━━━━━━━━━━━━━━━━━━━━━━\n📈 Total de workflows: {{ $json.total_workflows }}"
       },
       "position": [
         1424,
