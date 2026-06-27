@@ -1,0 +1,607 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Switch",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Create a file": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Set Done",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Edit a file": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Set Done",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Filtro Workflows Ativos": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop Over Items",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "GET Arquivo": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Code in JavaScript",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "GET Workflows": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Filtro Workflows Ativos",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Msg Encerramento Backup",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "GET Arquivo",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Msg Inicio Backup": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "GET Workflows",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "No Operation, do nothing": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Set Done",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Variaveis_Globais",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Set Done": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Loop Over Items",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Create a file",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Edit a file",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "No Operation, do nothing",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Variaveis_Globais": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Msg Inicio Backup",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Variaveis_Globais",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "UBYPN81u6nvFrznD",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Backup Workflows",
+  "nodes": [
+    {
+      "id": "c80e78a7-6fa0-4faa-ae26-aad7693a4a6f",
+      "name": "Schedule Trigger",
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "position": [
+        -304,
+        -144
+      ],
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "5949c549-5bd6-40dd-98e0-b84019412807",
+      "name": "When clicking ‘Execute workflow’",
+      "parameters": {},
+      "position": [
+        -304,
+        -336
+      ],
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1
+    },
+    {
+      "id": "8a1ee047-3283-438f-a796-00bdd16fa5c3",
+      "name": "Variaveis_Globais",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "96b8688c-3a55-4e3f-a2fb-691ddfa51254",
+              "name": "timestamp",
+              "type": "string",
+              "value": "={{ $json.timestamp }}"
+            },
+            {
+              "id": "f82dc2b0-0128-4314-85d2-fc0e8f347458",
+              "name": "repo.owner",
+              "type": "string",
+              "value": "mdsl1"
+            },
+            {
+              "id": "8cbab6be-6a36-46c8-8057-7bb97c2349c9",
+              "name": "repo.name",
+              "type": "string",
+              "value": "n8n-backup-workflows"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        -80,
+        -240
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "4ea70f1c-5cdd-4b3d-9fb4-37b68931a081",
+      "name": "Loop Over Items",
+      "parameters": {
+        "options": {}
+      },
+      "position": [
+        816,
+        -240
+      ],
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3
+    },
+    {
+      "id": "a58e94f4-48ca-4f8e-bd3a-283c5e925cab",
+      "name": "Code in JavaScript",
+      "parameters": {
+        "jsCode": "// 1. Função auxiliar para ordenar as chaves do JSON de forma idêntica\nconst orderJsonKeys = (jsonObj) => {\n  if (typeof jsonObj !== 'object' || jsonObj === null) return jsonObj;\n  \n  // Se for um array (como a lista de nós), ordena as chaves de cada item de forma recursiva\n  if (Array.isArray(jsonObj)) {\n    return jsonObj.map(orderJsonKeys);\n  }\n\n  const ordered = {};\n  Object.keys(jsonObj).sort().forEach(key => {\n    ordered[key] = orderJsonKeys(jsonObj[key]);\n  });\n  return ordered;\n};\n\n// 2. Função para remover metadados que mudam sozinhos no n8n e quebram a comparação\nconst sanitizeWorkflow = (wf) => {\n  const clean = { ...wf };\n  delete clean.versionId;\n  delete clean.updatedAt;\n  delete clean.createdAt;\n  return clean;\n};\n\n// 3. Captura o workflow atual vindo do Loop (Dados do n8n)\nconst rawN8nWorkflow = $('Loop Over Items').item.json;\nconst n8nWorkflowClean = sanitizeWorkflow(rawN8nWorkflow);\nconst orderedActual = orderJsonKeys(n8nWorkflowClean);\n\n// 4. Captura a resposta do nó anterior (GET Arquivo do GitHub)\nconst githubResponse = $input.item.json;\n\n// 5. Variáveis de controle de caminhos (Tags)\nlet folderName = 'Sem-Pasta';\nif (rawN8nWorkflow.tags && rawN8nWorkflow.tags.length > 0) {\n  folderName = rawN8nWorkflow.tags[0].name.trim().replace(/[\\/\\\\?%*:|\"<>]/g, '-');\n}\nconst defaultPath = `${folderName}/${rawN8nWorkflow.name}.json`;\n\n// 6. EXECUÇÃO DA LÓGICA DE COMPARAÇÃO\nlet githubStatus = \"new\";\nlet filePath = defaultPath;\n\n// Se o arquivo existe no GitHub (contém a chave \"content\")\nif (githubResponse && githubResponse.content) {\n  try {\n    // Decodifica o Base64 do GitHub\n    const githubBase64 = githubResponse.content.replace(/\\s/g, '');\n    const githubTextContent = Buffer.from(githubBase64, 'base64').toString('utf-8');\n    const origWorkflow = JSON.parse(githubTextContent);\n    \n    // Limpa e ordena ambos para comparação justa\n    const orderedOriginal = orderJsonKeys(sanitizeWorkflow(origWorkflow));\n\n    // Determina se são estritamente iguais\n    if (JSON.stringify(orderedOriginal) === JSON.stringify(orderedActual)) {\n      githubStatus = \"do_nothing\"; // Totalmente igual\n    } else {\n      githubStatus = \"update\";     // Houve alteração real\n    }\n  } catch (e) {\n    githubStatus = \"update\"; // Se falhar na decodificação, força update por segurança\n  }\n  filePath = githubResponse.path || defaultPath;\n} \n\n// 7. Monta o payload final que será injetado no fluxo\nconst outputJson = {\n  ...rawN8nWorkflow, // Mantém os dados originais se precisar deles nos nós seguintes\n  github_status: githubStatus,\n  github_file_path: filePath,\n  formatted_content: JSON.stringify(orderedActual, null, 2) // Envia o JSON perfeitamente ordenado para o Git\n};\n\nreturn { json: outputJson };"
+      },
+      "position": [
+        1440,
+        -224
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "db7c458c-f98d-468b-b121-4ceec18d4d97",
+      "name": "Switch",
+      "parameters": {
+        "options": {
+          "fallbackOutput": "extra"
+        },
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "8b77cd7e-b9a9-477b-94cb-d6f43d2f70e6",
+                    "leftValue": "={{ $json.github_status }}",
+                    "operator": {
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "new"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                }
+              },
+              "outputKey": "new",
+              "renameOutput": true
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "1744b814-ab9f-4ef2-a1f0-18744dee02dd",
+                    "leftValue": "={{ $json.github_status }}",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "update"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                }
+              },
+              "outputKey": "update",
+              "renameOutput": true
+            }
+          ]
+        }
+      },
+      "position": [
+        1696,
+        -240
+      ],
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "23aa35b8-2b1a-494b-89a6-d59d92959e7f",
+      "name": "No Operation, do nothing",
+      "parameters": {},
+      "position": [
+        1936,
+        -48
+      ],
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1
+    },
+    {
+      "credentials": {
+        "githubApi": {
+          "id": "oySABCzwTkxdBpAo",
+          "name": "[github] mdsl1"
+        }
+      },
+      "id": "bcd30262-1e93-4a3e-abfe-9465111e38a9",
+      "name": "Create a file",
+      "parameters": {
+        "commitMessage": "=[Criado] Workflow: {{ $json.name }} (ID: {{ $json.id }})",
+        "fileContent": "={{ $json.formatted_content }}",
+        "filePath": "={{ $json.github_file_path }}",
+        "owner": {
+          "__rl": true,
+          "mode": "name",
+          "value": "={{ $('Variaveis_Globais').item.json.repo.owner }}"
+        },
+        "repository": {
+          "__rl": true,
+          "mode": "name",
+          "value": "={{ $('Variaveis_Globais').item.json.repo.name }}"
+        },
+        "resource": "file"
+      },
+      "position": [
+        1936,
+        -432
+      ],
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "webhookId": "11dbaac6-75b1-45d1-9b82-8f74cf3cf707"
+    },
+    {
+      "credentials": {
+        "githubApi": {
+          "id": "oySABCzwTkxdBpAo",
+          "name": "[github] mdsl1"
+        }
+      },
+      "id": "1ae850a5-c1d4-41ff-aec8-4c79e0e585f5",
+      "name": "Edit a file",
+      "parameters": {
+        "commitMessage": "=[Atualizado] Workflow: {{ $json.name }} (ID: {{ $json.id }})",
+        "fileContent": "={{ $json.formatted_content }}",
+        "filePath": "={{ $json.github_file_path }}",
+        "operation": "edit",
+        "owner": {
+          "__rl": true,
+          "mode": "name",
+          "value": "={{ $('Variaveis_Globais').item.json.repo.owner }}"
+        },
+        "repository": {
+          "__rl": true,
+          "mode": "name",
+          "value": "={{ $('Variaveis_Globais').item.json.repo.name }}"
+        },
+        "resource": "file"
+      },
+      "position": [
+        1936,
+        -224
+      ],
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "webhookId": "11dbaac6-75b1-45d1-9b82-8f74cf3cf707"
+    },
+    {
+      "id": "8745021d-5870-4b3f-a114-abf30dd4ffe0",
+      "name": "Set Done",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "89aecbfb-7a97-476b-b511-e04a6ea668ab",
+              "name": "Done",
+              "type": "boolean",
+              "value": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        2160,
+        -48
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "credentials": {
+        "telegramApi": {
+          "id": "IvZ7I7au9XWrIVZ1",
+          "name": "[bot] T.A.C.O."
+        }
+      },
+      "id": "0af6e363-c679-4ef5-9587-97b6ed13f074",
+      "name": "Msg Inicio Backup",
+      "parameters": {
+        "additionalFields": {},
+        "chatId": "6329122319",
+        "text": "=Iniciando execução de Backup dos Workflows em {{ new Date($now).toLocaleString('pt-br', { timeZone: 'America/Sao_Paulo'}) }}"
+      },
+      "position": [
+        144,
+        -240
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "26a9ef34-3ae2-4aa0-9dfc-87486231c4bd"
+    },
+    {
+      "credentials": {
+        "n8nApi": {
+          "id": "fPtXCwN87BW5iV3v",
+          "name": "[n8n] backup_workflows"
+        }
+      },
+      "id": "f1ab942e-99f7-4f2f-8fae-ac7ec9b36d19",
+      "name": "GET Workflows",
+      "parameters": {
+        "filters": {},
+        "requestOptions": {}
+      },
+      "position": [
+        368,
+        -240
+      ],
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1
+    },
+    {
+      "id": "ed9d145a-135a-419f-a198-21e0831ab311",
+      "name": "Filtro Workflows Ativos",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "1b63ef0c-f2ae-471b-a631-a7cfe6df677f",
+              "leftValue": "={{ $json.isArchived }}",
+              "operator": {
+                "operation": "equals",
+                "type": "boolean"
+              },
+              "rightValue": false
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        592,
+        -240
+      ],
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3
+    },
+    {
+      "credentials": {
+        "telegramApi": {
+          "id": "IvZ7I7au9XWrIVZ1",
+          "name": "[bot] T.A.C.O."
+        }
+      },
+      "id": "8e037113-6ecb-4da0-8c98-8e2bddb7da5a",
+      "name": "Msg Encerramento Backup",
+      "parameters": {
+        "additionalFields": {},
+        "chatId": "6329122319",
+        "text": "=Backup finalizado com sucesso. {{ $('Filtro Workflows Ativos').all().length }} workflows processados."
+      },
+      "position": [
+        1136,
+        -464
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "7120711d-0b7e-4dff-a890-972b5638230d"
+    },
+    {
+      "alwaysOutputData": true,
+      "credentials": {
+        "githubApi": {
+          "id": "oySABCzwTkxdBpAo",
+          "name": "[github] mdsl1"
+        }
+      },
+      "id": "c80e5d70-ab36-41c4-9a80-5f2ede24c993",
+      "name": "GET Arquivo",
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "additionalParameters": {},
+        "asBinaryProperty": false,
+        "filePath": "={{ $json.tags[0].name }}/{{ $json.name }}.json",
+        "operation": "get",
+        "owner": {
+          "__rl": true,
+          "mode": "name",
+          "value": "={{ $('Variaveis_Globais').item.json.repo.owner }}"
+        },
+        "repository": {
+          "__rl": true,
+          "mode": "name",
+          "value": "={{ $('Variaveis_Globais').item.json.repo.name }}"
+        },
+        "resource": "file"
+      },
+      "position": [
+        1136,
+        -224
+      ],
+      "retryOnFail": false,
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "webhookId": "4397968f-2127-4221-9b9e-5acf46e5da9b"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "availableInMCP": false,
+    "binaryMode": "separate",
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-06-26T23:36:56.114Z",
+      "projectId": "kCVHFkXvuUipUeFN",
+      "role": "workflow:owner",
+      "updatedAt": "2026-06-26T23:36:56.114Z",
+      "workflowId": "UBYPN81u6nvFrznD"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2026-06-27T04:10:59.213Z",
+      "id": "0TXj6tSZQHNsUCSl",
+      "name": "Monitoramento & Backup",
+      "updatedAt": "2026-06-27T04:13:32.986Z"
+    }
+  ],
+  "triggerCount": 0
+}
