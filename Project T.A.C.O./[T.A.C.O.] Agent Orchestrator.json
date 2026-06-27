@@ -1,810 +1,290 @@
 {
-  "updatedAt": "2026-06-27T04:39:32.067Z",
-  "createdAt": "2026-06-20T22:00:17.420Z",
-  "id": "4MljINNgEhpEnMlV",
-  "name": "[T.A.C.O.] Agent Orchestrator.json",
   "active": true,
-  "isArchived": false,
-  "nodes": [
-    {
-      "parameters": {
-        "updates": [
-          "message"
-        ],
-        "additionalFields": {}
-      },
-      "type": "n8n-nodes-base.telegramTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        -2160,
-        640
-      ],
-      "id": "4dc82a98-aa1e-41c3-8297-7bed3162e65f",
-      "name": "Telegram Trigger",
-      "webhookId": "7650c6db-10e0-476f-9281-a4d6d6e15ef7",
-      "credentials": {
-        "telegramApi": {
-          "id": "IvZ7I7au9XWrIVZ1",
-          "name": "[bot] T.A.C.O."
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "file",
-        "fileId": "={{ $('Telegram Trigger').item.json.message.voice.file_id }}",
-        "additionalFields": {
-          "mimeType": "audio/mpeg"
-        }
-      },
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        -1504,
-        832
-      ],
-      "id": "356485e5-3bc5-415a-8999-1d91136d3b70",
-      "name": "Get audio",
-      "webhookId": "619c26bd-d6db-4f7c-ac94-83c3d21c4f90",
-      "credentials": {
-        "telegramApi": {
-          "id": "IvZ7I7au9XWrIVZ1",
-          "name": "[bot] T.A.C.O."
-        }
-      }
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://api.groq.com/openai/v1/audio/transcriptions",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "sendBody": true,
-        "contentType": "multipart-form-data",
-        "bodyParameters": {
-          "parameters": [
+  "activeVersion": {
+    "authors": "Marcos Lima",
+    "autosaved": true,
+    "connections": {
+      "API de transcrição do Groq": {
+        "main": [
+          [
             {
-              "name": "model",
-              "value": "whisper-large-v3-turbo"
-            },
-            {
-              "name": "temperature",
-              "value": "0"
-            },
-            {
-              "name": "response_format",
-              "value": "verbose_json"
-            },
-            {
-              "name": "language",
-              "value": "pt"
-            },
-            {
-              "parameterType": "formBinaryData",
-              "name": "file",
-              "inputDataFieldName": "data"
+              "index": 0,
+              "node": "Mensagem Transcrita",
+              "type": "main"
             }
           ]
-        },
-        "options": {}
+        ]
       },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.4,
-      "position": [
-        -1120,
-        960
-      ],
-      "id": "5f321c6b-4926-49ef-aeb3-e393f3ede08c",
-      "name": "API de transcrição do Groq",
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "MN8253mN05vQUmlf",
-          "name": "[Header-Auth] groq-transcrible-api"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
+      "Classificador de Textos": {
+        "ai_languageModel": [
+          [
             {
-              "id": "e773b07f-3ca9-4fb9-8d83-50c50a61fcdb",
-              "name": "Mensagem",
-              "value": "={{ $json.message.text }}",
-              "type": "string"
+              "index": 0,
+              "node": "Text Classifier",
+              "type": "ai_languageModel"
             }
           ]
-        },
-        "options": {}
+        ]
       },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -1232,
-        624
-      ],
-      "id": "d991c48a-af2d-47e8-b72f-2767c902aba8",
-      "name": "Mensagem de Texto"
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
+      "Conversão de mimeType": {
+        "main": [
+          [
             {
-              "id": "e773b07f-3ca9-4fb9-8d83-50c50a61fcdb",
-              "name": "Mensagem",
-              "value": "={{ $json.text }}",
-              "type": "string"
+              "index": 0,
+              "node": "API de transcrição do Groq",
+              "type": "main"
             }
           ]
-        },
-        "options": {}
+        ]
       },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -928,
-        816
-      ],
-      "id": "dde3a38c-255e-4cc9-86a6-fea84a3340f1",
-      "name": "Mensagem Transcrita"
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
+      "Gestor de Finanças": {
+        "main": [
+          [
             {
-              "id": "e773b07f-3ca9-4fb9-8d83-50c50a61fcdb",
-              "name": "Input",
-              "value": "={{ $json.Mensagem }}",
-              "type": "string"
+              "index": 0,
+              "node": "Retornar mensagem",
+              "type": "main"
             }
           ]
-        },
-        "options": {}
+        ]
       },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -768,
-        528
-      ],
-      "id": "a71d841f-ace4-4fff-aeb1-0122fb8c87f4",
-      "name": "Mensagem Final"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 3
-          },
-          "conditions": [
+      "Get audio": {
+        "main": [
+          [
             {
-              "id": "3eec18c7-17da-4226-bece-2746c2dc3860",
-              "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
-              "rightValue": "",
-              "operator": {
-                "type": "string",
-                "operation": "exists",
-                "singleValue": true
-              }
-            },
+              "index": 0,
+              "node": "Conversão de mimeType",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Mensagem Final": {
+        "main": [
+          [
             {
-              "id": "e9f60899-f2f9-4433-9f2f-ad3fc986b8f1",
-              "leftValue": "",
-              "rightValue": "",
-              "operator": {
-                "type": "string",
-                "operation": "exists",
-                "singleValue": true
-              }
+              "index": 0,
+              "node": "Text Classifier",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Mensagem Transcrita": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Mensagem Final",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Mensagem de Texto": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Mensagem Final",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "O Conselho": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Retornar mensagem",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Secretária Eletronica": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Retornar mensagem",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Telegram Trigger": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Validação de tipo da Mensagem",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Text Classifier": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "set Prompt",
+              "type": "main"
             }
           ],
-          "combinator": "and"
-        },
-        "options": {}
+          [
+            {
+              "index": 0,
+              "node": "set Prompt1",
+              "type": "main"
+            }
+          ],
+          [],
+          [],
+          [
+            {
+              "index": 0,
+              "node": "set Prompt2",
+              "type": "main"
+            }
+          ],
+          [
+            {
+              "index": 0,
+              "node": "set Resposta",
+              "type": "main"
+            }
+          ]
+        ]
       },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.3,
-      "position": [
-        -1696,
-        640
-      ],
-      "id": "aca1d2ba-ee20-4fc3-911d-069f603446a5",
-      "name": "Validação de tipo da Mensagem"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Acessa todos os itens da entrada\nconst allItems = $input.all();\n\nfor (let item of allItems) {\n  // Verifica se o item possui dados binários\n  if (item.binary && item.binary.data) {\n    // Sobrescreve os metadados para \"enganar\" a API do Groq\n    item.binary.data.fileName = 'audio.mp3';\n    item.binary.data.mimeType = 'audio/mpeg';\n    item.binary.data.fileExtension = 'mp3';\n  }\n}\n\nreturn allItems;"
+      "Validação de tipo da Mensagem": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Mensagem de Texto",
+              "type": "main"
+            }
+          ],
+          [
+            {
+              "index": 0,
+              "node": "Get audio",
+              "type": "main"
+            }
+          ]
+        ]
       },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -1328,
-        960
-      ],
-      "id": "b38ed7ba-1c0f-4541-8462-e70d323151fd",
-      "name": "Conversão de mimeType"
-    },
-    {
-      "parameters": {
-        "model": "llama-3.3-70b-versatile",
-        "options": {}
+      "set Prompt": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Gestor de Finanças",
+              "type": "main"
+            }
+          ]
+        ]
       },
-      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
-      "typeVersion": 1,
-      "position": [
-        -560,
-        784
-      ],
-      "id": "be0640a6-b3e1-4748-bc17-8f992e607897",
-      "name": "Classificador de Textos",
-      "credentials": {
-        "groqApi": {
-          "id": "KwoGn0N7Ng6wYa9P",
-          "name": "[groq_key: text_classifier] markniel1408@gmail.com"
-        }
+      "set Prompt1": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Secretária Eletronica",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "set Prompt2": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "O Conselho",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "set Resposta": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Retornar mensagem",
+              "type": "main"
+            }
+          ]
+        ]
       }
     },
-    {
-      "parameters": {
-        "inputText": "={{ $json['Input'] }}",
-        "categories": {
-          "categories": [
-            {
-              "category": "Finanças",
-              "description": "Se conter qualquer termo relacionado à finanças (compras, saldo em conta, histórico de compras etc)."
-            },
-            {
-              "category": "Agenda",
-              "description": "Se conter qualquer termo relacionado à agenda(consulta de eventos/ disponibilidade de horários, inserir evento na agenda)."
-            },
-            {
-              "category": "Tarefas"
-            },
-            {
-              "category": "Anotações"
-            },
-            {
-              "category": "O Conselho",
-              "description": "Se conter no início do texto algo como \"O Conselho\""
-            }
-          ]
-        },
-        "options": {
-          "fallback": "other"
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.textClassifier",
-      "typeVersion": 1.1,
-      "position": [
-        -560,
-        464
-      ],
-      "id": "15dd508b-4404-49c3-94e5-693534e91560",
-      "name": "Text Classifier"
-    },
-    {
-      "parameters": {
-        "workflowId": {
-          "__rl": true,
-          "value": "t1YQANcV35jtsij9",
-          "mode": "list",
-          "cachedResultUrl": "/workflow/t1YQANcV35jtsij9",
-          "cachedResultName": "[T.A.C.O.] Gestor de Finanças"
-        },
-        "workflowInputs": {
-          "mappingMode": "defineBelow",
-          "value": {},
-          "matchingColumns": [],
-          "schema": [],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": true
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1.3,
-      "position": [
-        208,
-        0
-      ],
-      "id": "16a50549-8267-4b5f-a396-ab0391133d20",
-      "name": "Gestor de Finanças",
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "812e9eec-8ef0-4291-8f36-828bbbc6df50",
-              "name": "prompt",
-              "value": "={{ $json.Input }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        0,
-        0
-      ],
-      "id": "b1a34d48-e2bc-4f90-804c-f36a8b95ccb4",
-      "name": "set Prompt"
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
-        "text": "={{ $json.resposta }}",
-        "additionalFields": {
-          "appendAttribution": false
-        }
-      },
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        736,
-        560
-      ],
-      "id": "500cfa41-8a17-4bee-8984-1cf72c5dc9bb",
-      "name": "Retornar mensagem",
-      "webhookId": "cdc1b514-3d7b-4023-b536-3b300c7cac1f",
-      "credentials": {
-        "telegramApi": {
-          "id": "IvZ7I7au9XWrIVZ1",
-          "name": "[bot] T.A.C.O."
-        }
-      }
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "812e9eec-8ef0-4291-8f36-828bbbc6df50",
-              "name": "resposta",
-              "value": "Não consegui identificar o que você deseja. Poderia ser mais claro?",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        144,
-        1248
-      ],
-      "id": "fe89a3aa-ebc4-4901-8a1a-7e21fd066e89",
-      "name": "set Resposta"
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "812e9eec-8ef0-4291-8f36-828bbbc6df50",
-              "name": "prompt",
-              "value": "={{ $json.Input }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        0,
-        224
-      ],
-      "id": "d408baef-92a2-47ba-99e4-669e04e8d156",
-      "name": "set Prompt1"
-    },
-    {
-      "parameters": {
-        "workflowId": {
-          "__rl": true,
-          "value": "YoDrH1EV-iAVMrtKJr8xA",
-          "mode": "list",
-          "cachedResultUrl": "/workflow/YoDrH1EV-iAVMrtKJr8xA",
-          "cachedResultName": "[T.A.C.O.] Secretária Eletrônica"
-        },
-        "workflowInputs": {
-          "mappingMode": "defineBelow",
-          "value": {},
-          "matchingColumns": [],
-          "schema": [],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": true
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1.3,
-      "position": [
-        208,
-        224
-      ],
-      "id": "7975ef02-c717-4804-a1c0-a139a6a7a2fb",
-      "name": "Secretária Eletronica",
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "content": "## Ajustes futuros \nFuturamente colocar uma validação com Banco de dados se o id do usuário existe. Caso exista, pesquisa apenas no ID dele. Caso não exista, redirecionar para um agente de criação.",
-        "height": 224
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -2000,
-        432
-      ],
-      "id": "dc0dfd1a-596b-400b-8931-93691eb23124",
-      "name": "Sticky Note"
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "812e9eec-8ef0-4291-8f36-828bbbc6df50",
-              "name": "prompt",
-              "value": "={{ $json.Input }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        0,
-        816
-      ],
-      "id": "f5472ed5-14d2-4db4-8bfc-932554da2436",
-      "name": "set Prompt2"
-    },
-    {
-      "parameters": {
-        "workflowId": {
-          "__rl": true,
-          "value": "AWCClTeMJjujhxAz",
-          "mode": "id",
-          "cachedResultUrl": "/workflow/AWCClTeMJjujhxAz"
-        },
-        "workflowInputs": {
-          "mappingMode": "defineBelow",
-          "value": {},
-          "matchingColumns": [],
-          "schema": [],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": true
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1.3,
-      "position": [
-        208,
-        816
-      ],
-      "id": "de532ee3-e04a-44f0-9f5d-e74ed76557c4",
-      "name": "O Conselho"
-    }
-  ],
-  "connections": {
-    "Telegram Trigger": {
-      "main": [
-        [
-          {
-            "node": "Validação de tipo da Mensagem",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Get audio": {
-      "main": [
-        [
-          {
-            "node": "Conversão de mimeType",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "API de transcrição do Groq": {
-      "main": [
-        [
-          {
-            "node": "Mensagem Transcrita",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Mensagem de Texto": {
-      "main": [
-        [
-          {
-            "node": "Mensagem Final",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Mensagem Transcrita": {
-      "main": [
-        [
-          {
-            "node": "Mensagem Final",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Mensagem Final": {
-      "main": [
-        [
-          {
-            "node": "Text Classifier",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Validação de tipo da Mensagem": {
-      "main": [
-        [
-          {
-            "node": "Mensagem de Texto",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Get audio",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Conversão de mimeType": {
-      "main": [
-        [
-          {
-            "node": "API de transcrição do Groq",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Text Classifier": {
-      "main": [
-        [
-          {
-            "node": "set Prompt",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "set Prompt1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [],
-        [],
-        [
-          {
-            "node": "set Prompt2",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "set Resposta",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Classificador de Textos": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Text Classifier",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Gestor de Finanças": {
-      "main": [
-        [
-          {
-            "node": "Retornar mensagem",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "set Prompt": {
-      "main": [
-        [
-          {
-            "node": "Gestor de Finanças",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "set Resposta": {
-      "main": [
-        [
-          {
-            "node": "Retornar mensagem",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "set Prompt1": {
-      "main": [
-        [
-          {
-            "node": "Secretária Eletronica",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Secretária Eletronica": {
-      "main": [
-        [
-          {
-            "node": "Retornar mensagem",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "set Prompt2": {
-      "main": [
-        [
-          {
-            "node": "O Conselho",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "O Conselho": {
-      "main": [
-        [
-          {
-            "node": "Retornar mensagem",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    }
-  },
-  "settings": {
-    "executionOrder": "v1",
-    "binaryMode": "separate",
-    "availableInMCP": false
-  },
-  "staticData": null,
-  "meta": {
-    "templateCredsSetupCompleted": true
-  },
-  "pinData": {},
-  "versionId": "d9913345-06e4-4ebf-9e6e-cd894a091c8a",
-  "activeVersionId": "d9913345-06e4-4ebf-9e6e-cd894a091c8a",
-  "triggerCount": 1,
-  "shared": [
-    {
-      "updatedAt": "2026-06-20T22:00:17.423Z",
-      "createdAt": "2026-06-20T22:00:17.423Z",
-      "role": "workflow:owner",
-      "workflowId": "4MljINNgEhpEnMlV",
-      "projectId": "kCVHFkXvuUipUeFN"
-    }
-  ],
-  "activeVersion": {
-    "updatedAt": "2026-06-27T04:41:09.000Z",
     "createdAt": "2026-06-27T04:39:32.068Z",
-    "versionId": "d9913345-06e4-4ebf-9e6e-cd894a091c8a",
-    "workflowId": "4MljINNgEhpEnMlV",
+    "description": "",
+    "name": "27062026.01",
+    "nodeGroups": [],
     "nodes": [
       {
+        "credentials": {
+          "telegramApi": {
+            "id": "IvZ7I7au9XWrIVZ1",
+            "name": "[bot] T.A.C.O."
+          }
+        },
+        "id": "4dc82a98-aa1e-41c3-8297-7bed3162e65f",
+        "name": "Telegram Trigger",
         "parameters": {
+          "additionalFields": {},
           "updates": [
             "message"
-          ],
-          "additionalFields": {}
+          ]
         },
-        "type": "n8n-nodes-base.telegramTrigger",
-        "typeVersion": 1.2,
         "position": [
           -2160,
           640
         ],
-        "id": "4dc82a98-aa1e-41c3-8297-7bed3162e65f",
-        "name": "Telegram Trigger",
-        "webhookId": "7650c6db-10e0-476f-9281-a4d6d6e15ef7",
+        "type": "n8n-nodes-base.telegramTrigger",
+        "typeVersion": 1.2,
+        "webhookId": "7650c6db-10e0-476f-9281-a4d6d6e15ef7"
+      },
+      {
         "credentials": {
           "telegramApi": {
             "id": "IvZ7I7au9XWrIVZ1",
             "name": "[bot] T.A.C.O."
           }
-        }
-      },
-      {
+        },
+        "id": "356485e5-3bc5-415a-8999-1d91136d3b70",
+        "name": "Get audio",
         "parameters": {
-          "resource": "file",
-          "fileId": "={{ $('Telegram Trigger').item.json.message.voice.file_id }}",
           "additionalFields": {
             "mimeType": "audio/mpeg"
-          }
+          },
+          "fileId": "={{ $('Telegram Trigger').item.json.message.voice.file_id }}",
+          "resource": "file"
         },
-        "type": "n8n-nodes-base.telegram",
-        "typeVersion": 1.2,
         "position": [
           -1504,
           832
         ],
-        "id": "356485e5-3bc5-415a-8999-1d91136d3b70",
-        "name": "Get audio",
-        "webhookId": "619c26bd-d6db-4f7c-ac94-83c3d21c4f90",
-        "credentials": {
-          "telegramApi": {
-            "id": "IvZ7I7au9XWrIVZ1",
-            "name": "[bot] T.A.C.O."
-          }
-        }
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "webhookId": "619c26bd-d6db-4f7c-ac94-83c3d21c4f90"
       },
       {
+        "credentials": {
+          "httpHeaderAuth": {
+            "id": "MN8253mN05vQUmlf",
+            "name": "[Header-Auth] groq-transcrible-api"
+          }
+        },
+        "id": "5f321c6b-4926-49ef-aeb3-e393f3ede08c",
+        "name": "API de transcrição do Groq",
         "parameters": {
-          "method": "POST",
-          "url": "https://api.groq.com/openai/v1/audio/transcriptions",
           "authentication": "genericCredentialType",
-          "genericAuthType": "httpHeaderAuth",
-          "sendBody": true,
-          "contentType": "multipart-form-data",
           "bodyParameters": {
             "parameters": [
               {
@@ -824,178 +304,176 @@
                 "value": "pt"
               },
               {
-                "parameterType": "formBinaryData",
+                "inputDataFieldName": "data",
                 "name": "file",
-                "inputDataFieldName": "data"
+                "parameterType": "formBinaryData"
               }
             ]
           },
-          "options": {}
+          "contentType": "multipart-form-data",
+          "genericAuthType": "httpHeaderAuth",
+          "method": "POST",
+          "options": {},
+          "sendBody": true,
+          "url": "https://api.groq.com/openai/v1/audio/transcriptions"
         },
-        "type": "n8n-nodes-base.httpRequest",
-        "typeVersion": 4.4,
         "position": [
           -1120,
           960
         ],
-        "id": "5f321c6b-4926-49ef-aeb3-e393f3ede08c",
-        "name": "API de transcrição do Groq",
-        "credentials": {
-          "httpHeaderAuth": {
-            "id": "MN8253mN05vQUmlf",
-            "name": "[Header-Auth] groq-transcrible-api"
-          }
-        }
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4
       },
       {
+        "id": "d991c48a-af2d-47e8-b72f-2767c902aba8",
+        "name": "Mensagem de Texto",
         "parameters": {
           "assignments": {
             "assignments": [
               {
                 "id": "e773b07f-3ca9-4fb9-8d83-50c50a61fcdb",
                 "name": "Mensagem",
-                "value": "={{ $json.message.text }}",
-                "type": "string"
+                "type": "string",
+                "value": "={{ $json.message.text }}"
               }
             ]
           },
           "options": {}
         },
-        "type": "n8n-nodes-base.set",
-        "typeVersion": 3.4,
         "position": [
           -1232,
           624
         ],
-        "id": "d991c48a-af2d-47e8-b72f-2767c902aba8",
-        "name": "Mensagem de Texto"
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
       },
       {
+        "id": "dde3a38c-255e-4cc9-86a6-fea84a3340f1",
+        "name": "Mensagem Transcrita",
         "parameters": {
           "assignments": {
             "assignments": [
               {
                 "id": "e773b07f-3ca9-4fb9-8d83-50c50a61fcdb",
                 "name": "Mensagem",
-                "value": "={{ $json.text }}",
-                "type": "string"
+                "type": "string",
+                "value": "={{ $json.text }}"
               }
             ]
           },
           "options": {}
         },
-        "type": "n8n-nodes-base.set",
-        "typeVersion": 3.4,
         "position": [
           -928,
           816
         ],
-        "id": "dde3a38c-255e-4cc9-86a6-fea84a3340f1",
-        "name": "Mensagem Transcrita"
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
       },
       {
+        "id": "a71d841f-ace4-4fff-aeb1-0122fb8c87f4",
+        "name": "Mensagem Final",
         "parameters": {
           "assignments": {
             "assignments": [
               {
                 "id": "e773b07f-3ca9-4fb9-8d83-50c50a61fcdb",
                 "name": "Input",
-                "value": "={{ $json.Mensagem }}",
-                "type": "string"
+                "type": "string",
+                "value": "={{ $json.Mensagem }}"
               }
             ]
           },
           "options": {}
         },
-        "type": "n8n-nodes-base.set",
-        "typeVersion": 3.4,
         "position": [
           -768,
           528
         ],
-        "id": "a71d841f-ace4-4fff-aeb1-0122fb8c87f4",
-        "name": "Mensagem Final"
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
       },
       {
+        "id": "aca1d2ba-ee20-4fc3-911d-069f603446a5",
+        "name": "Validação de tipo da Mensagem",
         "parameters": {
           "conditions": {
+            "combinator": "and",
+            "conditions": [
+              {
+                "id": "3eec18c7-17da-4226-bece-2746c2dc3860",
+                "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                "operator": {
+                  "operation": "exists",
+                  "singleValue": true,
+                  "type": "string"
+                },
+                "rightValue": ""
+              },
+              {
+                "id": "e9f60899-f2f9-4433-9f2f-ad3fc986b8f1",
+                "leftValue": "",
+                "operator": {
+                  "operation": "exists",
+                  "singleValue": true,
+                  "type": "string"
+                },
+                "rightValue": ""
+              }
+            ],
             "options": {
               "caseSensitive": true,
               "leftValue": "",
               "typeValidation": "strict",
               "version": 3
-            },
-            "conditions": [
-              {
-                "id": "3eec18c7-17da-4226-bece-2746c2dc3860",
-                "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
-                "rightValue": "",
-                "operator": {
-                  "type": "string",
-                  "operation": "exists",
-                  "singleValue": true
-                }
-              },
-              {
-                "id": "e9f60899-f2f9-4433-9f2f-ad3fc986b8f1",
-                "leftValue": "",
-                "rightValue": "",
-                "operator": {
-                  "type": "string",
-                  "operation": "exists",
-                  "singleValue": true
-                }
-              }
-            ],
-            "combinator": "and"
+            }
           },
           "options": {}
         },
-        "type": "n8n-nodes-base.if",
-        "typeVersion": 2.3,
         "position": [
           -1696,
           640
         ],
-        "id": "aca1d2ba-ee20-4fc3-911d-069f603446a5",
-        "name": "Validação de tipo da Mensagem"
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3
       },
       {
+        "id": "b38ed7ba-1c0f-4541-8462-e70d323151fd",
+        "name": "Conversão de mimeType",
         "parameters": {
           "jsCode": "// Acessa todos os itens da entrada\nconst allItems = $input.all();\n\nfor (let item of allItems) {\n  // Verifica se o item possui dados binários\n  if (item.binary && item.binary.data) {\n    // Sobrescreve os metadados para \"enganar\" a API do Groq\n    item.binary.data.fileName = 'audio.mp3';\n    item.binary.data.mimeType = 'audio/mpeg';\n    item.binary.data.fileExtension = 'mp3';\n  }\n}\n\nreturn allItems;"
         },
-        "type": "n8n-nodes-base.code",
-        "typeVersion": 2,
         "position": [
           -1328,
           960
         ],
-        "id": "b38ed7ba-1c0f-4541-8462-e70d323151fd",
-        "name": "Conversão de mimeType"
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2
       },
       {
-        "parameters": {
-          "model": "llama-3.3-70b-versatile",
-          "options": {}
-        },
-        "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
-        "typeVersion": 1,
-        "position": [
-          -560,
-          784
-        ],
-        "id": "be0640a6-b3e1-4748-bc17-8f992e607897",
-        "name": "Classificador de Textos",
         "credentials": {
           "groqApi": {
             "id": "KwoGn0N7Ng6wYa9P",
             "name": "[groq_key: text_classifier] markniel1408@gmail.com"
           }
-        }
+        },
+        "id": "be0640a6-b3e1-4748-bc17-8f992e607897",
+        "name": "Classificador de Textos",
+        "parameters": {
+          "model": "llama-3.3-70b-versatile",
+          "options": {}
+        },
+        "position": [
+          -560,
+          784
+        ],
+        "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+        "typeVersion": 1
       },
       {
+        "id": "15dd508b-4404-49c3-94e5-693534e91560",
+        "name": "Text Classifier",
         "parameters": {
-          "inputText": "={{ $json['Input'] }}",
           "categories": {
             "categories": [
               {
@@ -1018,483 +496,985 @@
               }
             ]
           },
+          "inputText": "={{ $json['Input'] }}",
           "options": {
             "fallback": "other"
           }
         },
-        "type": "@n8n/n8n-nodes-langchain.textClassifier",
-        "typeVersion": 1.1,
         "position": [
           -560,
           464
         ],
-        "id": "15dd508b-4404-49c3-94e5-693534e91560",
-        "name": "Text Classifier"
+        "type": "@n8n/n8n-nodes-langchain.textClassifier",
+        "typeVersion": 1.1
       },
       {
+        "disabled": true,
+        "id": "16a50549-8267-4b5f-a396-ab0391133d20",
+        "name": "Gestor de Finanças",
         "parameters": {
+          "options": {},
           "workflowId": {
             "__rl": true,
-            "value": "t1YQANcV35jtsij9",
-            "mode": "list",
+            "cachedResultName": "[T.A.C.O.] Gestor de Finanças",
             "cachedResultUrl": "/workflow/t1YQANcV35jtsij9",
-            "cachedResultName": "[T.A.C.O.] Gestor de Finanças"
+            "mode": "list",
+            "value": "t1YQANcV35jtsij9"
           },
           "workflowInputs": {
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": true,
             "mappingMode": "defineBelow",
-            "value": {},
             "matchingColumns": [],
             "schema": [],
-            "attemptToConvertTypes": false,
-            "convertFieldsToString": true
-          },
-          "options": {}
+            "value": {}
+          }
         },
-        "type": "n8n-nodes-base.executeWorkflow",
-        "typeVersion": 1.3,
         "position": [
           208,
           0
         ],
-        "id": "16a50549-8267-4b5f-a396-ab0391133d20",
-        "name": "Gestor de Finanças",
-        "disabled": true
+        "type": "n8n-nodes-base.executeWorkflow",
+        "typeVersion": 1.3
       },
       {
+        "id": "b1a34d48-e2bc-4f90-804c-f36a8b95ccb4",
+        "name": "set Prompt",
         "parameters": {
           "assignments": {
             "assignments": [
               {
                 "id": "812e9eec-8ef0-4291-8f36-828bbbc6df50",
                 "name": "prompt",
-                "value": "={{ $json.Input }}",
-                "type": "string"
+                "type": "string",
+                "value": "={{ $json.Input }}"
               }
             ]
           },
           "options": {}
         },
-        "type": "n8n-nodes-base.set",
-        "typeVersion": 3.4,
         "position": [
           0,
           0
         ],
-        "id": "b1a34d48-e2bc-4f90-804c-f36a8b95ccb4",
-        "name": "set Prompt"
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
       },
       {
-        "parameters": {
-          "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
-          "text": "={{ $json.resposta }}",
-          "additionalFields": {
-            "appendAttribution": false
-          }
-        },
-        "type": "n8n-nodes-base.telegram",
-        "typeVersion": 1.2,
-        "position": [
-          736,
-          560
-        ],
-        "id": "500cfa41-8a17-4bee-8984-1cf72c5dc9bb",
-        "name": "Retornar mensagem",
-        "webhookId": "cdc1b514-3d7b-4023-b536-3b300c7cac1f",
         "credentials": {
           "telegramApi": {
             "id": "IvZ7I7au9XWrIVZ1",
             "name": "[bot] T.A.C.O."
           }
-        }
+        },
+        "id": "500cfa41-8a17-4bee-8984-1cf72c5dc9bb",
+        "name": "Retornar mensagem",
+        "parameters": {
+          "additionalFields": {
+            "appendAttribution": false
+          },
+          "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+          "text": "={{ $json.resposta }}"
+        },
+        "position": [
+          736,
+          560
+        ],
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "webhookId": "cdc1b514-3d7b-4023-b536-3b300c7cac1f"
       },
       {
+        "id": "fe89a3aa-ebc4-4901-8a1a-7e21fd066e89",
+        "name": "set Resposta",
         "parameters": {
           "assignments": {
             "assignments": [
               {
                 "id": "812e9eec-8ef0-4291-8f36-828bbbc6df50",
                 "name": "resposta",
-                "value": "Não consegui identificar o que você deseja. Poderia ser mais claro?",
-                "type": "string"
+                "type": "string",
+                "value": "Não consegui identificar o que você deseja. Poderia ser mais claro?"
               }
             ]
           },
           "options": {}
         },
-        "type": "n8n-nodes-base.set",
-        "typeVersion": 3.4,
         "position": [
           144,
           1248
         ],
-        "id": "fe89a3aa-ebc4-4901-8a1a-7e21fd066e89",
-        "name": "set Resposta"
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
       },
       {
+        "id": "d408baef-92a2-47ba-99e4-669e04e8d156",
+        "name": "set Prompt1",
         "parameters": {
           "assignments": {
             "assignments": [
               {
                 "id": "812e9eec-8ef0-4291-8f36-828bbbc6df50",
                 "name": "prompt",
-                "value": "={{ $json.Input }}",
-                "type": "string"
+                "type": "string",
+                "value": "={{ $json.Input }}"
               }
             ]
           },
           "options": {}
         },
-        "type": "n8n-nodes-base.set",
-        "typeVersion": 3.4,
         "position": [
           0,
           224
         ],
-        "id": "d408baef-92a2-47ba-99e4-669e04e8d156",
-        "name": "set Prompt1"
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
       },
       {
+        "disabled": true,
+        "id": "7975ef02-c717-4804-a1c0-a139a6a7a2fb",
+        "name": "Secretária Eletronica",
         "parameters": {
+          "options": {},
           "workflowId": {
             "__rl": true,
-            "value": "YoDrH1EV-iAVMrtKJr8xA",
-            "mode": "list",
+            "cachedResultName": "[T.A.C.O.] Secretária Eletrônica",
             "cachedResultUrl": "/workflow/YoDrH1EV-iAVMrtKJr8xA",
-            "cachedResultName": "[T.A.C.O.] Secretária Eletrônica"
+            "mode": "list",
+            "value": "YoDrH1EV-iAVMrtKJr8xA"
           },
           "workflowInputs": {
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": true,
             "mappingMode": "defineBelow",
-            "value": {},
             "matchingColumns": [],
             "schema": [],
-            "attemptToConvertTypes": false,
-            "convertFieldsToString": true
-          },
-          "options": {}
+            "value": {}
+          }
         },
-        "type": "n8n-nodes-base.executeWorkflow",
-        "typeVersion": 1.3,
         "position": [
           208,
           224
         ],
-        "id": "7975ef02-c717-4804-a1c0-a139a6a7a2fb",
-        "name": "Secretária Eletronica",
-        "disabled": true
+        "type": "n8n-nodes-base.executeWorkflow",
+        "typeVersion": 1.3
       },
       {
+        "id": "dc0dfd1a-596b-400b-8931-93691eb23124",
+        "name": "Sticky Note",
         "parameters": {
           "content": "## Ajustes futuros \nFuturamente colocar uma validação com Banco de dados se o id do usuário existe. Caso exista, pesquisa apenas no ID dele. Caso não exista, redirecionar para um agente de criação.",
           "height": 224
         },
-        "type": "n8n-nodes-base.stickyNote",
-        "typeVersion": 1,
         "position": [
           -2000,
           432
         ],
-        "id": "dc0dfd1a-596b-400b-8931-93691eb23124",
-        "name": "Sticky Note"
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1
       },
       {
+        "id": "f5472ed5-14d2-4db4-8bfc-932554da2436",
+        "name": "set Prompt2",
         "parameters": {
           "assignments": {
             "assignments": [
               {
                 "id": "812e9eec-8ef0-4291-8f36-828bbbc6df50",
                 "name": "prompt",
-                "value": "={{ $json.Input }}",
-                "type": "string"
+                "type": "string",
+                "value": "={{ $json.Input }}"
               }
             ]
           },
           "options": {}
         },
-        "type": "n8n-nodes-base.set",
-        "typeVersion": 3.4,
         "position": [
           0,
           816
         ],
-        "id": "f5472ed5-14d2-4db4-8bfc-932554da2436",
-        "name": "set Prompt2"
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
       },
       {
+        "id": "de532ee3-e04a-44f0-9f5d-e74ed76557c4",
+        "name": "O Conselho",
         "parameters": {
+          "options": {},
           "workflowId": {
             "__rl": true,
-            "value": "AWCClTeMJjujhxAz",
+            "cachedResultUrl": "/workflow/AWCClTeMJjujhxAz",
             "mode": "id",
-            "cachedResultUrl": "/workflow/AWCClTeMJjujhxAz"
+            "value": "AWCClTeMJjujhxAz"
           },
           "workflowInputs": {
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": true,
             "mappingMode": "defineBelow",
-            "value": {},
             "matchingColumns": [],
             "schema": [],
-            "attemptToConvertTypes": false,
-            "convertFieldsToString": true
-          },
-          "options": {}
+            "value": {}
+          }
         },
-        "type": "n8n-nodes-base.executeWorkflow",
-        "typeVersion": 1.3,
         "position": [
           208,
           816
         ],
-        "id": "de532ee3-e04a-44f0-9f5d-e74ed76557c4",
-        "name": "O Conselho"
+        "type": "n8n-nodes-base.executeWorkflow",
+        "typeVersion": 1.3
       }
     ],
-    "connections": {
-      "Telegram Trigger": {
-        "main": [
-          [
-            {
-              "node": "Validação de tipo da Mensagem",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Get audio": {
-        "main": [
-          [
-            {
-              "node": "Conversão de mimeType",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "API de transcrição do Groq": {
-        "main": [
-          [
-            {
-              "node": "Mensagem Transcrita",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Mensagem de Texto": {
-        "main": [
-          [
-            {
-              "node": "Mensagem Final",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Mensagem Transcrita": {
-        "main": [
-          [
-            {
-              "node": "Mensagem Final",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Mensagem Final": {
-        "main": [
-          [
-            {
-              "node": "Text Classifier",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Validação de tipo da Mensagem": {
-        "main": [
-          [
-            {
-              "node": "Mensagem de Texto",
-              "type": "main",
-              "index": 0
-            }
-          ],
-          [
-            {
-              "node": "Get audio",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Conversão de mimeType": {
-        "main": [
-          [
-            {
-              "node": "API de transcrição do Groq",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Text Classifier": {
-        "main": [
-          [
-            {
-              "node": "set Prompt",
-              "type": "main",
-              "index": 0
-            }
-          ],
-          [
-            {
-              "node": "set Prompt1",
-              "type": "main",
-              "index": 0
-            }
-          ],
-          [],
-          [],
-          [
-            {
-              "node": "set Prompt2",
-              "type": "main",
-              "index": 0
-            }
-          ],
-          [
-            {
-              "node": "set Resposta",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Classificador de Textos": {
-        "ai_languageModel": [
-          [
-            {
-              "node": "Text Classifier",
-              "type": "ai_languageModel",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Gestor de Finanças": {
-        "main": [
-          [
-            {
-              "node": "Retornar mensagem",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "set Prompt": {
-        "main": [
-          [
-            {
-              "node": "Gestor de Finanças",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "set Resposta": {
-        "main": [
-          [
-            {
-              "node": "Retornar mensagem",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "set Prompt1": {
-        "main": [
-          [
-            {
-              "node": "Secretária Eletronica",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Secretária Eletronica": {
-        "main": [
-          [
-            {
-              "node": "Retornar mensagem",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "set Prompt2": {
-        "main": [
-          [
-            {
-              "node": "O Conselho",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "O Conselho": {
-        "main": [
-          [
-            {
-              "node": "Retornar mensagem",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      }
-    },
-    "nodeGroups": [],
-    "authors": "Marcos Lima",
-    "name": "27062026.01",
-    "description": "",
-    "autosaved": true
+    "updatedAt": "2026-06-27T04:41:09.000Z",
+    "versionId": "d9913345-06e4-4ebf-9e6e-cd894a091c8a",
+    "workflowId": "4MljINNgEhpEnMlV"
   },
-  "tags": [
+  "activeVersionId": "d9913345-06e4-4ebf-9e6e-cd894a091c8a",
+  "connections": {
+    "API de transcrição do Groq": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Mensagem Transcrita",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Classificador de Textos": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Text Classifier",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Conversão de mimeType": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "API de transcrição do Groq",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Gestor de Finanças": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Retornar mensagem",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get audio": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Conversão de mimeType",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Mensagem Final": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Text Classifier",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Mensagem Transcrita": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Mensagem Final",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Mensagem de Texto": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Mensagem Final",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "O Conselho": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Retornar mensagem",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Secretária Eletronica": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Retornar mensagem",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validação de tipo da Mensagem",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "set Prompt",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "set Prompt1",
+            "type": "main"
+          }
+        ],
+        [],
+        [],
+        [
+          {
+            "index": 0,
+            "node": "set Prompt2",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "set Resposta",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Validação de tipo da Mensagem": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Mensagem de Texto",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Get audio",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "set Prompt": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Gestor de Finanças",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "set Prompt1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Secretária Eletronica",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "set Prompt2": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "O Conselho",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "set Resposta": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Retornar mensagem",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "4MljINNgEhpEnMlV",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "[T.A.C.O.] Agent Orchestrator",
+  "nodes": [
     {
-      "updatedAt": "2026-06-27T04:10:36.720Z",
-      "createdAt": "2026-06-27T04:10:36.720Z",
-      "id": "rwesLVHxpt4CVQkf",
-      "name": "Project T.A.C.O."
+      "credentials": {
+        "telegramApi": {
+          "id": "IvZ7I7au9XWrIVZ1",
+          "name": "[bot] T.A.C.O."
+        }
+      },
+      "id": "4dc82a98-aa1e-41c3-8297-7bed3162e65f",
+      "name": "Telegram Trigger",
+      "parameters": {
+        "additionalFields": {},
+        "updates": [
+          "message"
+        ]
+      },
+      "position": [
+        -2160,
+        640
+      ],
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "webhookId": "7650c6db-10e0-476f-9281-a4d6d6e15ef7"
+    },
+    {
+      "credentials": {
+        "telegramApi": {
+          "id": "IvZ7I7au9XWrIVZ1",
+          "name": "[bot] T.A.C.O."
+        }
+      },
+      "id": "356485e5-3bc5-415a-8999-1d91136d3b70",
+      "name": "Get audio",
+      "parameters": {
+        "additionalFields": {
+          "mimeType": "audio/mpeg"
+        },
+        "fileId": "={{ $('Telegram Trigger').item.json.message.voice.file_id }}",
+        "resource": "file"
+      },
+      "position": [
+        -1504,
+        832
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "619c26bd-d6db-4f7c-ac94-83c3d21c4f90"
+    },
+    {
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "MN8253mN05vQUmlf",
+          "name": "[Header-Auth] groq-transcrible-api"
+        }
+      },
+      "id": "5f321c6b-4926-49ef-aeb3-e393f3ede08c",
+      "name": "API de transcrição do Groq",
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "whisper-large-v3-turbo"
+            },
+            {
+              "name": "temperature",
+              "value": "0"
+            },
+            {
+              "name": "response_format",
+              "value": "verbose_json"
+            },
+            {
+              "name": "language",
+              "value": "pt"
+            },
+            {
+              "inputDataFieldName": "data",
+              "name": "file",
+              "parameterType": "formBinaryData"
+            }
+          ]
+        },
+        "contentType": "multipart-form-data",
+        "genericAuthType": "httpHeaderAuth",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "url": "https://api.groq.com/openai/v1/audio/transcriptions"
+      },
+      "position": [
+        -1120,
+        960
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4
+    },
+    {
+      "id": "d991c48a-af2d-47e8-b72f-2767c902aba8",
+      "name": "Mensagem de Texto",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e773b07f-3ca9-4fb9-8d83-50c50a61fcdb",
+              "name": "Mensagem",
+              "type": "string",
+              "value": "={{ $json.message.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        -1232,
+        624
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "dde3a38c-255e-4cc9-86a6-fea84a3340f1",
+      "name": "Mensagem Transcrita",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e773b07f-3ca9-4fb9-8d83-50c50a61fcdb",
+              "name": "Mensagem",
+              "type": "string",
+              "value": "={{ $json.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        -928,
+        816
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "a71d841f-ace4-4fff-aeb1-0122fb8c87f4",
+      "name": "Mensagem Final",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e773b07f-3ca9-4fb9-8d83-50c50a61fcdb",
+              "name": "Input",
+              "type": "string",
+              "value": "={{ $json.Mensagem }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        -768,
+        528
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "aca1d2ba-ee20-4fc3-911d-069f603446a5",
+      "name": "Validação de tipo da Mensagem",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "3eec18c7-17da-4226-bece-2746c2dc3860",
+              "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+              "operator": {
+                "operation": "exists",
+                "singleValue": true,
+                "type": "string"
+              },
+              "rightValue": ""
+            },
+            {
+              "id": "e9f60899-f2f9-4433-9f2f-ad3fc986b8f1",
+              "leftValue": "",
+              "operator": {
+                "operation": "exists",
+                "singleValue": true,
+                "type": "string"
+              },
+              "rightValue": ""
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        -1696,
+        640
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3
+    },
+    {
+      "id": "b38ed7ba-1c0f-4541-8462-e70d323151fd",
+      "name": "Conversão de mimeType",
+      "parameters": {
+        "jsCode": "// Acessa todos os itens da entrada\nconst allItems = $input.all();\n\nfor (let item of allItems) {\n  // Verifica se o item possui dados binários\n  if (item.binary && item.binary.data) {\n    // Sobrescreve os metadados para \"enganar\" a API do Groq\n    item.binary.data.fileName = 'audio.mp3';\n    item.binary.data.mimeType = 'audio/mpeg';\n    item.binary.data.fileExtension = 'mp3';\n  }\n}\n\nreturn allItems;"
+      },
+      "position": [
+        -1328,
+        960
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "credentials": {
+        "groqApi": {
+          "id": "KwoGn0N7Ng6wYa9P",
+          "name": "[groq_key: text_classifier] markniel1408@gmail.com"
+        }
+      },
+      "id": "be0640a6-b3e1-4748-bc17-8f992e607897",
+      "name": "Classificador de Textos",
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "position": [
+        -560,
+        784
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1
+    },
+    {
+      "id": "15dd508b-4404-49c3-94e5-693534e91560",
+      "name": "Text Classifier",
+      "parameters": {
+        "categories": {
+          "categories": [
+            {
+              "category": "Finanças",
+              "description": "Se conter qualquer termo relacionado à finanças (compras, saldo em conta, histórico de compras etc)."
+            },
+            {
+              "category": "Agenda",
+              "description": "Se conter qualquer termo relacionado à agenda(consulta de eventos/ disponibilidade de horários, inserir evento na agenda)."
+            },
+            {
+              "category": "Tarefas"
+            },
+            {
+              "category": "Anotações"
+            },
+            {
+              "category": "O Conselho",
+              "description": "Se conter no início do texto algo como \"O Conselho\""
+            }
+          ]
+        },
+        "inputText": "={{ $json['Input'] }}",
+        "options": {
+          "fallback": "other"
+        }
+      },
+      "position": [
+        -560,
+        464
+      ],
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1.1
+    },
+    {
+      "disabled": true,
+      "id": "16a50549-8267-4b5f-a396-ab0391133d20",
+      "name": "Gestor de Finanças",
+      "parameters": {
+        "options": {},
+        "workflowId": {
+          "__rl": true,
+          "cachedResultName": "[T.A.C.O.] Gestor de Finanças",
+          "cachedResultUrl": "/workflow/t1YQANcV35jtsij9",
+          "mode": "list",
+          "value": "t1YQANcV35jtsij9"
+        },
+        "workflowInputs": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [],
+          "value": {}
+        }
+      },
+      "position": [
+        208,
+        0
+      ],
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "b1a34d48-e2bc-4f90-804c-f36a8b95ccb4",
+      "name": "set Prompt",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "812e9eec-8ef0-4291-8f36-828bbbc6df50",
+              "name": "prompt",
+              "type": "string",
+              "value": "={{ $json.Input }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        0,
+        0
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "credentials": {
+        "telegramApi": {
+          "id": "IvZ7I7au9XWrIVZ1",
+          "name": "[bot] T.A.C.O."
+        }
+      },
+      "id": "500cfa41-8a17-4bee-8984-1cf72c5dc9bb",
+      "name": "Retornar mensagem",
+      "parameters": {
+        "additionalFields": {
+          "appendAttribution": false
+        },
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.resposta }}"
+      },
+      "position": [
+        736,
+        560
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "cdc1b514-3d7b-4023-b536-3b300c7cac1f"
+    },
+    {
+      "id": "fe89a3aa-ebc4-4901-8a1a-7e21fd066e89",
+      "name": "set Resposta",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "812e9eec-8ef0-4291-8f36-828bbbc6df50",
+              "name": "resposta",
+              "type": "string",
+              "value": "Não consegui identificar o que você deseja. Poderia ser mais claro?"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        144,
+        1248
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "d408baef-92a2-47ba-99e4-669e04e8d156",
+      "name": "set Prompt1",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "812e9eec-8ef0-4291-8f36-828bbbc6df50",
+              "name": "prompt",
+              "type": "string",
+              "value": "={{ $json.Input }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        0,
+        224
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "disabled": true,
+      "id": "7975ef02-c717-4804-a1c0-a139a6a7a2fb",
+      "name": "Secretária Eletronica",
+      "parameters": {
+        "options": {},
+        "workflowId": {
+          "__rl": true,
+          "cachedResultName": "[T.A.C.O.] Secretária Eletrônica",
+          "cachedResultUrl": "/workflow/YoDrH1EV-iAVMrtKJr8xA",
+          "mode": "list",
+          "value": "YoDrH1EV-iAVMrtKJr8xA"
+        },
+        "workflowInputs": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [],
+          "value": {}
+        }
+      },
+      "position": [
+        208,
+        224
+      ],
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "dc0dfd1a-596b-400b-8931-93691eb23124",
+      "name": "Sticky Note",
+      "parameters": {
+        "content": "## Ajustes futuros \nFuturamente colocar uma validação com Banco de dados se o id do usuário existe. Caso exista, pesquisa apenas no ID dele. Caso não exista, redirecionar para um agente de criação.",
+        "height": 224
+      },
+      "position": [
+        -2000,
+        432
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "f5472ed5-14d2-4db4-8bfc-932554da2436",
+      "name": "set Prompt2",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "812e9eec-8ef0-4291-8f36-828bbbc6df50",
+              "name": "prompt",
+              "type": "string",
+              "value": "={{ $json.Input }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        0,
+        816
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "de532ee3-e04a-44f0-9f5d-e74ed76557c4",
+      "name": "O Conselho",
+      "parameters": {
+        "options": {},
+        "workflowId": {
+          "__rl": true,
+          "cachedResultUrl": "/workflow/AWCClTeMJjujhxAz",
+          "mode": "id",
+          "value": "AWCClTeMJjujhxAz"
+        },
+        "workflowInputs": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [],
+          "value": {}
+        }
+      },
+      "position": [
+        208,
+        816
+      ],
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3
     }
   ],
-  "path": "Project T.A.C.O./[T.A.C.O.] Agent Orchestrator.json",
-  "sha": "4cebb332f41640a159a4dbf1a7e7b12c25829503",
-  "size": 37377,
-  "url": "https://api.github.com/repos/mdsl1/n8n-backup-workflows/contents/Project%20T.A.C.O./[T.A.C.O.]%20Agent%20Orchestrator.json?ref=main",
-  "html_url": "https://github.com/mdsl1/n8n-backup-workflows/blob/main/Project%20T.A.C.O./[T.A.C.O.]%20Agent%20Orchestrator.json",
-  "git_url": "https://api.github.com/repos/mdsl1/n8n-backup-workflows/git/blobs/4cebb332f41640a159a4dbf1a7e7b12c25829503",
-  "download_url": "https://raw.githubusercontent.com/mdsl1/n8n-backup-workflows/main/Project%20T.A.C.O./%5BT.A.C.O.%5D%20Agent%20Orchestrator.json",
-  "type": "file",
-  "content": "ewogICJ1cGRhdGVkQXQiOiAiMjAyNi0wNi0yN1QwNDozOTozMi4wNjdaIiwK\nICAiY3JlYXRlZEF0IjogIjIwMjYtMDYtMjBUMjI6MDA6MTcuNDIwWiIsCiAg\nImlkIjogIjRNbGpJTk5nRWhwRW5NbFYiLAogICJuYW1lIjogIltULkEuQy5P\nLl0gQWdlbnQgT3JjaGVzdHJhdG9yIiwKICAiYWN0aXZlIjogdHJ1ZSwKICAi\naXNBcmNoaXZlZCI6IGZhbHNlLAogICJub2RlcyI6IFsKICAgIHsKICAgICAg\nInBhcmFtZXRlcnMiOiB7CiAgICAgICAgInVwZGF0ZXMiOiBbCiAgICAgICAg\nICAibWVzc2FnZSIKICAgICAgICBdLAogICAgICAgICJhZGRpdGlvbmFsRmll\nbGRzIjoge30KICAgICAgfSwKICAgICAgInR5cGUiOiAibjhuLW5vZGVzLWJh\nc2UudGVsZWdyYW1UcmlnZ2VyIiwKICAgICAgInR5cGVWZXJzaW9uIjogMS4y\nLAogICAgICAicG9zaXRpb24iOiBbCiAgICAgICAgLTIxNjAsCiAgICAgICAg\nNjQwCiAgICAgIF0sCiAgICAgICJpZCI6ICI0ZGM4MmE5OC1hYTFlLTQxYzMt\nODI5Ny03YmVkMzE2MmU2NWYiLAogICAgICAibmFtZSI6ICJUZWxlZ3JhbSBU\ncmlnZ2VyIiwKICAgICAgIndlYmhvb2tJZCI6ICI3NjUwYzZkYi0xMGUwLTQ3\nNmYtOTI4MS1hNGQ2ZDZlMTVlZjciLAogICAgICAiY3JlZGVudGlhbHMiOiB7\nCiAgICAgICAgInRlbGVncmFtQXBpIjogewogICAgICAgICAgImlkIjogIkl2\nWjdJN2F1OVhXcklWWjEiLAogICAgICAgICAgIm5hbWUiOiAiW2JvdF0gVC5B\nLkMuTy4iCiAgICAgICAgfQogICAgICB9CiAgICB9LAogICAgewogICAgICAi\ncGFyYW1ldGVycyI6IHsKICAgICAgICAicmVzb3VyY2UiOiAiZmlsZSIsCiAg\nICAgICAgImZpbGVJZCI6ICI9e3sgJCgnVGVsZWdyYW0gVHJpZ2dlcicpLml0\nZW0uanNvbi5tZXNzYWdlLnZvaWNlLmZpbGVfaWQgfX0iLAogICAgICAgICJh\nZGRpdGlvbmFsRmllbGRzIjogewogICAgICAgICAgIm1pbWVUeXBlIjogImF1\nZGlvL21wZWciCiAgICAgICAgfQogICAgICB9LAogICAgICAidHlwZSI6ICJu\nOG4tbm9kZXMtYmFzZS50ZWxlZ3JhbSIsCiAgICAgICJ0eXBlVmVyc2lvbiI6\nIDEuMiwKICAgICAgInBvc2l0aW9uIjogWwogICAgICAgIC0xNTA0LAogICAg\nICAgIDgzMgogICAgICBdLAogICAgICAiaWQiOiAiMzU2NDg1ZTUtM2JjNS00\nMTVhLTg5OTktMWQ5MTEzNmQzYjcwIiwKICAgICAgIm5hbWUiOiAiR2V0IGF1\nZGlvIiwKICAgICAgIndlYmhvb2tJZCI6ICI2MTljMjZiZC1kNmRiLTRmN2Mt\nYWM5NC04M2MzZDIxYzRmOTAiLAogICAgICAiY3JlZGVudGlhbHMiOiB7CiAg\nICAgICAgInRlbGVncmFtQXBpIjogewogICAgICAgICAgImlkIjogIkl2WjdJ\nN2F1OVhXcklWWjEiLAogICAgICAgICAgIm5hbWUiOiAiW2JvdF0gVC5BLkMu\nTy4iCiAgICAgICAgfQogICAgICB9CiAgICB9LAogICAgewogICAgICAicGFy\nYW1ldGVycyI6IHsKICAgICAgICAibWV0aG9kIjogIlBPU1QiLAogICAgICAg\nICJ1cmwiOiAiaHR0cHM6Ly9hcGkuZ3JvcS5jb20vb3BlbmFpL3YxL2F1ZGlv\nL3RyYW5zY3JpcHRpb25zIiwKICAgICAgICAiYXV0aGVudGljYXRpb24iOiAi\nZ2VuZXJpY0NyZWRlbnRpYWxUeXBlIiwKICAgICAgICAiZ2VuZXJpY0F1dGhU\neXBlIjogImh0dHBIZWFkZXJBdXRoIiwKICAgICAgICAic2VuZEJvZHkiOiB0\ncnVlLAogICAgICAgICJjb250ZW50VHlwZSI6ICJtdWx0aXBhcnQtZm9ybS1k\nYXRhIiwKICAgICAgICAiYm9keVBhcmFtZXRlcnMiOiB7CiAgICAgICAgICAi\ncGFyYW1ldGVycyI6IFsKICAgICAgICAgICAgewogICAgICAgICAgICAgICJu\nYW1lIjogIm1vZGVsIiwKICAgICAgICAgICAgICAidmFsdWUiOiAid2hpc3Bl\nci1sYXJnZS12My10dXJibyIKICAgICAgICAgICAgfSwKICAgICAgICAgICAg\newogICAgICAgICAgICAgICJuYW1lIjogInRlbXBlcmF0dXJlIiwKICAgICAg\nICAgICAgICAidmFsdWUiOiAiMCIKICAgICAgICAgICAgfSwKICAgICAgICAg\nICAgewogICAgICAgICAgICAgICJuYW1lIjogInJlc3BvbnNlX2Zvcm1hdCIs\nCiAgICAgICAgICAgICAgInZhbHVlIjogInZlcmJvc2VfanNvbiIKICAgICAg\nICAgICAgfSwKICAgICAgICAgICAgewogICAgICAgICAgICAgICJuYW1lIjog\nImxhbmd1YWdlIiwKICAgICAgICAgICAgICAidmFsdWUiOiAicHQiCiAgICAg\nICAgICAgIH0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAicGFyYW1l\ndGVyVHlwZSI6ICJmb3JtQmluYXJ5RGF0YSIsCiAgICAgICAgICAgICAgIm5h\nbWUiOiAiZmlsZSIsCiAgICAgICAgICAgICAgImlucHV0RGF0YUZpZWxkTmFt\nZSI6ICJkYXRhIgogICAgICAgICAgICB9CiAgICAgICAgICBdCiAgICAgICAg\nfSwKICAgICAgICAib3B0aW9ucyI6IHt9CiAgICAgIH0sCiAgICAgICJ0eXBl\nIjogIm44bi1ub2Rlcy1iYXNlLmh0dHBSZXF1ZXN0IiwKICAgICAgInR5cGVW\nZXJzaW9uIjogNC40LAogICAgICAicG9zaXRpb24iOiBbCiAgICAgICAgLTEx\nMjAsCiAgICAgICAgOTYwCiAgICAgIF0sCiAgICAgICJpZCI6ICI1ZjMyMWM2\nYi00OTI2LTQ5ZWYtYWViMy1lMzkzZjNlZGUwOGMiLAogICAgICAibmFtZSI6\nICJBUEkgZGUgdHJhbnNjcmnDp8OjbyBkbyBHcm9xIiwKICAgICAgImNyZWRl\nbnRpYWxzIjogewogICAgICAgICJodHRwSGVhZGVyQXV0aCI6IHsKICAgICAg\nICAgICJpZCI6ICJNTjgyNTNtTjA1dlFVbWxmIiwKICAgICAgICAgICJuYW1l\nIjogIltIZWFkZXItQXV0aF0gZ3JvcS10cmFuc2NyaWJsZS1hcGkiCiAgICAg\nICAgfQogICAgICB9CiAgICB9LAogICAgewogICAgICAicGFyYW1ldGVycyI6\nIHsKICAgICAgICAiYXNzaWdubWVudHMiOiB7CiAgICAgICAgICAiYXNzaWdu\nbWVudHMiOiBbCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAiaWQiOiAi\nZTc3M2IwN2YtM2NhOS00ZmI5LThkODMtNTBjNTBhNjFmY2RiIiwKICAgICAg\nICAgICAgICAibmFtZSI6ICJNZW5zYWdlbSIsCiAgICAgICAgICAgICAgInZh\nbHVlIjogIj17eyAkanNvbi5tZXNzYWdlLnRleHQgfX0iLAogICAgICAgICAg\nICAgICJ0eXBlIjogInN0cmluZyIKICAgICAgICAgICAgfQogICAgICAgICAg\nXQogICAgICAgIH0sCiAgICAgICAgIm9wdGlvbnMiOiB7fQogICAgICB9LAog\nICAgICAidHlwZSI6ICJuOG4tbm9kZXMtYmFzZS5zZXQiLAogICAgICAidHlw\nZVZlcnNpb24iOiAzLjQsCiAgICAgICJwb3NpdGlvbiI6IFsKICAgICAgICAt\nMTIzMiwKICAgICAgICA2MjQKICAgICAgXSwKICAgICAgImlkIjogImQ5OTFj\nNDhhLWFmMmQtNDdlOC1iNzJmLTI3NjdjOTAyYWJhOCIsCiAgICAgICJuYW1l\nIjogIk1lbnNhZ2VtIGRlIFRleHRvIgogICAgfSwKICAgIHsKICAgICAgInBh\ncmFtZXRlcnMiOiB7CiAgICAgICAgImFzc2lnbm1lbnRzIjogewogICAgICAg\nICAgImFzc2lnbm1lbnRzIjogWwogICAgICAgICAgICB7CiAgICAgICAgICAg\nICAgImlkIjogImU3NzNiMDdmLTNjYTktNGZiOS04ZDgzLTUwYzUwYTYxZmNk\nYiIsCiAgICAgICAgICAgICAgIm5hbWUiOiAiTWVuc2FnZW0iLAogICAgICAg\nICAgICAgICJ2YWx1ZSI6ICI9e3sgJGpzb24udGV4dCB9fSIsCiAgICAgICAg\nICAgICAgInR5cGUiOiAic3RyaW5nIgogICAgICAgICAgICB9CiAgICAgICAg\nICBdCiAgICAgICAgfSwKICAgICAgICAib3B0aW9ucyI6IHt9CiAgICAgIH0s\nCiAgICAgICJ0eXBlIjogIm44bi1ub2Rlcy1iYXNlLnNldCIsCiAgICAgICJ0\neXBlVmVyc2lvbiI6IDMuNCwKICAgICAgInBvc2l0aW9uIjogWwogICAgICAg\nIC05MjgsCiAgICAgICAgODE2CiAgICAgIF0sCiAgICAgICJpZCI6ICJkZGUz\nYTM4Yy0yNTVlLTRjYzktODZhNi1mZWE4NGEzMzQwZjEiLAogICAgICAibmFt\nZSI6ICJNZW5zYWdlbSBUcmFuc2NyaXRhIgogICAgfSwKICAgIHsKICAgICAg\nInBhcmFtZXRlcnMiOiB7CiAgICAgICAgImFzc2lnbm1lbnRzIjogewogICAg\nICAgICAgImFzc2lnbm1lbnRzIjogWwogICAgICAgICAgICB7CiAgICAgICAg\nICAgICAgImlkIjogImU3NzNiMDdmLTNjYTktNGZiOS04ZDgzLTUwYzUwYTYx\nZmNkYiIsCiAgICAgICAgICAgICAgIm5hbWUiOiAiSW5wdXQiLAogICAgICAg\nICAgICAgICJ2YWx1ZSI6ICI9e3sgJGpzb24uTWVuc2FnZW0gfX0iLAogICAg\nICAgICAgICAgICJ0eXBlIjogInN0cmluZyIKICAgICAgICAgICAgfQogICAg\nICAgICAgXQogICAgICAgIH0sCiAgICAgICAgIm9wdGlvbnMiOiB7fQogICAg\nICB9LAogICAgICAidHlwZSI6ICJuOG4tbm9kZXMtYmFzZS5zZXQiLAogICAg\nICAidHlwZVZlcnNpb24iOiAzLjQsCiAgICAgICJwb3NpdGlvbiI6IFsKICAg\nICAgICAtNzY4LAogICAgICAgIDUyOAogICAgICBdLAogICAgICAiaWQiOiAi\nYTcxZDg0MWYtYWNlNC00ZmZmLWFlYjEtMDEyMmZiOGM4N2Y0IiwKICAgICAg\nIm5hbWUiOiAiTWVuc2FnZW0gRmluYWwiCiAgICB9LAogICAgewogICAgICAi\ncGFyYW1ldGVycyI6IHsKICAgICAgICAiY29uZGl0aW9ucyI6IHsKICAgICAg\nICAgICJvcHRpb25zIjogewogICAgICAgICAgICAiY2FzZVNlbnNpdGl2ZSI6\nIHRydWUsCiAgICAgICAgICAgICJsZWZ0VmFsdWUiOiAiIiwKICAgICAgICAg\nICAgInR5cGVWYWxpZGF0aW9uIjogInN0cmljdCIsCiAgICAgICAgICAgICJ2\nZXJzaW9uIjogMwogICAgICAgICAgfSwKICAgICAgICAgICJjb25kaXRpb25z\nIjogWwogICAgICAgICAgICB7CiAgICAgICAgICAgICAgImlkIjogIjNlZWMx\nOGM3LTE3ZGEtNDIyNi1iZWNlLTI3NDZjMmRjMzg2MCIsCiAgICAgICAgICAg\nICAgImxlZnRWYWx1ZSI6ICI9e3sgJCgnVGVsZWdyYW0gVHJpZ2dlcicpLml0\nZW0uanNvbi5tZXNzYWdlLnRleHQgfX0iLAogICAgICAgICAgICAgICJyaWdo\ndFZhbHVlIjogIiIsCiAgICAgICAgICAgICAgIm9wZXJhdG9yIjogewogICAg\nICAgICAgICAgICAgInR5cGUiOiAic3RyaW5nIiwKICAgICAgICAgICAgICAg\nICJvcGVyYXRpb24iOiAiZXhpc3RzIiwKICAgICAgICAgICAgICAgICJzaW5n\nbGVWYWx1ZSI6IHRydWUKICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0s\nCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAiaWQiOiAiZTlmNjA4OTkt\nZjJmOS00NDMzLTlmMmYtYWQzZmM5ODZiOGYxIiwKICAgICAgICAgICAgICAi\nbGVmdFZhbHVlIjogIiIsCiAgICAgICAgICAgICAgInJpZ2h0VmFsdWUiOiAi\nIiwKICAgICAgICAgICAgICAib3BlcmF0b3IiOiB7CiAgICAgICAgICAgICAg\nICAidHlwZSI6ICJzdHJpbmciLAogICAgICAgICAgICAgICAgIm9wZXJhdGlv\nbiI6ICJleGlzdHMiLAogICAgICAgICAgICAgICAgInNpbmdsZVZhbHVlIjog\ndHJ1ZQogICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQogICAgICAgICAg\nXSwKICAgICAgICAgICJjb21iaW5hdG9yIjogImFuZCIKICAgICAgICB9LAog\nICAgICAgICJvcHRpb25zIjoge30KICAgICAgfSwKICAgICAgInR5cGUiOiAi\nbjhuLW5vZGVzLWJhc2UuaWYiLAogICAgICAidHlwZVZlcnNpb24iOiAyLjMs\nCiAgICAgICJwb3NpdGlvbiI6IFsKICAgICAgICAtMTY5NiwKICAgICAgICA2\nNDAKICAgICAgXSwKICAgICAgImlkIjogImFjYTFkMmJhLWVlMjAtNGZjMy05\nMTFkLTA2OWY2MDM0NDZhNSIsCiAgICAgICJuYW1lIjogIlZhbGlkYcOnw6Nv\nIGRlIHRpcG8gZGEgTWVuc2FnZW0iCiAgICB9LAogICAgewogICAgICAicGFy\nYW1ldGVycyI6IHsKICAgICAgICAianNDb2RlIjogIi8vIEFjZXNzYSB0b2Rv\ncyBvcyBpdGVucyBkYSBlbnRyYWRhXG5jb25zdCBhbGxJdGVtcyA9ICRpbnB1\ndC5hbGwoKTtcblxuZm9yIChsZXQgaXRlbSBvZiBhbGxJdGVtcykge1xuICAv\nLyBWZXJpZmljYSBzZSBvIGl0ZW0gcG9zc3VpIGRhZG9zIGJpbsOhcmlvc1xu\nICBpZiAoaXRlbS5iaW5hcnkgJiYgaXRlbS5iaW5hcnkuZGF0YSkge1xuICAg\nIC8vIFNvYnJlc2NyZXZlIG9zIG1ldGFkYWRvcyBwYXJhIFwiZW5nYW5hclwi\nIGEgQVBJIGRvIEdyb3FcbiAgICBpdGVtLmJpbmFyeS5kYXRhLmZpbGVOYW1l\nID0gJ2F1ZGlvLm1wMyc7XG4gICAgaXRlbS5iaW5hcnkuZGF0YS5taW1lVHlw\nZSA9ICdhdWRpby9tcGVnJztcbiAgICBpdGVtLmJpbmFyeS5kYXRhLmZpbGVF\neHRlbnNpb24gPSAnbXAzJztcbiAgfVxufVxuXG5yZXR1cm4gYWxsSXRlbXM7\nIgogICAgICB9LAogICAgICAidHlwZSI6ICJuOG4tbm9kZXMtYmFzZS5jb2Rl\nIiwKICAgICAgInR5cGVWZXJzaW9uIjogMiwKICAgICAgInBvc2l0aW9uIjog\nWwogICAgICAgIC0xMzI4LAogICAgICAgIDk2MAogICAgICBdLAogICAgICAi\naWQiOiAiYjM4ZWQ3YmEtMWMwZi00NTQxLTg0NjItZTcwZDMyMzE1MWZkIiwK\nICAgICAgIm5hbWUiOiAiQ29udmVyc8OjbyBkZSBtaW1lVHlwZSIKICAgIH0s\nCiAgICB7CiAgICAgICJwYXJhbWV0ZXJzIjogewogICAgICAgICJtb2RlbCI6\nICJsbGFtYS0zLjMtNzBiLXZlcnNhdGlsZSIsCiAgICAgICAgIm9wdGlvbnMi\nOiB7fQogICAgICB9LAogICAgICAidHlwZSI6ICJAbjhuL244bi1ub2Rlcy1s\nYW5nY2hhaW4ubG1DaGF0R3JvcSIsCiAgICAgICJ0eXBlVmVyc2lvbiI6IDEs\nCiAgICAgICJwb3NpdGlvbiI6IFsKICAgICAgICAtNTYwLAogICAgICAgIDc4\nNAogICAgICBdLAogICAgICAiaWQiOiAiYmUwNjQwYTYtYjNlMS00NzQ4LWJj\nMTctOGY5OTJlNjA3ODk3IiwKICAgICAgIm5hbWUiOiAiQ2xhc3NpZmljYWRv\nciBkZSBUZXh0b3MiLAogICAgICAiY3JlZGVudGlhbHMiOiB7CiAgICAgICAg\nImdyb3FBcGkiOiB7CiAgICAgICAgICAiaWQiOiAiS3dvR24wTjdOZzZ3WWE5\nUCIsCiAgICAgICAgICAibmFtZSI6ICJbZ3JvcV9rZXk6IHRleHRfY2xhc3Np\nZmllcl0gbWFya25pZWwxNDA4QGdtYWlsLmNvbSIKICAgICAgICB9CiAgICAg\nIH0KICAgIH0sCiAgICB7CiAgICAgICJwYXJhbWV0ZXJzIjogewogICAgICAg\nICJpbnB1dFRleHQiOiAiPXt7ICRqc29uWydJbnB1dCddIH19IiwKICAgICAg\nICAiY2F0ZWdvcmllcyI6IHsKICAgICAgICAgICJjYXRlZ29yaWVzIjogWwog\nICAgICAgICAgICB7CiAgICAgICAgICAgICAgImNhdGVnb3J5IjogIkZpbmFu\nw6dhcyIsCiAgICAgICAgICAgICAgImRlc2NyaXB0aW9uIjogIlNlIGNvbnRl\nciBxdWFscXVlciB0ZXJtbyByZWxhY2lvbmFkbyDDoCBmaW5hbsOnYXMgKGNv\nbXByYXMsIHNhbGRvIGVtIGNvbnRhLCBoaXN0w7NyaWNvIGRlIGNvbXByYXMg\nZXRjKS4iCiAgICAgICAgICAgIH0sCiAgICAgICAgICAgIHsKICAgICAgICAg\nICAgICAiY2F0ZWdvcnkiOiAiQWdlbmRhIiwKICAgICAgICAgICAgICAiZGVz\nY3JpcHRpb24iOiAiU2UgY29udGVyIHF1YWxxdWVyIHRlcm1vIHJlbGFjaW9u\nYWRvIMOgIGFnZW5kYShjb25zdWx0YSBkZSBldmVudG9zLyBkaXNwb25pYmls\naWRhZGUgZGUgaG9yw6FyaW9zLCBpbnNlcmlyIGV2ZW50byBuYSBhZ2VuZGEp\nLiIKICAgICAgICAgICAgfSwKICAgICAgICAgICAgewogICAgICAgICAgICAg\nICJjYXRlZ29yeSI6ICJUYXJlZmFzIgogICAgICAgICAgICB9LAogICAgICAg\nICAgICB7CiAgICAgICAgICAgICAgImNhdGVnb3J5IjogIkFub3Rhw6fDtWVz\nIgogICAgICAgICAgICB9LAogICAgICAgICAgICB7CiAgICAgICAgICAgICAg\nImNhdGVnb3J5IjogIk8gQ29uc2VsaG8iLAogICAgICAgICAgICAgICJkZXNj\ncmlwdGlvbiI6ICJTZSBjb250ZXIgbm8gaW7DrWNpbyBkbyB0ZXh0byBhbGdv\nIGNvbW8gXCJPIENvbnNlbGhvXCIiCiAgICAgICAgICAgIH0KICAgICAgICAg\nIF0KICAgICAgICB9LAogICAgICAgICJvcHRpb25zIjogewogICAgICAgICAg\nImZhbGxiYWNrIjogIm90aGVyIgogICAgICAgIH0KICAgICAgfSwKICAgICAg\nInR5cGUiOiAiQG44bi9uOG4tbm9kZXMtbGFuZ2NoYWluLnRleHRDbGFzc2lm\naWVyIiwKICAgICAgInR5cGVWZXJzaW9uIjogMS4xLAogICAgICAicG9zaXRp\nb24iOiBbCiAgICAgICAgLTU2MCwKICAgICAgICA0NjQKICAgICAgXSwKICAg\nICAgImlkIjogIjE1ZGQ1MDhiLTQ0MDQtNDljMy05NGU1LTY5MzUzNGU5MTU2\nMCIsCiAgICAgICJuYW1lIjogIlRleHQgQ2xhc3NpZmllciIKICAgIH0sCiAg\nICB7CiAgICAgICJwYXJhbWV0ZXJzIjogewogICAgICAgICJ3b3JrZmxvd0lk\nIjogewogICAgICAgICAgIl9fcmwiOiB0cnVlLAogICAgICAgICAgInZhbHVl\nIjogInQxWVFBTmNWMzVqdHNpajkiLAogICAgICAgICAgIm1vZGUiOiAibGlz\ndCIsCiAgICAgICAgICAiY2FjaGVkUmVzdWx0VXJsIjogIi93b3JrZmxvdy90\nMVlRQU5jVjM1anRzaWo5IiwKICAgICAgICAgICJjYWNoZWRSZXN1bHROYW1l\nIjogIltULkEuQy5PLl0gR2VzdG9yIGRlIEZpbmFuw6dhcyIKICAgICAgICB9\nLAogICAgICAgICJ3b3JrZmxvd0lucHV0cyI6IHsKICAgICAgICAgICJtYXBw\naW5nTW9kZSI6ICJkZWZpbmVCZWxvdyIsCiAgICAgICAgICAidmFsdWUiOiB7\nfSwKICAgICAgICAgICJtYXRjaGluZ0NvbHVtbnMiOiBbXSwKICAgICAgICAg\nICJzY2hlbWEiOiBbXSwKICAgICAgICAgICJhdHRlbXB0VG9Db252ZXJ0VHlw\nZXMiOiBmYWxzZSwKICAgICAgICAgICJjb252ZXJ0RmllbGRzVG9TdHJpbmci\nOiB0cnVlCiAgICAgICAgfSwKICAgICAgICAib3B0aW9ucyI6IHt9CiAgICAg\nIH0sCiAgICAgICJ0eXBlIjogIm44bi1ub2Rlcy1iYXNlLmV4ZWN1dGVXb3Jr\nZmxvdyIsCiAgICAgICJ0eXBlVmVyc2lvbiI6IDEuMywKICAgICAgInBvc2l0\naW9uIjogWwogICAgICAgIDIwOCwKICAgICAgICAwCiAgICAgIF0sCiAgICAg\nICJpZCI6ICIxNmE1MDU0OS04MjY3LTRiNWYtYTM5Ni1hYjAzOTExMzNkMjAi\nLAogICAgICAibmFtZSI6ICJHZXN0b3IgZGUgRmluYW7Dp2FzIiwKICAgICAg\nImRpc2FibGVkIjogdHJ1ZQogICAgfSwKICAgIHsKICAgICAgInBhcmFtZXRl\ncnMiOiB7CiAgICAgICAgImFzc2lnbm1lbnRzIjogewogICAgICAgICAgImFz\nc2lnbm1lbnRzIjogWwogICAgICAgICAgICB7CiAgICAgICAgICAgICAgImlk\nIjogIjgxMmU5ZWVjLThlZjAtNDI5MS04ZjM2LTgyOGJiYmM2ZGY1MCIsCiAg\nICAgICAgICAgICAgIm5hbWUiOiAicHJvbXB0IiwKICAgICAgICAgICAgICAi\ndmFsdWUiOiAiPXt7ICRqc29uLklucHV0IH19IiwKICAgICAgICAgICAgICAi\ndHlwZSI6ICJzdHJpbmciCiAgICAgICAgICAgIH0KICAgICAgICAgIF0KICAg\nICAgICB9LAogICAgICAgICJvcHRpb25zIjoge30KICAgICAgfSwKICAgICAg\nInR5cGUiOiAibjhuLW5vZGVzLWJhc2Uuc2V0IiwKICAgICAgInR5cGVWZXJz\naW9uIjogMy40LAogICAgICAicG9zaXRpb24iOiBbCiAgICAgICAgMCwKICAg\nICAgICAwCiAgICAgIF0sCiAgICAgICJpZCI6ICJiMWEzNGQ0OC1lMmJjLTRm\nOTAtODA0Yy1mMzZhOGI5NWNjYjQiLAogICAgICAibmFtZSI6ICJzZXQgUHJv\nbXB0IgogICAgfSwKICAgIHsKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAg\nICAgImNoYXRJZCI6ICI9e3sgJCgnVGVsZWdyYW0gVHJpZ2dlcicpLml0ZW0u\nanNvbi5tZXNzYWdlLmNoYXQuaWQgfX0iLAogICAgICAgICJ0ZXh0IjogIj17\neyAkanNvbi5yZXNwb3N0YSB9fSIsCiAgICAgICAgImFkZGl0aW9uYWxGaWVs\nZHMiOiB7CiAgICAgICAgICAiYXBwZW5kQXR0cmlidXRpb24iOiBmYWxzZQog\nICAgICAgIH0KICAgICAgfSwKICAgICAgInR5cGUiOiAibjhuLW5vZGVzLWJh\nc2UudGVsZWdyYW0iLAogICAgICAidHlwZVZlcnNpb24iOiAxLjIsCiAgICAg\nICJwb3NpdGlvbiI6IFsKICAgICAgICA3MzYsCiAgICAgICAgNTYwCiAgICAg\nIF0sCiAgICAgICJpZCI6ICI1MDBjZmE0MS04YTE3LTRiZWUtODk4NC0xY2Y3\nMmM1ZGM5YmIiLAogICAgICAibmFtZSI6ICJSZXRvcm5hciBtZW5zYWdlbSIs\nCiAgICAgICJ3ZWJob29rSWQiOiAiY2RjMWI1MTQtM2Q3Yi00MDIzLWI1MzYt\nM2IzMDBjN2NhYzFmIiwKICAgICAgImNyZWRlbnRpYWxzIjogewogICAgICAg\nICJ0ZWxlZ3JhbUFwaSI6IHsKICAgICAgICAgICJpZCI6ICJJdlo3STdhdTlY\nV3JJVloxIiwKICAgICAgICAgICJuYW1lIjogIltib3RdIFQuQS5DLk8uIgog\nICAgICAgIH0KICAgICAgfQogICAgfSwKICAgIHsKICAgICAgInBhcmFtZXRl\ncnMiOiB7CiAgICAgICAgImFzc2lnbm1lbnRzIjogewogICAgICAgICAgImFz\nc2lnbm1lbnRzIjogWwogICAgICAgICAgICB7CiAgICAgICAgICAgICAgImlk\nIjogIjgxMmU5ZWVjLThlZjAtNDI5MS04ZjM2LTgyOGJiYmM2ZGY1MCIsCiAg\nICAgICAgICAgICAgIm5hbWUiOiAicmVzcG9zdGEiLAogICAgICAgICAgICAg\nICJ2YWx1ZSI6ICJOw6NvIGNvbnNlZ3VpIGlkZW50aWZpY2FyIG8gcXVlIHZv\nY8OqIGRlc2VqYS4gUG9kZXJpYSBzZXIgbWFpcyBjbGFybz8iLAogICAgICAg\nICAgICAgICJ0eXBlIjogInN0cmluZyIKICAgICAgICAgICAgfQogICAgICAg\nICAgXQogICAgICAgIH0sCiAgICAgICAgIm9wdGlvbnMiOiB7fQogICAgICB9\nLAogICAgICAidHlwZSI6ICJuOG4tbm9kZXMtYmFzZS5zZXQiLAogICAgICAi\ndHlwZVZlcnNpb24iOiAzLjQsCiAgICAgICJwb3NpdGlvbiI6IFsKICAgICAg\nICAxNDQsCiAgICAgICAgMTI0OAogICAgICBdLAogICAgICAiaWQiOiAiZmU4\nOWEzYWEtZWJjNC00OTAxLThhMWEtN2UyMWZkMDY2ZTg5IiwKICAgICAgIm5h\nbWUiOiAic2V0IFJlc3Bvc3RhIgogICAgfSwKICAgIHsKICAgICAgInBhcmFt\nZXRlcnMiOiB7CiAgICAgICAgImFzc2lnbm1lbnRzIjogewogICAgICAgICAg\nImFzc2lnbm1lbnRzIjogWwogICAgICAgICAgICB7CiAgICAgICAgICAgICAg\nImlkIjogIjgxMmU5ZWVjLThlZjAtNDI5MS04ZjM2LTgyOGJiYmM2ZGY1MCIs\nCiAgICAgICAgICAgICAgIm5hbWUiOiAicHJvbXB0IiwKICAgICAgICAgICAg\nICAidmFsdWUiOiAiPXt7ICRqc29uLklucHV0IH19IiwKICAgICAgICAgICAg\nICAidHlwZSI6ICJzdHJpbmciCiAgICAgICAgICAgIH0KICAgICAgICAgIF0K\nICAgICAgICB9LAogICAgICAgICJvcHRpb25zIjoge30KICAgICAgfSwKICAg\nICAgInR5cGUiOiAibjhuLW5vZGVzLWJhc2Uuc2V0IiwKICAgICAgInR5cGVW\nZXJzaW9uIjogMy40LAogICAgICAicG9zaXRpb24iOiBbCiAgICAgICAgMCwK\nICAgICAgICAyMjQKICAgICAgXSwKICAgICAgImlkIjogImQ0MDhiYWVmLTky\nYTItNDdiYS05OWU0LTY2OWUwNGU4ZDE1NiIsCiAgICAgICJuYW1lIjogInNl\ndCBQcm9tcHQxIgogICAgfSwKICAgIHsKICAgICAgInBhcmFtZXRlcnMiOiB7\nCiAgICAgICAgIndvcmtmbG93SWQiOiB7CiAgICAgICAgICAiX19ybCI6IHRy\ndWUsCiAgICAgICAgICAidmFsdWUiOiAiWW9EckgxRVYtaUFWTXJ0S0pyOHhB\nIiwKICAgICAgICAgICJtb2RlIjogImxpc3QiLAogICAgICAgICAgImNhY2hl\nZFJlc3VsdFVybCI6ICIvd29ya2Zsb3cvWW9EckgxRVYtaUFWTXJ0S0pyOHhB\nIiwKICAgICAgICAgICJjYWNoZWRSZXN1bHROYW1lIjogIltULkEuQy5PLl0g\nU2VjcmV0w6FyaWEgRWxldHLDtG5pY2EiCiAgICAgICAgfSwKICAgICAgICAi\nd29ya2Zsb3dJbnB1dHMiOiB7CiAgICAgICAgICAibWFwcGluZ01vZGUiOiAi\nZGVmaW5lQmVsb3ciLAogICAgICAgICAgInZhbHVlIjoge30sCiAgICAgICAg\nICAibWF0Y2hpbmdDb2x1bW5zIjogW10sCiAgICAgICAgICAic2NoZW1hIjog\nW10sCiAgICAgICAgICAiYXR0ZW1wdFRvQ29udmVydFR5cGVzIjogZmFsc2Us\nCiAgICAgICAgICAiY29udmVydEZpZWxkc1RvU3RyaW5nIjogdHJ1ZQogICAg\nICAgIH0sCiAgICAgICAgIm9wdGlvbnMiOiB7fQogICAgICB9LAogICAgICAi\ndHlwZSI6ICJuOG4tbm9kZXMtYmFzZS5leGVjdXRlV29ya2Zsb3ciLAogICAg\nICAidHlwZVZlcnNpb24iOiAxLjMsCiAgICAgICJwb3NpdGlvbiI6IFsKICAg\nICAgICAyMDgsCiAgICAgICAgMjI0CiAgICAgIF0sCiAgICAgICJpZCI6ICI3\nOTc1ZWYwMi1jNzE3LTQ4MDQtYTFjMC1hMTM5YTZhN2EyZmIiLAogICAgICAi\nbmFtZSI6ICJTZWNyZXTDoXJpYSBFbGV0cm9uaWNhIiwKICAgICAgImRpc2Fi\nbGVkIjogdHJ1ZQogICAgfSwKICAgIHsKICAgICAgInBhcmFtZXRlcnMiOiB7\nCiAgICAgICAgImNvbnRlbnQiOiAiIyMgQWp1c3RlcyBmdXR1cm9zIFxuRnV0\ndXJhbWVudGUgY29sb2NhciB1bWEgdmFsaWRhw6fDo28gY29tIEJhbmNvIGRl\nIGRhZG9zIHNlIG8gaWQgZG8gdXN1w6FyaW8gZXhpc3RlLiBDYXNvIGV4aXN0\nYSwgcGVzcXVpc2EgYXBlbmFzIG5vIElEIGRlbGUuIENhc28gbsOjbyBleGlz\ndGEsIHJlZGlyZWNpb25hciBwYXJhIHVtIGFnZW50ZSBkZSBjcmlhw6fDo28u\nIiwKICAgICAgICAiaGVpZ2h0IjogMjI0CiAgICAgIH0sCiAgICAgICJ0eXBl\nIjogIm44bi1ub2Rlcy1iYXNlLnN0aWNreU5vdGUiLAogICAgICAidHlwZVZl\ncnNpb24iOiAxLAogICAgICAicG9zaXRpb24iOiBbCiAgICAgICAgLTIwMDAs\nCiAgICAgICAgNDMyCiAgICAgIF0sCiAgICAgICJpZCI6ICJkYzBkZmQxYS01\nOTZiLTQwMGItODkzMS05MzY5MWViMjMxMjQiLAogICAgICAibmFtZSI6ICJT\ndGlja3kgTm90ZSIKICAgIH0sCiAgICB7CiAgICAgICJwYXJhbWV0ZXJzIjog\newogICAgICAgICJhc3NpZ25tZW50cyI6IHsKICAgICAgICAgICJhc3NpZ25t\nZW50cyI6IFsKICAgICAgICAgICAgewogICAgICAgICAgICAgICJpZCI6ICI4\nMTJlOWVlYy04ZWYwLTQyOTEtOGYzNi04MjhiYmJjNmRmNTAiLAogICAgICAg\nICAgICAgICJuYW1lIjogInByb21wdCIsCiAgICAgICAgICAgICAgInZhbHVl\nIjogIj17eyAkanNvbi5JbnB1dCB9fSIsCiAgICAgICAgICAgICAgInR5cGUi\nOiAic3RyaW5nIgogICAgICAgICAgICB9CiAgICAgICAgICBdCiAgICAgICAg\nfSwKICAgICAgICAib3B0aW9ucyI6IHt9CiAgICAgIH0sCiAgICAgICJ0eXBl\nIjogIm44bi1ub2Rlcy1iYXNlLnNldCIsCiAgICAgICJ0eXBlVmVyc2lvbiI6\nIDMuNCwKICAgICAgInBvc2l0aW9uIjogWwogICAgICAgIDAsCiAgICAgICAg\nODE2CiAgICAgIF0sCiAgICAgICJpZCI6ICJmNTQ3MmVkNS0xNGQyLTRkYjQt\nOGJmYy05MzI1NTRkYTI0MzYiLAogICAgICAibmFtZSI6ICJzZXQgUHJvbXB0\nMiIKICAgIH0sCiAgICB7CiAgICAgICJwYXJhbWV0ZXJzIjogewogICAgICAg\nICJ3b3JrZmxvd0lkIjogewogICAgICAgICAgIl9fcmwiOiB0cnVlLAogICAg\nICAgICAgInZhbHVlIjogIkFXQ0NsVGVNSmp1amh4QXoiLAogICAgICAgICAg\nIm1vZGUiOiAiaWQiLAogICAgICAgICAgImNhY2hlZFJlc3VsdFVybCI6ICIv\nd29ya2Zsb3cvQVdDQ2xUZU1KanVqaHhBeiIKICAgICAgICB9LAogICAgICAg\nICJ3b3JrZmxvd0lucHV0cyI6IHsKICAgICAgICAgICJtYXBwaW5nTW9kZSI6\nICJkZWZpbmVCZWxvdyIsCiAgICAgICAgICAidmFsdWUiOiB7fSwKICAgICAg\nICAgICJtYXRjaGluZ0NvbHVtbnMiOiBbXSwKICAgICAgICAgICJzY2hlbWEi\nOiBbXSwKICAgICAgICAgICJhdHRlbXB0VG9Db252ZXJ0VHlwZXMiOiBmYWxz\nZSwKICAgICAgICAgICJjb252ZXJ0RmllbGRzVG9TdHJpbmciOiB0cnVlCiAg\nICAgICAgfSwKICAgICAgICAib3B0aW9ucyI6IHt9CiAgICAgIH0sCiAgICAg\nICJ0eXBlIjogIm44bi1ub2Rlcy1iYXNlLmV4ZWN1dGVXb3JrZmxvdyIsCiAg\nICAgICJ0eXBlVmVyc2lvbiI6IDEuMywKICAgICAgInBvc2l0aW9uIjogWwog\nICAgICAgIDIwOCwKICAgICAgICA4MTYKICAgICAgXSwKICAgICAgImlkIjog\nImRlNTMyZWUzLWUwNGEtNDRmMC05ZjVkLWU3NGVkNzY1NTdjNCIsCiAgICAg\nICJuYW1lIjogIk8gQ29uc2VsaG8iCiAgICB9CiAgXSwKICAiY29ubmVjdGlv\nbnMiOiB7CiAgICAiVGVsZWdyYW0gVHJpZ2dlciI6IHsKICAgICAgIm1haW4i\nOiBbCiAgICAgICAgWwogICAgICAgICAgewogICAgICAgICAgICAibm9kZSI6\nICJWYWxpZGHDp8OjbyBkZSB0aXBvIGRhIE1lbnNhZ2VtIiwKICAgICAgICAg\nICAgInR5cGUiOiAibWFpbiIsCiAgICAgICAgICAgICJpbmRleCI6IDAKICAg\nICAgICAgIH0KICAgICAgICBdCiAgICAgIF0KICAgIH0sCiAgICAiR2V0IGF1\nZGlvIjogewogICAgICAibWFpbiI6IFsKICAgICAgICBbCiAgICAgICAgICB7\nCiAgICAgICAgICAgICJub2RlIjogIkNvbnZlcnPDo28gZGUgbWltZVR5cGUi\nLAogICAgICAgICAgICAidHlwZSI6ICJtYWluIiwKICAgICAgICAgICAgImlu\nZGV4IjogMAogICAgICAgICAgfQogICAgICAgIF0KICAgICAgXQogICAgfSwK\nICAgICJBUEkgZGUgdHJhbnNjcmnDp8OjbyBkbyBHcm9xIjogewogICAgICAi\nbWFpbiI6IFsKICAgICAgICBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJu\nb2RlIjogIk1lbnNhZ2VtIFRyYW5zY3JpdGEiLAogICAgICAgICAgICAidHlw\nZSI6ICJtYWluIiwKICAgICAgICAgICAgImluZGV4IjogMAogICAgICAgICAg\nfQogICAgICAgIF0KICAgICAgXQogICAgfSwKICAgICJNZW5zYWdlbSBkZSBU\nZXh0byI6IHsKICAgICAgIm1haW4iOiBbCiAgICAgICAgWwogICAgICAgICAg\newogICAgICAgICAgICAibm9kZSI6ICJNZW5zYWdlbSBGaW5hbCIsCiAgICAg\nICAgICAgICJ0eXBlIjogIm1haW4iLAogICAgICAgICAgICAiaW5kZXgiOiAw\nCiAgICAgICAgICB9CiAgICAgICAgXQogICAgICBdCiAgICB9LAogICAgIk1l\nbnNhZ2VtIFRyYW5zY3JpdGEiOiB7CiAgICAgICJtYWluIjogWwogICAgICAg\nIFsKICAgICAgICAgIHsKICAgICAgICAgICAgIm5vZGUiOiAiTWVuc2FnZW0g\nRmluYWwiLAogICAgICAgICAgICAidHlwZSI6ICJtYWluIiwKICAgICAgICAg\nICAgImluZGV4IjogMAogICAgICAgICAgfQogICAgICAgIF0KICAgICAgXQog\nICAgfSwKICAgICJNZW5zYWdlbSBGaW5hbCI6IHsKICAgICAgIm1haW4iOiBb\nCiAgICAgICAgWwogICAgICAgICAgewogICAgICAgICAgICAibm9kZSI6ICJU\nZXh0IENsYXNzaWZpZXIiLAogICAgICAgICAgICAidHlwZSI6ICJtYWluIiwK\nICAgICAgICAgICAgImluZGV4IjogMAogICAgICAgICAgfQogICAgICAgIF0K\nICAgICAgXQogICAgfSwKICAgICJWYWxpZGHDp8OjbyBkZSB0aXBvIGRhIE1l\nbnNhZ2VtIjogewogICAgICAibWFpbiI6IFsKICAgICAgICBbCiAgICAgICAg\nICB7CiAgICAgICAgICAgICJub2RlIjogIk1lbnNhZ2VtIGRlIFRleHRvIiwK\nICAgICAgICAgICAgInR5cGUiOiAibWFpbiIsCiAgICAgICAgICAgICJpbmRl\neCI6IDAKICAgICAgICAgIH0KICAgICAgICBdLAogICAgICAgIFsKICAgICAg\nICAgIHsKICAgICAgICAgICAgIm5vZGUiOiAiR2V0IGF1ZGlvIiwKICAgICAg\nICAgICAgInR5cGUiOiAibWFpbiIsCiAgICAgICAgICAgICJpbmRleCI6IDAK\nICAgICAgICAgIH0KICAgICAgICBdCiAgICAgIF0KICAgIH0sCiAgICAiQ29u\ndmVyc8OjbyBkZSBtaW1lVHlwZSI6IHsKICAgICAgIm1haW4iOiBbCiAgICAg\nICAgWwogICAgICAgICAgewogICAgICAgICAgICAibm9kZSI6ICJBUEkgZGUg\ndHJhbnNjcmnDp8OjbyBkbyBHcm9xIiwKICAgICAgICAgICAgInR5cGUiOiAi\nbWFpbiIsCiAgICAgICAgICAgICJpbmRleCI6IDAKICAgICAgICAgIH0KICAg\nICAgICBdCiAgICAgIF0KICAgIH0sCiAgICAiVGV4dCBDbGFzc2lmaWVyIjog\newogICAgICAibWFpbiI6IFsKICAgICAgICBbCiAgICAgICAgICB7CiAgICAg\nICAgICAgICJub2RlIjogInNldCBQcm9tcHQiLAogICAgICAgICAgICAidHlw\nZSI6ICJtYWluIiwKICAgICAgICAgICAgImluZGV4IjogMAogICAgICAgICAg\nfQogICAgICAgIF0sCiAgICAgICAgWwogICAgICAgICAgewogICAgICAgICAg\nICAibm9kZSI6ICJzZXQgUHJvbXB0MSIsCiAgICAgICAgICAgICJ0eXBlIjog\nIm1haW4iLAogICAgICAgICAgICAiaW5kZXgiOiAwCiAgICAgICAgICB9CiAg\nICAgICAgXSwKICAgICAgICBbXSwKICAgICAgICBbXSwKICAgICAgICBbCiAg\nICAgICAgICB7CiAgICAgICAgICAgICJub2RlIjogInNldCBQcm9tcHQyIiwK\nICAgICAgICAgICAgInR5cGUiOiAibWFpbiIsCiAgICAgICAgICAgICJpbmRl\neCI6IDAKICAgICAgICAgIH0KICAgICAgICBdLAogICAgICAgIFsKICAgICAg\nICAgIHsKICAgICAgICAgICAgIm5vZGUiOiAic2V0IFJlc3Bvc3RhIiwKICAg\nICAgICAgICAgInR5cGUiOiAibWFpbiIsCiAgICAgICAgICAgICJpbmRleCI6\nIDAKICAgICAgICAgIH0KICAgICAgICBdCiAgICAgIF0KICAgIH0sCiAgICAi\nQ2xhc3NpZmljYWRvciBkZSBUZXh0b3MiOiB7CiAgICAgICJhaV9sYW5ndWFn\nZU1vZGVsIjogWwogICAgICAgIFsKICAgICAgICAgIHsKICAgICAgICAgICAg\nIm5vZGUiOiAiVGV4dCBDbGFzc2lmaWVyIiwKICAgICAgICAgICAgInR5cGUi\nOiAiYWlfbGFuZ3VhZ2VNb2RlbCIsCiAgICAgICAgICAgICJpbmRleCI6IDAK\nICAgICAgICAgIH0KICAgICAgICBdCiAgICAgIF0KICAgIH0sCiAgICAiR2Vz\ndG9yIGRlIEZpbmFuw6dhcyI6IHsKICAgICAgIm1haW4iOiBbCiAgICAgICAg\nWwogICAgICAgICAgewogICAgICAgICAgICAibm9kZSI6ICJSZXRvcm5hciBt\nZW5zYWdlbSIsCiAgICAgICAgICAgICJ0eXBlIjogIm1haW4iLAogICAgICAg\nICAgICAiaW5kZXgiOiAwCiAgICAgICAgICB9CiAgICAgICAgXQogICAgICBd\nCiAgICB9LAogICAgInNldCBQcm9tcHQiOiB7CiAgICAgICJtYWluIjogWwog\nICAgICAgIFsKICAgICAgICAgIHsKICAgICAgICAgICAgIm5vZGUiOiAiR2Vz\ndG9yIGRlIEZpbmFuw6dhcyIsCiAgICAgICAgICAgICJ0eXBlIjogIm1haW4i\nLAogICAgICAgICAgICAiaW5kZXgiOiAwCiAgICAgICAgICB9CiAgICAgICAg\nXQogICAgICBdCiAgICB9LAogICAgInNldCBSZXNwb3N0YSI6IHsKICAgICAg\nIm1haW4iOiBbCiAgICAgICAgWwogICAgICAgICAgewogICAgICAgICAgICAi\nbm9kZSI6ICJSZXRvcm5hciBtZW5zYWdlbSIsCiAgICAgICAgICAgICJ0eXBl\nIjogIm1haW4iLAogICAgICAgICAgICAiaW5kZXgiOiAwCiAgICAgICAgICB9\nCiAgICAgICAgXQogICAgICBdCiAgICB9LAogICAgInNldCBQcm9tcHQxIjog\newogICAgICAibWFpbiI6IFsKICAgICAgICBbCiAgICAgICAgICB7CiAgICAg\nICAgICAgICJub2RlIjogIlNlY3JldMOhcmlhIEVsZXRyb25pY2EiLAogICAg\nICAgICAgICAidHlwZSI6ICJtYWluIiwKICAgICAgICAgICAgImluZGV4Ijog\nMAogICAgICAgICAgfQogICAgICAgIF0KICAgICAgXQogICAgfSwKICAgICJT\nZWNyZXTDoXJpYSBFbGV0cm9uaWNhIjogewogICAgICAibWFpbiI6IFsKICAg\nICAgICBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJub2RlIjogIlJldG9y\nbmFyIG1lbnNhZ2VtIiwKICAgICAgICAgICAgInR5cGUiOiAibWFpbiIsCiAg\nICAgICAgICAgICJpbmRleCI6IDAKICAgICAgICAgIH0KICAgICAgICBdCiAg\nICAgIF0KICAgIH0sCiAgICAic2V0IFByb21wdDIiOiB7CiAgICAgICJtYWlu\nIjogWwogICAgICAgIFsKICAgICAgICAgIHsKICAgICAgICAgICAgIm5vZGUi\nOiAiTyBDb25zZWxobyIsCiAgICAgICAgICAgICJ0eXBlIjogIm1haW4iLAog\nICAgICAgICAgICAiaW5kZXgiOiAwCiAgICAgICAgICB9CiAgICAgICAgXQog\nICAgICBdCiAgICB9LAogICAgIk8gQ29uc2VsaG8iOiB7CiAgICAgICJtYWlu\nIjogWwogICAgICAgIFsKICAgICAgICAgIHsKICAgICAgICAgICAgIm5vZGUi\nOiAiUmV0b3JuYXIgbWVuc2FnZW0iLAogICAgICAgICAgICAidHlwZSI6ICJt\nYWluIiwKICAgICAgICAgICAgImluZGV4IjogMAogICAgICAgICAgfQogICAg\nICAgIF0KICAgICAgXQogICAgfQogIH0sCiAgInNldHRpbmdzIjogewogICAg\nImV4ZWN1dGlvbk9yZGVyIjogInYxIiwKICAgICJiaW5hcnlNb2RlIjogInNl\ncGFyYXRlIiwKICAgICJhdmFpbGFibGVJbk1DUCI6IGZhbHNlCiAgfSwKICAi\nc3RhdGljRGF0YSI6IG51bGwsCiAgIm1ldGEiOiB7CiAgICAidGVtcGxhdGVD\ncmVkc1NldHVwQ29tcGxldGVkIjogdHJ1ZQogIH0sCiAgInBpbkRhdGEiOiB7\nfSwKICAidmVyc2lvbklkIjogImQ5OTEzMzQ1LTA2ZTQtNGViZi05ZTZlLWNk\nODk0YTA5MWM4YSIsCiAgImFjdGl2ZVZlcnNpb25JZCI6ICJkOTkxMzM0NS0w\nNmU0LTRlYmYtOWU2ZS1jZDg5NGEwOTFjOGEiLAogICJ0cmlnZ2VyQ291bnQi\nOiAxLAogICJzaGFyZWQiOiBbCiAgICB7CiAgICAgICJ1cGRhdGVkQXQiOiAi\nMjAyNi0wNi0yMFQyMjowMDoxNy40MjNaIiwKICAgICAgImNyZWF0ZWRBdCI6\nICIyMDI2LTA2LTIwVDIyOjAwOjE3LjQyM1oiLAogICAgICAicm9sZSI6ICJ3\nb3JrZmxvdzpvd25lciIsCiAgICAgICJ3b3JrZmxvd0lkIjogIjRNbGpJTk5n\nRWhwRW5NbFYiLAogICAgICAicHJvamVjdElkIjogImtDVkhGa1h2dVVpcFVl\nRk4iCiAgICB9CiAgXSwKICAiYWN0aXZlVmVyc2lvbiI6IHsKICAgICJ1cGRh\ndGVkQXQiOiAiMjAyNi0wNi0yN1QwNDo0MTowOS4wMDBaIiwKICAgICJjcmVh\ndGVkQXQiOiAiMjAyNi0wNi0yN1QwNDozOTozMi4wNjhaIiwKICAgICJ2ZXJz\naW9uSWQiOiAiZDk5MTMzNDUtMDZlNC00ZWJmLTllNmUtY2Q4OTRhMDkxYzhh\nIiwKICAgICJ3b3JrZmxvd0lkIjogIjRNbGpJTk5nRWhwRW5NbFYiLAogICAg\nIm5vZGVzIjogWwogICAgICB7CiAgICAgICAgInBhcmFtZXRlcnMiOiB7CiAg\nICAgICAgICAidXBkYXRlcyI6IFsKICAgICAgICAgICAgIm1lc3NhZ2UiCiAg\nICAgICAgICBdLAogICAgICAgICAgImFkZGl0aW9uYWxGaWVsZHMiOiB7fQog\nICAgICAgIH0sCiAgICAgICAgInR5cGUiOiAibjhuLW5vZGVzLWJhc2UudGVs\nZWdyYW1UcmlnZ2VyIiwKICAgICAgICAidHlwZVZlcnNpb24iOiAxLjIsCiAg\nICAgICAgInBvc2l0aW9uIjogWwogICAgICAgICAgLTIxNjAsCiAgICAgICAg\nICA2NDAKICAgICAgICBdLAogICAgICAgICJpZCI6ICI0ZGM4MmE5OC1hYTFl\nLTQxYzMtODI5Ny03YmVkMzE2MmU2NWYiLAogICAgICAgICJuYW1lIjogIlRl\nbGVncmFtIFRyaWdnZXIiLAogICAgICAgICJ3ZWJob29rSWQiOiAiNzY1MGM2\nZGItMTBlMC00NzZmLTkyODEtYTRkNmQ2ZTE1ZWY3IiwKICAgICAgICAiY3Jl\nZGVudGlhbHMiOiB7CiAgICAgICAgICAidGVsZWdyYW1BcGkiOiB7CiAgICAg\nICAgICAgICJpZCI6ICJJdlo3STdhdTlYV3JJVloxIiwKICAgICAgICAgICAg\nIm5hbWUiOiAiW2JvdF0gVC5BLkMuTy4iCiAgICAgICAgICB9CiAgICAgICAg\nfQogICAgICB9LAogICAgICB7CiAgICAgICAgInBhcmFtZXRlcnMiOiB7CiAg\nICAgICAgICAicmVzb3VyY2UiOiAiZmlsZSIsCiAgICAgICAgICAiZmlsZUlk\nIjogIj17eyAkKCdUZWxlZ3JhbSBUcmlnZ2VyJykuaXRlbS5qc29uLm1lc3Nh\nZ2Uudm9pY2UuZmlsZV9pZCB9fSIsCiAgICAgICAgICAiYWRkaXRpb25hbEZp\nZWxkcyI6IHsKICAgICAgICAgICAgIm1pbWVUeXBlIjogImF1ZGlvL21wZWci\nCiAgICAgICAgICB9CiAgICAgICAgfSwKICAgICAgICAidHlwZSI6ICJuOG4t\nbm9kZXMtYmFzZS50ZWxlZ3JhbSIsCiAgICAgICAgInR5cGVWZXJzaW9uIjog\nMS4yLAogICAgICAgICJwb3NpdGlvbiI6IFsKICAgICAgICAgIC0xNTA0LAog\nICAgICAgICAgODMyCiAgICAgICAgXSwKICAgICAgICAiaWQiOiAiMzU2NDg1\nZTUtM2JjNS00MTVhLTg5OTktMWQ5MTEzNmQzYjcwIiwKICAgICAgICAibmFt\nZSI6ICJHZXQgYXVkaW8iLAogICAgICAgICJ3ZWJob29rSWQiOiAiNjE5YzI2\nYmQtZDZkYi00ZjdjLWFjOTQtODNjM2QyMWM0ZjkwIiwKICAgICAgICAiY3Jl\nZGVudGlhbHMiOiB7CiAgICAgICAgICAidGVsZWdyYW1BcGkiOiB7CiAgICAg\nICAgICAgICJpZCI6ICJJdlo3STdhdTlYV3JJVloxIiwKICAgICAgICAgICAg\nIm5hbWUiOiAiW2JvdF0gVC5BLkMuTy4iCiAgICAgICAgICB9CiAgICAgICAg\nfQogICAgICB9LAogICAgICB7CiAgICAgICAgInBhcmFtZXRlcnMiOiB7CiAg\nICAgICAgICAibWV0aG9kIjogIlBPU1QiLAogICAgICAgICAgInVybCI6ICJo\ndHRwczovL2FwaS5ncm9xLmNvbS9vcGVuYWkvdjEvYXVkaW8vdHJhbnNjcmlw\ndGlvbnMiLAogICAgICAgICAgImF1dGhlbnRpY2F0aW9uIjogImdlbmVyaWND\ncmVkZW50aWFsVHlwZSIsCiAgICAgICAgICAiZ2VuZXJpY0F1dGhUeXBlIjog\nImh0dHBIZWFkZXJBdXRoIiwKICAgICAgICAgICJzZW5kQm9keSI6IHRydWUs\nCiAgICAgICAgICAiY29udGVudFR5cGUiOiAibXVsdGlwYXJ0LWZvcm0tZGF0\nYSIsCiAgICAgICAgICAiYm9keVBhcmFtZXRlcnMiOiB7CiAgICAgICAgICAg\nICJwYXJhbWV0ZXJzIjogWwogICAgICAgICAgICAgIHsKICAgICAgICAgICAg\nICAgICJuYW1lIjogIm1vZGVsIiwKICAgICAgICAgICAgICAgICJ2YWx1ZSI6\nICJ3aGlzcGVyLWxhcmdlLXYzLXR1cmJvIgogICAgICAgICAgICAgIH0sCiAg\nICAgICAgICAgICAgewogICAgICAgICAgICAgICAgIm5hbWUiOiAidGVtcGVy\nYXR1cmUiLAogICAgICAgICAgICAgICAgInZhbHVlIjogIjAiCiAgICAgICAg\nICAgICAgfSwKICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAibmFt\nZSI6ICJyZXNwb25zZV9mb3JtYXQiLAogICAgICAgICAgICAgICAgInZhbHVl\nIjogInZlcmJvc2VfanNvbiIKICAgICAgICAgICAgICB9LAogICAgICAgICAg\nICAgIHsKICAgICAgICAgICAgICAgICJuYW1lIjogImxhbmd1YWdlIiwKICAg\nICAgICAgICAgICAgICJ2YWx1ZSI6ICJwdCIKICAgICAgICAgICAgICB9LAog\nICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJwYXJhbWV0ZXJUeXBl\nIjogImZvcm1CaW5hcnlEYXRhIiwKICAgICAgICAgICAgICAgICJuYW1lIjog\nImZpbGUiLAogICAgICAgICAgICAgICAgImlucHV0RGF0YUZpZWxkTmFtZSI6\nICJkYXRhIgogICAgICAgICAgICAgIH0KICAgICAgICAgICAgXQogICAgICAg\nICAgfSwKICAgICAgICAgICJvcHRpb25zIjoge30KICAgICAgICB9LAogICAg\nICAgICJ0eXBlIjogIm44bi1ub2Rlcy1iYXNlLmh0dHBSZXF1ZXN0IiwKICAg\nICAgICAidHlwZVZlcnNpb24iOiA0LjQsCiAgICAgICAgInBvc2l0aW9uIjog\nWwogICAgICAgICAgLTExMjAsCiAgICAgICAgICA5NjAKICAgICAgICBdLAog\nICAgICAgICJpZCI6ICI1ZjMyMWM2Yi00OTI2LTQ5ZWYtYWViMy1lMzkzZjNl\nZGUwOGMiLAogICAgICAgICJuYW1lIjogIkFQSSBkZSB0cmFuc2NyacOnw6Nv\nIGRvIEdyb3EiLAogICAgICAgICJjcmVkZW50aWFscyI6IHsKICAgICAgICAg\nICJodHRwSGVhZGVyQXV0aCI6IHsKICAgICAgICAgICAgImlkIjogIk1OODI1\nM21OMDV2UVVtbGYiLAogICAgICAgICAgICAibmFtZSI6ICJbSGVhZGVyLUF1\ndGhdIGdyb3EtdHJhbnNjcmlibGUtYXBpIgogICAgICAgICAgfQogICAgICAg\nIH0KICAgICAgfSwKICAgICAgewogICAgICAgICJwYXJhbWV0ZXJzIjogewog\nICAgICAgICAgImFzc2lnbm1lbnRzIjogewogICAgICAgICAgICAiYXNzaWdu\nbWVudHMiOiBbCiAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgImlk\nIjogImU3NzNiMDdmLTNjYTktNGZiOS04ZDgzLTUwYzUwYTYxZmNkYiIsCiAg\nICAgICAgICAgICAgICAibmFtZSI6ICJNZW5zYWdlbSIsCiAgICAgICAgICAg\nICAgICAidmFsdWUiOiAiPXt7ICRqc29uLm1lc3NhZ2UudGV4dCB9fSIsCiAg\nICAgICAgICAgICAgICAidHlwZSI6ICJzdHJpbmciCiAgICAgICAgICAgICAg\nfQogICAgICAgICAgICBdCiAgICAgICAgICB9LAogICAgICAgICAgIm9wdGlv\nbnMiOiB7fQogICAgICAgIH0sCiAgICAgICAgInR5cGUiOiAibjhuLW5vZGVz\nLWJhc2Uuc2V0IiwKICAgICAgICAidHlwZVZlcnNpb24iOiAzLjQsCiAgICAg\nICAgInBvc2l0aW9uIjogWwogICAgICAgICAgLTEyMzIsCiAgICAgICAgICA2\nMjQKICAgICAgICBdLAogICAgICAgICJpZCI6ICJkOTkxYzQ4YS1hZjJkLTQ3\nZTgtYjcyZi0yNzY3YzkwMmFiYTgiLAogICAgICAgICJuYW1lIjogIk1lbnNh\nZ2VtIGRlIFRleHRvIgogICAgICB9LAogICAgICB7CiAgICAgICAgInBhcmFt\nZXRlcnMiOiB7CiAgICAgICAgICAiYXNzaWdubWVudHMiOiB7CiAgICAgICAg\nICAgICJhc3NpZ25tZW50cyI6IFsKICAgICAgICAgICAgICB7CiAgICAgICAg\nICAgICAgICAiaWQiOiAiZTc3M2IwN2YtM2NhOS00ZmI5LThkODMtNTBjNTBh\nNjFmY2RiIiwKICAgICAgICAgICAgICAgICJuYW1lIjogIk1lbnNhZ2VtIiwK\nICAgICAgICAgICAgICAgICJ2YWx1ZSI6ICI9e3sgJGpzb24udGV4dCB9fSIs\nCiAgICAgICAgICAgICAgICAidHlwZSI6ICJzdHJpbmciCiAgICAgICAgICAg\nICAgfQogICAgICAgICAgICBdCiAgICAgICAgICB9LAogICAgICAgICAgIm9w\ndGlvbnMiOiB7fQogICAgICAgIH0sCiAgICAgICAgInR5cGUiOiAibjhuLW5v\nZGVzLWJhc2Uuc2V0IiwKICAgICAgICAidHlwZVZlcnNpb24iOiAzLjQsCiAg\nICAgICAgInBvc2l0aW9uIjogWwogICAgICAgICAgLTkyOCwKICAgICAgICAg\nIDgxNgogICAgICAgIF0sCiAgICAgICAgImlkIjogImRkZTNhMzhjLTI1NWUt\nNGNjOS04NmE2LWZlYTg0YTMzNDBmMSIsCiAgICAgICAgIm5hbWUiOiAiTWVu\nc2FnZW0gVHJhbnNjcml0YSIKICAgICAgfSwKICAgICAgewogICAgICAgICJw\nYXJhbWV0ZXJzIjogewogICAgICAgICAgImFzc2lnbm1lbnRzIjogewogICAg\nICAgICAgICAiYXNzaWdubWVudHMiOiBbCiAgICAgICAgICAgICAgewogICAg\nICAgICAgICAgICAgImlkIjogImU3NzNiMDdmLTNjYTktNGZiOS04ZDgzLTUw\nYzUwYTYxZmNkYiIsCiAgICAgICAgICAgICAgICAibmFtZSI6ICJJbnB1dCIs\nCiAgICAgICAgICAgICAgICAidmFsdWUiOiAiPXt7ICRqc29uLk1lbnNhZ2Vt\nIH19IiwKICAgICAgICAgICAgICAgICJ0eXBlIjogInN0cmluZyIKICAgICAg\nICAgICAgICB9CiAgICAgICAgICAgIF0KICAgICAgICAgIH0sCiAgICAgICAg\nICAib3B0aW9ucyI6IHt9CiAgICAgICAgfSwKICAgICAgICAidHlwZSI6ICJu\nOG4tbm9kZXMtYmFzZS5zZXQiLAogICAgICAgICJ0eXBlVmVyc2lvbiI6IDMu\nNCwKICAgICAgICAicG9zaXRpb24iOiBbCiAgICAgICAgICAtNzY4LAogICAg\nICAgICAgNTI4CiAgICAgICAgXSwKICAgICAgICAiaWQiOiAiYTcxZDg0MWYt\nYWNlNC00ZmZmLWFlYjEtMDEyMmZiOGM4N2Y0IiwKICAgICAgICAibmFtZSI6\nICJNZW5zYWdlbSBGaW5hbCIKICAgICAgfSwKICAgICAgewogICAgICAgICJw\nYXJhbWV0ZXJzIjogewogICAgICAgICAgImNvbmRpdGlvbnMiOiB7CiAgICAg\nICAgICAgICJvcHRpb25zIjogewogICAgICAgICAgICAgICJjYXNlU2Vuc2l0\naXZlIjogdHJ1ZSwKICAgICAgICAgICAgICAibGVmdFZhbHVlIjogIiIsCiAg\nICAgICAgICAgICAgInR5cGVWYWxpZGF0aW9uIjogInN0cmljdCIsCiAgICAg\nICAgICAgICAgInZlcnNpb24iOiAzCiAgICAgICAgICAgIH0sCiAgICAgICAg\nICAgICJjb25kaXRpb25zIjogWwogICAgICAgICAgICAgIHsKICAgICAgICAg\nICAgICAgICJpZCI6ICIzZWVjMThjNy0xN2RhLTQyMjYtYmVjZS0yNzQ2YzJk\nYzM4NjAiLAogICAgICAgICAgICAgICAgImxlZnRWYWx1ZSI6ICI9e3sgJCgn\nVGVsZWdyYW0gVHJpZ2dlcicpLml0ZW0uanNvbi5tZXNzYWdlLnRleHQgfX0i\nLAogICAgICAgICAgICAgICAgInJpZ2h0VmFsdWUiOiAiIiwKICAgICAgICAg\nICAgICAgICJvcGVyYXRvciI6IHsKICAgICAgICAgICAgICAgICAgInR5cGUi\nOiAic3RyaW5nIiwKICAgICAgICAgICAgICAgICAgIm9wZXJhdGlvbiI6ICJl\neGlzdHMiLAogICAgICAgICAgICAgICAgICAic2luZ2xlVmFsdWUiOiB0cnVl\nCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgfSwKICAgICAgICAg\nICAgICB7CiAgICAgICAgICAgICAgICAiaWQiOiAiZTlmNjA4OTktZjJmOS00\nNDMzLTlmMmYtYWQzZmM5ODZiOGYxIiwKICAgICAgICAgICAgICAgICJsZWZ0\nVmFsdWUiOiAiIiwKICAgICAgICAgICAgICAgICJyaWdodFZhbHVlIjogIiIs\nCiAgICAgICAgICAgICAgICAib3BlcmF0b3IiOiB7CiAgICAgICAgICAgICAg\nICAgICJ0eXBlIjogInN0cmluZyIsCiAgICAgICAgICAgICAgICAgICJvcGVy\nYXRpb24iOiAiZXhpc3RzIiwKICAgICAgICAgICAgICAgICAgInNpbmdsZVZh\nbHVlIjogdHJ1ZQogICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgIH0K\nICAgICAgICAgICAgXSwKICAgICAgICAgICAgImNvbWJpbmF0b3IiOiAiYW5k\nIgogICAgICAgICAgfSwKICAgICAgICAgICJvcHRpb25zIjoge30KICAgICAg\nICB9LAogICAgICAgICJ0eXBlIjogIm44bi1ub2Rlcy1iYXNlLmlmIiwKICAg\nICAgICAidHlwZVZlcnNpb24iOiAyLjMsCiAgICAgICAgInBvc2l0aW9uIjog\nWwogICAgICAgICAgLTE2OTYsCiAgICAgICAgICA2NDAKICAgICAgICBdLAog\nICAgICAgICJpZCI6ICJhY2ExZDJiYS1lZTIwLTRmYzMtOTExZC0wNjlmNjAz\nNDQ2YTUiLAogICAgICAgICJuYW1lIjogIlZhbGlkYcOnw6NvIGRlIHRpcG8g\nZGEgTWVuc2FnZW0iCiAgICAgIH0sCiAgICAgIHsKICAgICAgICAicGFyYW1l\ndGVycyI6IHsKICAgICAgICAgICJqc0NvZGUiOiAiLy8gQWNlc3NhIHRvZG9z\nIG9zIGl0ZW5zIGRhIGVudHJhZGFcbmNvbnN0IGFsbEl0ZW1zID0gJGlucHV0\nLmFsbCgpO1xuXG5mb3IgKGxldCBpdGVtIG9mIGFsbEl0ZW1zKSB7XG4gIC8v\nIFZlcmlmaWNhIHNlIG8gaXRlbSBwb3NzdWkgZGFkb3MgYmluw6FyaW9zXG4g\nIGlmIChpdGVtLmJpbmFyeSAmJiBpdGVtLmJpbmFyeS5kYXRhKSB7XG4gICAg\nLy8gU29icmVzY3JldmUgb3MgbWV0YWRhZG9zIHBhcmEgXCJlbmdhbmFyXCIg\nYSBBUEkgZG8gR3JvcVxuICAgIGl0ZW0uYmluYXJ5LmRhdGEuZmlsZU5hbWUg\nPSAnYXVkaW8ubXAzJztcbiAgICBpdGVtLmJpbmFyeS5kYXRhLm1pbWVUeXBl\nID0gJ2F1ZGlvL21wZWcnO1xuICAgIGl0ZW0uYmluYXJ5LmRhdGEuZmlsZUV4\ndGVuc2lvbiA9ICdtcDMnO1xuICB9XG59XG5cbnJldHVybiBhbGxJdGVtczsi\nCiAgICAgICAgfSwKICAgICAgICAidHlwZSI6ICJuOG4tbm9kZXMtYmFzZS5j\nb2RlIiwKICAgICAgICAidHlwZVZlcnNpb24iOiAyLAogICAgICAgICJwb3Np\ndGlvbiI6IFsKICAgICAgICAgIC0xMzI4LAogICAgICAgICAgOTYwCiAgICAg\nICAgXSwKICAgICAgICAiaWQiOiAiYjM4ZWQ3YmEtMWMwZi00NTQxLTg0NjIt\nZTcwZDMyMzE1MWZkIiwKICAgICAgICAibmFtZSI6ICJDb252ZXJzw6NvIGRl\nIG1pbWVUeXBlIgogICAgICB9LAogICAgICB7CiAgICAgICAgInBhcmFtZXRl\ncnMiOiB7CiAgICAgICAgICAibW9kZWwiOiAibGxhbWEtMy4zLTcwYi12ZXJz\nYXRpbGUiLAogICAgICAgICAgIm9wdGlvbnMiOiB7fQogICAgICAgIH0sCiAg\nICAgICAgInR5cGUiOiAiQG44bi9uOG4tbm9kZXMtbGFuZ2NoYWluLmxtQ2hh\ndEdyb3EiLAogICAgICAgICJ0eXBlVmVyc2lvbiI6IDEsCiAgICAgICAgInBv\nc2l0aW9uIjogWwogICAgICAgICAgLTU2MCwKICAgICAgICAgIDc4NAogICAg\nICAgIF0sCiAgICAgICAgImlkIjogImJlMDY0MGE2LWIzZTEtNDc0OC1iYzE3\nLThmOTkyZTYwNzg5NyIsCiAgICAgICAgIm5hbWUiOiAiQ2xhc3NpZmljYWRv\nciBkZSBUZXh0b3MiLAogICAgICAgICJjcmVkZW50aWFscyI6IHsKICAgICAg\nICAgICJncm9xQXBpIjogewogICAgICAgICAgICAiaWQiOiAiS3dvR24wTjdO\nZzZ3WWE5UCIsCiAgICAgICAgICAgICJuYW1lIjogIltncm9xX2tleTogdGV4\ndF9jbGFzc2lmaWVyXSBtYXJrbmllbDE0MDhAZ21haWwuY29tIgogICAgICAg\nICAgfQogICAgICAgIH0KICAgICAgfSwKICAgICAgewogICAgICAgICJwYXJh\nbWV0ZXJzIjogewogICAgICAgICAgImlucHV0VGV4dCI6ICI9e3sgJGpzb25b\nJ0lucHV0J10gfX0iLAogICAgICAgICAgImNhdGVnb3JpZXMiOiB7CiAgICAg\nICAgICAgICJjYXRlZ29yaWVzIjogWwogICAgICAgICAgICAgIHsKICAgICAg\nICAgICAgICAgICJjYXRlZ29yeSI6ICJGaW5hbsOnYXMiLAogICAgICAgICAg\nICAgICAgImRlc2NyaXB0aW9uIjogIlNlIGNvbnRlciBxdWFscXVlciB0ZXJt\nbyByZWxhY2lvbmFkbyDDoCBmaW5hbsOnYXMgKGNvbXByYXMsIHNhbGRvIGVt\nIGNvbnRhLCBoaXN0w7NyaWNvIGRlIGNvbXByYXMgZXRjKS4iCiAgICAgICAg\nICAgICAgfSwKICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAiY2F0\nZWdvcnkiOiAiQWdlbmRhIiwKICAgICAgICAgICAgICAgICJkZXNjcmlwdGlv\nbiI6ICJTZSBjb250ZXIgcXVhbHF1ZXIgdGVybW8gcmVsYWNpb25hZG8gw6Ag\nYWdlbmRhKGNvbnN1bHRhIGRlIGV2ZW50b3MvIGRpc3BvbmliaWxpZGFkZSBk\nZSBob3LDoXJpb3MsIGluc2VyaXIgZXZlbnRvIG5hIGFnZW5kYSkuIgogICAg\nICAgICAgICAgIH0sCiAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAg\nImNhdGVnb3J5IjogIlRhcmVmYXMiCiAgICAgICAgICAgICAgfSwKICAgICAg\nICAgICAgICB7CiAgICAgICAgICAgICAgICAiY2F0ZWdvcnkiOiAiQW5vdGHD\np8O1ZXMiCiAgICAgICAgICAgICAgfSwKICAgICAgICAgICAgICB7CiAgICAg\nICAgICAgICAgICAiY2F0ZWdvcnkiOiAiTyBDb25zZWxobyIsCiAgICAgICAg\nICAgICAgICAiZGVzY3JpcHRpb24iOiAiU2UgY29udGVyIG5vIGluw61jaW8g\nZG8gdGV4dG8gYWxnbyBjb21vIFwiTyBDb25zZWxob1wiIgogICAgICAgICAg\nICAgIH0KICAgICAgICAgICAgXQogICAgICAgICAgfSwKICAgICAgICAgICJv\ncHRpb25zIjogewogICAgICAgICAgICAiZmFsbGJhY2siOiAib3RoZXIiCiAg\nICAgICAgICB9CiAgICAgICAgfSwKICAgICAgICAidHlwZSI6ICJAbjhuL244\nbi1ub2Rlcy1sYW5nY2hhaW4udGV4dENsYXNzaWZpZXIiLAogICAgICAgICJ0\neXBlVmVyc2lvbiI6IDEuMSwKICAgICAgICAicG9zaXRpb24iOiBbCiAgICAg\nICAgICAtNTYwLAogICAgICAgICAgNDY0CiAgICAgICAgXSwKICAgICAgICAi\naWQiOiAiMTVkZDUwOGItNDQwNC00OWMzLTk0ZTUtNjkzNTM0ZTkxNTYwIiwK\nICAgICAgICAibmFtZSI6ICJUZXh0IENsYXNzaWZpZXIiCiAgICAgIH0sCiAg\nICAgIHsKICAgICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAgICJ3b3Jr\nZmxvd0lkIjogewogICAgICAgICAgICAiX19ybCI6IHRydWUsCiAgICAgICAg\nICAgICJ2YWx1ZSI6ICJ0MVlRQU5jVjM1anRzaWo5IiwKICAgICAgICAgICAg\nIm1vZGUiOiAibGlzdCIsCiAgICAgICAgICAgICJjYWNoZWRSZXN1bHRVcmwi\nOiAiL3dvcmtmbG93L3QxWVFBTmNWMzVqdHNpajkiLAogICAgICAgICAgICAi\nY2FjaGVkUmVzdWx0TmFtZSI6ICJbVC5BLkMuTy5dIEdlc3RvciBkZSBGaW5h\nbsOnYXMiCiAgICAgICAgICB9LAogICAgICAgICAgIndvcmtmbG93SW5wdXRz\nIjogewogICAgICAgICAgICAibWFwcGluZ01vZGUiOiAiZGVmaW5lQmVsb3ci\nLAogICAgICAgICAgICAidmFsdWUiOiB7fSwKICAgICAgICAgICAgIm1hdGNo\naW5nQ29sdW1ucyI6IFtdLAogICAgICAgICAgICAic2NoZW1hIjogW10sCiAg\nICAgICAgICAgICJhdHRlbXB0VG9Db252ZXJ0VHlwZXMiOiBmYWxzZSwKICAg\nICAgICAgICAgImNvbnZlcnRGaWVsZHNUb1N0cmluZyI6IHRydWUKICAgICAg\nICAgIH0sCiAgICAgICAgICAib3B0aW9ucyI6IHt9CiAgICAgICAgfSwKICAg\nICAgICAidHlwZSI6ICJuOG4tbm9kZXMtYmFzZS5leGVjdXRlV29ya2Zsb3ci\nLAogICAgICAgICJ0eXBlVmVyc2lvbiI6IDEuMywKICAgICAgICAicG9zaXRp\nb24iOiBbCiAgICAgICAgICAyMDgsCiAgICAgICAgICAwCiAgICAgICAgXSwK\nICAgICAgICAiaWQiOiAiMTZhNTA1NDktODI2Ny00YjVmLWEzOTYtYWIwMzkx\nMTMzZDIwIiwKICAgICAgICAibmFtZSI6ICJHZXN0b3IgZGUgRmluYW7Dp2Fz\nIiwKICAgICAgICAiZGlzYWJsZWQiOiB0cnVlCiAgICAgIH0sCiAgICAgIHsK\nICAgICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAgICJhc3NpZ25tZW50\ncyI6IHsKICAgICAgICAgICAgImFzc2lnbm1lbnRzIjogWwogICAgICAgICAg\nICAgIHsKICAgICAgICAgICAgICAgICJpZCI6ICI4MTJlOWVlYy04ZWYwLTQy\nOTEtOGYzNi04MjhiYmJjNmRmNTAiLAogICAgICAgICAgICAgICAgIm5hbWUi\nOiAicHJvbXB0IiwKICAgICAgICAgICAgICAgICJ2YWx1ZSI6ICI9e3sgJGpz\nb24uSW5wdXQgfX0iLAogICAgICAgICAgICAgICAgInR5cGUiOiAic3RyaW5n\nIgogICAgICAgICAgICAgIH0KICAgICAgICAgICAgXQogICAgICAgICAgfSwK\nICAgICAgICAgICJvcHRpb25zIjoge30KICAgICAgICB9LAogICAgICAgICJ0\neXBlIjogIm44bi1ub2Rlcy1iYXNlLnNldCIsCiAgICAgICAgInR5cGVWZXJz\naW9uIjogMy40LAogICAgICAgICJwb3NpdGlvbiI6IFsKICAgICAgICAgIDAs\nCiAgICAgICAgICAwCiAgICAgICAgXSwKICAgICAgICAiaWQiOiAiYjFhMzRk\nNDgtZTJiYy00ZjkwLTgwNGMtZjM2YThiOTVjY2I0IiwKICAgICAgICAibmFt\nZSI6ICJzZXQgUHJvbXB0IgogICAgICB9LAogICAgICB7CiAgICAgICAgInBh\ncmFtZXRlcnMiOiB7CiAgICAgICAgICAiY2hhdElkIjogIj17eyAkKCdUZWxl\nZ3JhbSBUcmlnZ2VyJykuaXRlbS5qc29uLm1lc3NhZ2UuY2hhdC5pZCB9fSIs\nCiAgICAgICAgICAidGV4dCI6ICI9e3sgJGpzb24ucmVzcG9zdGEgfX0iLAog\nICAgICAgICAgImFkZGl0aW9uYWxGaWVsZHMiOiB7CiAgICAgICAgICAgICJh\ncHBlbmRBdHRyaWJ1dGlvbiI6IGZhbHNlCiAgICAgICAgICB9CiAgICAgICAg\nfSwKICAgICAgICAidHlwZSI6ICJuOG4tbm9kZXMtYmFzZS50ZWxlZ3JhbSIs\nCiAgICAgICAgInR5cGVWZXJzaW9uIjogMS4yLAogICAgICAgICJwb3NpdGlv\nbiI6IFsKICAgICAgICAgIDczNiwKICAgICAgICAgIDU2MAogICAgICAgIF0s\nCiAgICAgICAgImlkIjogIjUwMGNmYTQxLThhMTctNGJlZS04OTg0LTFjZjcy\nYzVkYzliYiIsCiAgICAgICAgIm5hbWUiOiAiUmV0b3JuYXIgbWVuc2FnZW0i\nLAogICAgICAgICJ3ZWJob29rSWQiOiAiY2RjMWI1MTQtM2Q3Yi00MDIzLWI1\nMzYtM2IzMDBjN2NhYzFmIiwKICAgICAgICAiY3JlZGVudGlhbHMiOiB7CiAg\nICAgICAgICAidGVsZWdyYW1BcGkiOiB7CiAgICAgICAgICAgICJpZCI6ICJJ\ndlo3STdhdTlYV3JJVloxIiwKICAgICAgICAgICAgIm5hbWUiOiAiW2JvdF0g\nVC5BLkMuTy4iCiAgICAgICAgICB9CiAgICAgICAgfQogICAgICB9LAogICAg\nICB7CiAgICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgICAiYXNzaWdu\nbWVudHMiOiB7CiAgICAgICAgICAgICJhc3NpZ25tZW50cyI6IFsKICAgICAg\nICAgICAgICB7CiAgICAgICAgICAgICAgICAiaWQiOiAiODEyZTllZWMtOGVm\nMC00MjkxLThmMzYtODI4YmJiYzZkZjUwIiwKICAgICAgICAgICAgICAgICJu\nYW1lIjogInJlc3Bvc3RhIiwKICAgICAgICAgICAgICAgICJ2YWx1ZSI6ICJO\nw6NvIGNvbnNlZ3VpIGlkZW50aWZpY2FyIG8gcXVlIHZvY8OqIGRlc2VqYS4g\nUG9kZXJpYSBzZXIgbWFpcyBjbGFybz8iLAogICAgICAgICAgICAgICAgInR5\ncGUiOiAic3RyaW5nIgogICAgICAgICAgICAgIH0KICAgICAgICAgICAgXQog\nICAgICAgICAgfSwKICAgICAgICAgICJvcHRpb25zIjoge30KICAgICAgICB9\nLAogICAgICAgICJ0eXBlIjogIm44bi1ub2Rlcy1iYXNlLnNldCIsCiAgICAg\nICAgInR5cGVWZXJzaW9uIjogMy40LAogICAgICAgICJwb3NpdGlvbiI6IFsK\nICAgICAgICAgIDE0NCwKICAgICAgICAgIDEyNDgKICAgICAgICBdLAogICAg\nICAgICJpZCI6ICJmZTg5YTNhYS1lYmM0LTQ5MDEtOGExYS03ZTIxZmQwNjZl\nODkiLAogICAgICAgICJuYW1lIjogInNldCBSZXNwb3N0YSIKICAgICAgfSwK\nICAgICAgewogICAgICAgICJwYXJhbWV0ZXJzIjogewogICAgICAgICAgImFz\nc2lnbm1lbnRzIjogewogICAgICAgICAgICAiYXNzaWdubWVudHMiOiBbCiAg\nICAgICAgICAgICAgewogICAgICAgICAgICAgICAgImlkIjogIjgxMmU5ZWVj\nLThlZjAtNDI5MS04ZjM2LTgyOGJiYmM2ZGY1MCIsCiAgICAgICAgICAgICAg\nICAibmFtZSI6ICJwcm9tcHQiLAogICAgICAgICAgICAgICAgInZhbHVlIjog\nIj17eyAkanNvbi5JbnB1dCB9fSIsCiAgICAgICAgICAgICAgICAidHlwZSI6\nICJzdHJpbmciCiAgICAgICAgICAgICAgfQogICAgICAgICAgICBdCiAgICAg\nICAgICB9LAogICAgICAgICAgIm9wdGlvbnMiOiB7fQogICAgICAgIH0sCiAg\nICAgICAgInR5cGUiOiAibjhuLW5vZGVzLWJhc2Uuc2V0IiwKICAgICAgICAi\ndHlwZVZlcnNpb24iOiAzLjQsCiAgICAgICAgInBvc2l0aW9uIjogWwogICAg\nICAgICAgMCwKICAgICAgICAgIDIyNAogICAgICAgIF0sCiAgICAgICAgImlk\nIjogImQ0MDhiYWVmLTkyYTItNDdiYS05OWU0LTY2OWUwNGU4ZDE1NiIsCiAg\nICAgICAgIm5hbWUiOiAic2V0IFByb21wdDEiCiAgICAgIH0sCiAgICAgIHsK\nICAgICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAgICJ3b3JrZmxvd0lk\nIjogewogICAgICAgICAgICAiX19ybCI6IHRydWUsCiAgICAgICAgICAgICJ2\nYWx1ZSI6ICJZb0RySDFFVi1pQVZNcnRLSnI4eEEiLAogICAgICAgICAgICAi\nbW9kZSI6ICJsaXN0IiwKICAgICAgICAgICAgImNhY2hlZFJlc3VsdFVybCI6\nICIvd29ya2Zsb3cvWW9EckgxRVYtaUFWTXJ0S0pyOHhBIiwKICAgICAgICAg\nICAgImNhY2hlZFJlc3VsdE5hbWUiOiAiW1QuQS5DLk8uXSBTZWNyZXTDoXJp\nYSBFbGV0csO0bmljYSIKICAgICAgICAgIH0sCiAgICAgICAgICAid29ya2Zs\nb3dJbnB1dHMiOiB7CiAgICAgICAgICAgICJtYXBwaW5nTW9kZSI6ICJkZWZp\nbmVCZWxvdyIsCiAgICAgICAgICAgICJ2YWx1ZSI6IHt9LAogICAgICAgICAg\nICAibWF0Y2hpbmdDb2x1bW5zIjogW10sCiAgICAgICAgICAgICJzY2hlbWEi\nOiBbXSwKICAgICAgICAgICAgImF0dGVtcHRUb0NvbnZlcnRUeXBlcyI6IGZh\nbHNlLAogICAgICAgICAgICAiY29udmVydEZpZWxkc1RvU3RyaW5nIjogdHJ1\nZQogICAgICAgICAgfSwKICAgICAgICAgICJvcHRpb25zIjoge30KICAgICAg\nICB9LAogICAgICAgICJ0eXBlIjogIm44bi1ub2Rlcy1iYXNlLmV4ZWN1dGVX\nb3JrZmxvdyIsCiAgICAgICAgInR5cGVWZXJzaW9uIjogMS4zLAogICAgICAg\nICJwb3NpdGlvbiI6IFsKICAgICAgICAgIDIwOCwKICAgICAgICAgIDIyNAog\nICAgICAgIF0sCiAgICAgICAgImlkIjogIjc5NzVlZjAyLWM3MTctNDgwNC1h\nMWMwLWExMzlhNmE3YTJmYiIsCiAgICAgICAgIm5hbWUiOiAiU2VjcmV0w6Fy\naWEgRWxldHJvbmljYSIsCiAgICAgICAgImRpc2FibGVkIjogdHJ1ZQogICAg\nICB9LAogICAgICB7CiAgICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAg\nICAiY29udGVudCI6ICIjIyBBanVzdGVzIGZ1dHVyb3MgXG5GdXR1cmFtZW50\nZSBjb2xvY2FyIHVtYSB2YWxpZGHDp8OjbyBjb20gQmFuY28gZGUgZGFkb3Mg\nc2UgbyBpZCBkbyB1c3XDoXJpbyBleGlzdGUuIENhc28gZXhpc3RhLCBwZXNx\ndWlzYSBhcGVuYXMgbm8gSUQgZGVsZS4gQ2FzbyBuw6NvIGV4aXN0YSwgcmVk\naXJlY2lvbmFyIHBhcmEgdW0gYWdlbnRlIGRlIGNyaWHDp8Ojby4iLAogICAg\nICAgICAgImhlaWdodCI6IDIyNAogICAgICAgIH0sCiAgICAgICAgInR5cGUi\nOiAibjhuLW5vZGVzLWJhc2Uuc3RpY2t5Tm90ZSIsCiAgICAgICAgInR5cGVW\nZXJzaW9uIjogMSwKICAgICAgICAicG9zaXRpb24iOiBbCiAgICAgICAgICAt\nMjAwMCwKICAgICAgICAgIDQzMgogICAgICAgIF0sCiAgICAgICAgImlkIjog\nImRjMGRmZDFhLTU5NmItNDAwYi04OTMxLTkzNjkxZWIyMzEyNCIsCiAgICAg\nICAgIm5hbWUiOiAiU3RpY2t5IE5vdGUiCiAgICAgIH0sCiAgICAgIHsKICAg\nICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAgICJhc3NpZ25tZW50cyI6\nIHsKICAgICAgICAgICAgImFzc2lnbm1lbnRzIjogWwogICAgICAgICAgICAg\nIHsKICAgICAgICAgICAgICAgICJpZCI6ICI4MTJlOWVlYy04ZWYwLTQyOTEt\nOGYzNi04MjhiYmJjNmRmNTAiLAogICAgICAgICAgICAgICAgIm5hbWUiOiAi\ncHJvbXB0IiwKICAgICAgICAgICAgICAgICJ2YWx1ZSI6ICI9e3sgJGpzb24u\nSW5wdXQgfX0iLAogICAgICAgICAgICAgICAgInR5cGUiOiAic3RyaW5nIgog\nICAgICAgICAgICAgIH0KICAgICAgICAgICAgXQogICAgICAgICAgfSwKICAg\nICAgICAgICJvcHRpb25zIjoge30KICAgICAgICB9LAogICAgICAgICJ0eXBl\nIjogIm44bi1ub2Rlcy1iYXNlLnNldCIsCiAgICAgICAgInR5cGVWZXJzaW9u\nIjogMy40LAogICAgICAgICJwb3NpdGlvbiI6IFsKICAgICAgICAgIDAsCiAg\nICAgICAgICA4MTYKICAgICAgICBdLAogICAgICAgICJpZCI6ICJmNTQ3MmVk\nNS0xNGQyLTRkYjQtOGJmYy05MzI1NTRkYTI0MzYiLAogICAgICAgICJuYW1l\nIjogInNldCBQcm9tcHQyIgogICAgICB9LAogICAgICB7CiAgICAgICAgInBh\ncmFtZXRlcnMiOiB7CiAgICAgICAgICAid29ya2Zsb3dJZCI6IHsKICAgICAg\nICAgICAgIl9fcmwiOiB0cnVlLAogICAgICAgICAgICAidmFsdWUiOiAiQVdD\nQ2xUZU1KanVqaHhBeiIsCiAgICAgICAgICAgICJtb2RlIjogImlkIiwKICAg\nICAgICAgICAgImNhY2hlZFJlc3VsdFVybCI6ICIvd29ya2Zsb3cvQVdDQ2xU\nZU1KanVqaHhBeiIKICAgICAgICAgIH0sCiAgICAgICAgICAid29ya2Zsb3dJ\nbnB1dHMiOiB7CiAgICAgICAgICAgICJtYXBwaW5nTW9kZSI6ICJkZWZpbmVC\nZWxvdyIsCiAgICAgICAgICAgICJ2YWx1ZSI6IHt9LAogICAgICAgICAgICAi\nbWF0Y2hpbmdDb2x1bW5zIjogW10sCiAgICAgICAgICAgICJzY2hlbWEiOiBb\nXSwKICAgICAgICAgICAgImF0dGVtcHRUb0NvbnZlcnRUeXBlcyI6IGZhbHNl\nLAogICAgICAgICAgICAiY29udmVydEZpZWxkc1RvU3RyaW5nIjogdHJ1ZQog\nICAgICAgICAgfSwKICAgICAgICAgICJvcHRpb25zIjoge30KICAgICAgICB9\nLAogICAgICAgICJ0eXBlIjogIm44bi1ub2Rlcy1iYXNlLmV4ZWN1dGVXb3Jr\nZmxvdyIsCiAgICAgICAgInR5cGVWZXJzaW9uIjogMS4zLAogICAgICAgICJw\nb3NpdGlvbiI6IFsKICAgICAgICAgIDIwOCwKICAgICAgICAgIDgxNgogICAg\nICAgIF0sCiAgICAgICAgImlkIjogImRlNTMyZWUzLWUwNGEtNDRmMC05ZjVk\nLWU3NGVkNzY1NTdjNCIsCiAgICAgICAgIm5hbWUiOiAiTyBDb25zZWxobyIK\nICAgICAgfQogICAgXSwKICAgICJjb25uZWN0aW9ucyI6IHsKICAgICAgIlRl\nbGVncmFtIFRyaWdnZXIiOiB7CiAgICAgICAgIm1haW4iOiBbCiAgICAgICAg\nICBbCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAibm9kZSI6ICJWYWxp\nZGHDp8OjbyBkZSB0aXBvIGRhIE1lbnNhZ2VtIiwKICAgICAgICAgICAgICAi\ndHlwZSI6ICJtYWluIiwKICAgICAgICAgICAgICAiaW5kZXgiOiAwCiAgICAg\nICAgICAgIH0KICAgICAgICAgIF0KICAgICAgICBdCiAgICAgIH0sCiAgICAg\nICJHZXQgYXVkaW8iOiB7CiAgICAgICAgIm1haW4iOiBbCiAgICAgICAgICBb\nCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAibm9kZSI6ICJDb252ZXJz\nw6NvIGRlIG1pbWVUeXBlIiwKICAgICAgICAgICAgICAidHlwZSI6ICJtYWlu\nIiwKICAgICAgICAgICAgICAiaW5kZXgiOiAwCiAgICAgICAgICAgIH0KICAg\nICAgICAgIF0KICAgICAgICBdCiAgICAgIH0sCiAgICAgICJBUEkgZGUgdHJh\nbnNjcmnDp8OjbyBkbyBHcm9xIjogewogICAgICAgICJtYWluIjogWwogICAg\nICAgICAgWwogICAgICAgICAgICB7CiAgICAgICAgICAgICAgIm5vZGUiOiAi\nTWVuc2FnZW0gVHJhbnNjcml0YSIsCiAgICAgICAgICAgICAgInR5cGUiOiAi\nbWFpbiIsCiAgICAgICAgICAgICAgImluZGV4IjogMAogICAgICAgICAgICB9\nCiAgICAgICAgICBdCiAgICAgICAgXQogICAgICB9LAogICAgICAiTWVuc2Fn\nZW0gZGUgVGV4dG8iOiB7CiAgICAgICAgIm1haW4iOiBbCiAgICAgICAgICBb\nCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAibm9kZSI6ICJNZW5zYWdl\nbSBGaW5hbCIsCiAgICAgICAgICAgICAgInR5cGUiOiAibWFpbiIsCiAgICAg\nICAgICAgICAgImluZGV4IjogMAogICAgICAgICAgICB9CiAgICAgICAgICBd\nCiAgICAgICAgXQogICAgICB9LAogICAgICAiTWVuc2FnZW0gVHJhbnNjcml0\nYSI6IHsKICAgICAgICAibWFpbiI6IFsKICAgICAgICAgIFsKICAgICAgICAg\nICAgewogICAgICAgICAgICAgICJub2RlIjogIk1lbnNhZ2VtIEZpbmFsIiwK\nICAgICAgICAgICAgICAidHlwZSI6ICJtYWluIiwKICAgICAgICAgICAgICAi\naW5kZXgiOiAwCiAgICAgICAgICAgIH0KICAgICAgICAgIF0KICAgICAgICBd\nCiAgICAgIH0sCiAgICAgICJNZW5zYWdlbSBGaW5hbCI6IHsKICAgICAgICAi\nbWFpbiI6IFsKICAgICAgICAgIFsKICAgICAgICAgICAgewogICAgICAgICAg\nICAgICJub2RlIjogIlRleHQgQ2xhc3NpZmllciIsCiAgICAgICAgICAgICAg\nInR5cGUiOiAibWFpbiIsCiAgICAgICAgICAgICAgImluZGV4IjogMAogICAg\nICAgICAgICB9CiAgICAgICAgICBdCiAgICAgICAgXQogICAgICB9LAogICAg\nICAiVmFsaWRhw6fDo28gZGUgdGlwbyBkYSBNZW5zYWdlbSI6IHsKICAgICAg\nICAibWFpbiI6IFsKICAgICAgICAgIFsKICAgICAgICAgICAgewogICAgICAg\nICAgICAgICJub2RlIjogIk1lbnNhZ2VtIGRlIFRleHRvIiwKICAgICAgICAg\nICAgICAidHlwZSI6ICJtYWluIiwKICAgICAgICAgICAgICAiaW5kZXgiOiAw\nCiAgICAgICAgICAgIH0KICAgICAgICAgIF0sCiAgICAgICAgICBbCiAgICAg\nICAgICAgIHsKICAgICAgICAgICAgICAibm9kZSI6ICJHZXQgYXVkaW8iLAog\nICAgICAgICAgICAgICJ0eXBlIjogIm1haW4iLAogICAgICAgICAgICAgICJp\nbmRleCI6IDAKICAgICAgICAgICAgfQogICAgICAgICAgXQogICAgICAgIF0K\nICAgICAgfSwKICAgICAgIkNvbnZlcnPDo28gZGUgbWltZVR5cGUiOiB7CiAg\nICAgICAgIm1haW4iOiBbCiAgICAgICAgICBbCiAgICAgICAgICAgIHsKICAg\nICAgICAgICAgICAibm9kZSI6ICJBUEkgZGUgdHJhbnNjcmnDp8OjbyBkbyBH\ncm9xIiwKICAgICAgICAgICAgICAidHlwZSI6ICJtYWluIiwKICAgICAgICAg\nICAgICAiaW5kZXgiOiAwCiAgICAgICAgICAgIH0KICAgICAgICAgIF0KICAg\nICAgICBdCiAgICAgIH0sCiAgICAgICJUZXh0IENsYXNzaWZpZXIiOiB7CiAg\nICAgICAgIm1haW4iOiBbCiAgICAgICAgICBbCiAgICAgICAgICAgIHsKICAg\nICAgICAgICAgICAibm9kZSI6ICJzZXQgUHJvbXB0IiwKICAgICAgICAgICAg\nICAidHlwZSI6ICJtYWluIiwKICAgICAgICAgICAgICAiaW5kZXgiOiAwCiAg\nICAgICAgICAgIH0KICAgICAgICAgIF0sCiAgICAgICAgICBbCiAgICAgICAg\nICAgIHsKICAgICAgICAgICAgICAibm9kZSI6ICJzZXQgUHJvbXB0MSIsCiAg\nICAgICAgICAgICAgInR5cGUiOiAibWFpbiIsCiAgICAgICAgICAgICAgImlu\nZGV4IjogMAogICAgICAgICAgICB9CiAgICAgICAgICBdLAogICAgICAgICAg\nW10sCiAgICAgICAgICBbXSwKICAgICAgICAgIFsKICAgICAgICAgICAgewog\nICAgICAgICAgICAgICJub2RlIjogInNldCBQcm9tcHQyIiwKICAgICAgICAg\nICAgICAidHlwZSI6ICJtYWluIiwKICAgICAgICAgICAgICAiaW5kZXgiOiAw\nCiAgICAgICAgICAgIH0KICAgICAgICAgIF0sCiAgICAgICAgICBbCiAgICAg\nICAgICAgIHsKICAgICAgICAgICAgICAibm9kZSI6ICJzZXQgUmVzcG9zdGEi\nLAogICAgICAgICAgICAgICJ0eXBlIjogIm1haW4iLAogICAgICAgICAgICAg\nICJpbmRleCI6IDAKICAgICAgICAgICAgfQogICAgICAgICAgXQogICAgICAg\nIF0KICAgICAgfSwKICAgICAgIkNsYXNzaWZpY2Fkb3IgZGUgVGV4dG9zIjog\newogICAgICAgICJhaV9sYW5ndWFnZU1vZGVsIjogWwogICAgICAgICAgWwog\nICAgICAgICAgICB7CiAgICAgICAgICAgICAgIm5vZGUiOiAiVGV4dCBDbGFz\nc2lmaWVyIiwKICAgICAgICAgICAgICAidHlwZSI6ICJhaV9sYW5ndWFnZU1v\nZGVsIiwKICAgICAgICAgICAgICAiaW5kZXgiOiAwCiAgICAgICAgICAgIH0K\nICAgICAgICAgIF0KICAgICAgICBdCiAgICAgIH0sCiAgICAgICJHZXN0b3Ig\nZGUgRmluYW7Dp2FzIjogewogICAgICAgICJtYWluIjogWwogICAgICAgICAg\nWwogICAgICAgICAgICB7CiAgICAgICAgICAgICAgIm5vZGUiOiAiUmV0b3Ju\nYXIgbWVuc2FnZW0iLAogICAgICAgICAgICAgICJ0eXBlIjogIm1haW4iLAog\nICAgICAgICAgICAgICJpbmRleCI6IDAKICAgICAgICAgICAgfQogICAgICAg\nICAgXQogICAgICAgIF0KICAgICAgfSwKICAgICAgInNldCBQcm9tcHQiOiB7\nCiAgICAgICAgIm1haW4iOiBbCiAgICAgICAgICBbCiAgICAgICAgICAgIHsK\nICAgICAgICAgICAgICAibm9kZSI6ICJHZXN0b3IgZGUgRmluYW7Dp2FzIiwK\nICAgICAgICAgICAgICAidHlwZSI6ICJtYWluIiwKICAgICAgICAgICAgICAi\naW5kZXgiOiAwCiAgICAgICAgICAgIH0KICAgICAgICAgIF0KICAgICAgICBd\nCiAgICAgIH0sCiAgICAgICJzZXQgUmVzcG9zdGEiOiB7CiAgICAgICAgIm1h\naW4iOiBbCiAgICAgICAgICBbCiAgICAgICAgICAgIHsKICAgICAgICAgICAg\nICAibm9kZSI6ICJSZXRvcm5hciBtZW5zYWdlbSIsCiAgICAgICAgICAgICAg\nInR5cGUiOiAibWFpbiIsCiAgICAgICAgICAgICAgImluZGV4IjogMAogICAg\nICAgICAgICB9CiAgICAgICAgICBdCiAgICAgICAgXQogICAgICB9LAogICAg\nICAic2V0IFByb21wdDEiOiB7CiAgICAgICAgIm1haW4iOiBbCiAgICAgICAg\nICBbCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAibm9kZSI6ICJTZWNy\nZXTDoXJpYSBFbGV0cm9uaWNhIiwKICAgICAgICAgICAgICAidHlwZSI6ICJt\nYWluIiwKICAgICAgICAgICAgICAiaW5kZXgiOiAwCiAgICAgICAgICAgIH0K\nICAgICAgICAgIF0KICAgICAgICBdCiAgICAgIH0sCiAgICAgICJTZWNyZXTD\noXJpYSBFbGV0cm9uaWNhIjogewogICAgICAgICJtYWluIjogWwogICAgICAg\nICAgWwogICAgICAgICAgICB7CiAgICAgICAgICAgICAgIm5vZGUiOiAiUmV0\nb3JuYXIgbWVuc2FnZW0iLAogICAgICAgICAgICAgICJ0eXBlIjogIm1haW4i\nLAogICAgICAgICAgICAgICJpbmRleCI6IDAKICAgICAgICAgICAgfQogICAg\nICAgICAgXQogICAgICAgIF0KICAgICAgfSwKICAgICAgInNldCBQcm9tcHQy\nIjogewogICAgICAgICJtYWluIjogWwogICAgICAgICAgWwogICAgICAgICAg\nICB7CiAgICAgICAgICAgICAgIm5vZGUiOiAiTyBDb25zZWxobyIsCiAgICAg\nICAgICAgICAgInR5cGUiOiAibWFpbiIsCiAgICAgICAgICAgICAgImluZGV4\nIjogMAogICAgICAgICAgICB9CiAgICAgICAgICBdCiAgICAgICAgXQogICAg\nICB9LAogICAgICAiTyBDb25zZWxobyI6IHsKICAgICAgICAibWFpbiI6IFsK\nICAgICAgICAgIFsKICAgICAgICAgICAgewogICAgICAgICAgICAgICJub2Rl\nIjogIlJldG9ybmFyIG1lbnNhZ2VtIiwKICAgICAgICAgICAgICAidHlwZSI6\nICJtYWluIiwKICAgICAgICAgICAgICAiaW5kZXgiOiAwCiAgICAgICAgICAg\nIH0KICAgICAgICAgIF0KICAgICAgICBdCiAgICAgIH0KICAgIH0sCiAgICAi\nbm9kZUdyb3VwcyI6IFtdLAogICAgImF1dGhvcnMiOiAiTWFyY29zIExpbWEi\nLAogICAgIm5hbWUiOiAiMjcwNjIwMjYuMDEiLAogICAgImRlc2NyaXB0aW9u\nIjogIiIsCiAgICAiYXV0b3NhdmVkIjogdHJ1ZQogIH0sCiAgInRhZ3MiOiBb\nCiAgICB7CiAgICAgICJ1cGRhdGVkQXQiOiAiMjAyNi0wNi0yN1QwNDoxMDoz\nNi43MjBaIiwKICAgICAgImNyZWF0ZWRBdCI6ICIyMDI2LTA2LTI3VDA0OjEw\nOjM2LjcyMFoiLAogICAgICAiaWQiOiAicndlc0xWSHhwdDRDVlFrZiIsCiAg\nICAgICJuYW1lIjogIlByb2plY3QgVC5BLkMuTy4iCiAgICB9CiAgXSwKICAi\nZXJyb3IiOiAiVGhlIHJlc291cmNlIHlvdSBhcmUgcmVxdWVzdGluZyBjb3Vs\nZCBub3QgYmUgZm91bmQiLAogICJnaXRodWJfc3RhdHVzIjogIm5ldyIsCiAg\nImdpdF9maWxlX3BhdGgiOiAiUHJvamVjdCBULkEuQy5PLi9bVC5BLkMuTy5d\nIEFnZW50IE9yY2hlc3RyYXRvci5qc29uIgp9\n",
-  "encoding": "base64",
-  "_links": {
-    "self": "https://api.github.com/repos/mdsl1/n8n-backup-workflows/contents/Project%20T.A.C.O./[T.A.C.O.]%20Agent%20Orchestrator.json?ref=main",
-    "git": "https://api.github.com/repos/mdsl1/n8n-backup-workflows/git/blobs/4cebb332f41640a159a4dbf1a7e7b12c25829503",
-    "html": "https://github.com/mdsl1/n8n-backup-workflows/blob/main/Project%20T.A.C.O./[T.A.C.O.]%20Agent%20Orchestrator.json"
+  "pinData": {},
+  "settings": {
+    "availableInMCP": false,
+    "binaryMode": "separate",
+    "executionOrder": "v1"
   },
-  "github_status": "update",
-  "github_file_path": "Project T.A.C.O./[T.A.C.O.] Agent Orchestrator.json"
+  "shared": [
+    {
+      "createdAt": "2026-06-20T22:00:17.423Z",
+      "projectId": "kCVHFkXvuUipUeFN",
+      "role": "workflow:owner",
+      "updatedAt": "2026-06-20T22:00:17.423Z",
+      "workflowId": "4MljINNgEhpEnMlV"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2026-06-27T04:10:36.720Z",
+      "id": "rwesLVHxpt4CVQkf",
+      "name": "Project T.A.C.O.",
+      "updatedAt": "2026-06-27T04:10:36.720Z"
+    }
+  ],
+  "triggerCount": 1
 }
