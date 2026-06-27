@@ -574,7 +574,7 @@
           "appendAttribution": false
         },
         "chatId": "6329122319",
-        "text": "=📊 Relatório do Backup Automatizado de Workflows\n📅 Data: {{ new Date($('Variaveis_Globais').item.json.timestamp).toLocaleString('pt-br', { timeZone: 'America/Sao_Paulo'}) }}\n━━━━━━━━━━━━━━━━━━━━━━━━\n✨ Novos Criados: {{ $json.criados }}\n🔄 Atualizados: {{ $json.alterados }}\n😴 Sem alterações: {{ $json.ignorados }}\n❌ Erros: {{ $json.erros }}\n━━━━━━━━━━━━━━━━━━━━━━━━\n📈 Total de workflows: {{ $json.total_workflows }}"
+        "text": "=📊 *Relatório do Backup Automatizado de Workflows*\n\n📅 Executado em: {{ new Date($('Variaveis_Globais').item.json.timestamp).toLocaleString('pt-br', { timeZone: 'America/Sao_Paulo'}) }}\n━━━━━━━━━━━━━━━━━━━━━━━━\n✨ Criados: {{ $json.criados }}\n---\n🔄 Atualizados: {{ $json.alterados }}\n---\n😴 Sem alterações: {{ $json.ignorados }}\n---\n❌ Erros: {{ $json.erros }}\n━━━━━━━━━━━━━━━━━━━━━━━━\n📈 *Total Workflows*: *{{ $json.total_workflows }}*"
       },
       "position": [
         1424,
