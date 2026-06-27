@@ -551,7 +551,7 @@
       "id": "13e1211b-09a3-40e7-8994-4d02ea112c88",
       "name": "Code in JavaScript1",
       "parameters": {
-        "jsCode": "const execucoes = $('Loop Over Items').all();\n\nlet criados = 0;\nlet alterados = 0;\nlet ignorados = 0;\nlet erros = 0;\n\nfor (const item of execucoes) {\n  if (item.json.backup_status === 'erro') {\n    erros++;\n  } else {\n    const statusOriginal = item.json.github_status;\n    if (statusOriginal === 'new') criados++;\n    if (statusOriginal === 'update') alterados++;\n    if (statusOriginal === 'do_nothing') ignorados++;\n  }\n}\n\nreturn [{\n  json: {\n    total_workflows: execucoes.length,\n    criados,\n    alterados,\n    ignorados,\n    erros\n  }\n}];"
+        "jsCode": "const execucoes = $('Loop Over Items').all();\n\nlet criados = 0;\nlet alterados = 0;\nlet ignorados = 0;\nlet erros = 0;\n\nfor (const item of execucoes) {\n  if (item.json.backup_status === 'erro') {\n    erros++;\n  } else {\n    const statusOriginal = item.json.backup_status;\n    if (statusOriginal === 'new') criados++;\n    if (statusOriginal === 'update') alterados++;\n    if (statusOriginal === 'do_nothing') ignorados++;\n  }\n}\n\nreturn [{\n  json: {\n    total_workflows: execucoes.length,\n    criados,\n    alterados,\n    ignorados,\n    erros\n  }\n}];"
       },
       "position": [
         1136,
