@@ -1266,6 +1266,7 @@
       "typeVersion": 1.3
     },
     {
+      "disabled": true,
       "id": "b1a34d48-e2bc-4f90-804c-f36a8b95ccb4",
       "name": "set Prompt",
       "parameters": {
@@ -1336,6 +1337,7 @@
       "typeVersion": 3.4
     },
     {
+      "disabled": true,
       "id": "d408baef-92a2-47ba-99e4-669e04e8d156",
       "name": "set Prompt1",
       "parameters": {
