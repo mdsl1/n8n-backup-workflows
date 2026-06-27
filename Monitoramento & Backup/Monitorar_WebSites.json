@@ -1,0 +1,680 @@
+{
+  "active": true,
+  "activeVersion": {
+    "authors": "Marcos Lima",
+    "autosaved": true,
+    "connections": {
+      "Get row(s) in sheet": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "HTTP Request",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "HTTP Request": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Logs Sucesso",
+              "type": "main"
+            }
+          ],
+          [
+            {
+              "index": 0,
+              "node": "Logs Erro",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Logs Erro": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Send a text message",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Schedule Trigger": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Get row(s) in sheet",
+              "type": "main"
+            }
+          ]
+        ]
+      }
+    },
+    "createdAt": "2026-06-20T21:55:36.899Z",
+    "description": "",
+    "name": "23062026.01",
+    "nodeGroups": [],
+    "nodes": [
+      {
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "kYYVcUgp217Zebjp",
+            "name": "[sheets] markniel1408@gmail.com"
+          }
+        },
+        "id": "0b6b5026-510b-4ec3-aab6-f8ac60dbb72b",
+        "name": "Get row(s) in sheet",
+        "parameters": {
+          "documentId": {
+            "__rl": true,
+            "cachedResultName": "N8N Monitoramento Sites",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ipihUx7v2e9HZlGFfxG2-sLYVqu5uPY4XSUIlX5EDTA/edit?usp=drivesdk",
+            "mode": "list",
+            "value": "1ipihUx7v2e9HZlGFfxG2-sLYVqu5uPY4XSUIlX5EDTA"
+          },
+          "options": {},
+          "sheetName": {
+            "__rl": true,
+            "cachedResultName": "Lista",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ipihUx7v2e9HZlGFfxG2-sLYVqu5uPY4XSUIlX5EDTA/edit#gid=0",
+            "mode": "list",
+            "value": "gid=0"
+          }
+        },
+        "position": [
+          -416,
+          96
+        ],
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.7
+      },
+      {
+        "id": "bea6cd6d-5b85-46ac-9cdd-730195757fdc",
+        "name": "HTTP Request",
+        "onError": "continueErrorOutput",
+        "parameters": {
+          "options": {},
+          "url": "={{ $json.URL }}"
+        },
+        "position": [
+          -208,
+          96
+        ],
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.3
+      },
+      {
+        "credentials": {
+          "telegramApi": {
+            "id": "8lzTgy1fvGio8liY",
+            "name": "[bot] B.I.U."
+          }
+        },
+        "id": "ebc4a210-461b-4d1f-a3ac-9f11d8e0b266",
+        "name": "Send a text message",
+        "parameters": {
+          "additionalFields": {
+            "appendAttribution": false
+          },
+          "chatId": "6329122319",
+          "text": "=🚨 ALERTA CRÍTICO: Website FORA DO AR! 🚨\nAtenção! Detectamos uma falha grave em um dos seus projetos. É necessária uma ação imediata! 🛠️\n\n🛑 Projeto Afetado:\n\nNome do Projeto: {{ $('Get row(s) in sheet').item.json['Nome Projeto'] }}\n\nURL: {{ $('Get row(s) in sheet').item.json.URL }}\n\n📉 Detalhes da Falha:\n\nStatus de Erro: {{ $('HTTP Request').item.json.error.status }}\n\n⚠️ Ação Imediata Necessária: Verifique os logs e a hospedagem o mais rápido possível! ⚠️"
+        },
+        "position": [
+          208,
+          192
+        ],
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "webhookId": "4020cf1b-4134-4af8-8ffa-cf9865160eb5"
+      },
+      {
+        "id": "0ab30c13-9ab6-4288-8f6d-e77b5a2e6ffd",
+        "name": "Schedule Trigger",
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "hours",
+                "hoursInterval": 12
+              }
+            ]
+          }
+        },
+        "position": [
+          -704,
+          96
+        ],
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.3
+      },
+      {
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "kYYVcUgp217Zebjp",
+            "name": "[sheets] markniel1408@gmail.com"
+          }
+        },
+        "id": "ca201ad1-9394-4302-9196-121a2046bbcb",
+        "name": "Logs Sucesso",
+        "parameters": {
+          "columns": {
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false,
+            "mappingMode": "defineBelow",
+            "matchingColumns": [],
+            "schema": [
+              {
+                "canBeUsedToMatch": true,
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "Projeto",
+                "id": "Projeto",
+                "required": false,
+                "type": "string"
+              },
+              {
+                "canBeUsedToMatch": true,
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "URL",
+                "id": "URL",
+                "required": false,
+                "type": "string"
+              },
+              {
+                "canBeUsedToMatch": true,
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "Status",
+                "id": "Status",
+                "required": false,
+                "type": "string"
+              },
+              {
+                "canBeUsedToMatch": true,
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "Data",
+                "id": "Data",
+                "required": false,
+                "type": "string"
+              }
+            ],
+            "value": {
+              "Data": "==HOJE()",
+              "Projeto": "={{ $('Get row(s) in sheet').item.json['Nome Projeto'] }}",
+              "Status": "200",
+              "URL": "={{ $('Get row(s) in sheet').item.json.URL }}"
+            }
+          },
+          "documentId": {
+            "__rl": true,
+            "cachedResultName": "N8N Monitoramento Sites",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ipihUx7v2e9HZlGFfxG2-sLYVqu5uPY4XSUIlX5EDTA/edit?usp=drivesdk",
+            "mode": "list",
+            "value": "1ipihUx7v2e9HZlGFfxG2-sLYVqu5uPY4XSUIlX5EDTA"
+          },
+          "operation": "append",
+          "options": {},
+          "sheetName": {
+            "__rl": true,
+            "cachedResultName": "Logs",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ipihUx7v2e9HZlGFfxG2-sLYVqu5uPY4XSUIlX5EDTA/edit#gid=1243937105",
+            "mode": "list",
+            "value": 1243937105
+          }
+        },
+        "position": [
+          0,
+          0
+        ],
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.7
+      },
+      {
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "kYYVcUgp217Zebjp",
+            "name": "[sheets] markniel1408@gmail.com"
+          }
+        },
+        "id": "36458769-fb97-4b2b-95b9-f9c07312dc4d",
+        "name": "Logs Erro",
+        "parameters": {
+          "columns": {
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false,
+            "mappingMode": "defineBelow",
+            "matchingColumns": [],
+            "schema": [
+              {
+                "canBeUsedToMatch": true,
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "Projeto",
+                "id": "Projeto",
+                "required": false,
+                "type": "string"
+              },
+              {
+                "canBeUsedToMatch": true,
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "URL",
+                "id": "URL",
+                "required": false,
+                "type": "string"
+              },
+              {
+                "canBeUsedToMatch": true,
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "Status",
+                "id": "Status",
+                "required": false,
+                "type": "string"
+              },
+              {
+                "canBeUsedToMatch": true,
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "Data",
+                "id": "Data",
+                "required": false,
+                "type": "string"
+              }
+            ],
+            "value": {
+              "Data": "==HOJE()",
+              "Projeto": "={{ $json['Nome Projeto'] }}",
+              "Status": "={{ $json.error.status }}",
+              "URL": "={{ $('Get row(s) in sheet').item.json.URL }}"
+            }
+          },
+          "documentId": {
+            "__rl": true,
+            "cachedResultName": "N8N Monitoramento Sites",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ipihUx7v2e9HZlGFfxG2-sLYVqu5uPY4XSUIlX5EDTA/edit?usp=drivesdk",
+            "mode": "list",
+            "value": "1ipihUx7v2e9HZlGFfxG2-sLYVqu5uPY4XSUIlX5EDTA"
+          },
+          "operation": "append",
+          "options": {},
+          "sheetName": {
+            "__rl": true,
+            "cachedResultName": "Logs",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ipihUx7v2e9HZlGFfxG2-sLYVqu5uPY4XSUIlX5EDTA/edit#gid=1243937105",
+            "mode": "list",
+            "value": 1243937105
+          }
+        },
+        "position": [
+          0,
+          192
+        ],
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.7
+      }
+    ],
+    "updatedAt": "2026-06-23T03:30:15.000Z",
+    "versionId": "a96b7b89-38ab-4c1d-ab42-54dad61c61eb",
+    "workflowId": "luRggyOFA6HSgFwH"
+  },
+  "activeVersionId": "a96b7b89-38ab-4c1d-ab42-54dad61c61eb",
+  "connections": {
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "HTTP Request",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Logs Sucesso",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Logs Erro",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Logs Erro": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send a text message",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get row(s) in sheet",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "luRggyOFA6HSgFwH",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Monitorar_WebSites",
+  "nodes": [
+    {
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "kYYVcUgp217Zebjp",
+          "name": "[sheets] markniel1408@gmail.com"
+        }
+      },
+      "id": "0b6b5026-510b-4ec3-aab6-f8ac60dbb72b",
+      "name": "Get row(s) in sheet",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "cachedResultName": "N8N Monitoramento Sites",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ipihUx7v2e9HZlGFfxG2-sLYVqu5uPY4XSUIlX5EDTA/edit?usp=drivesdk",
+          "mode": "list",
+          "value": "1ipihUx7v2e9HZlGFfxG2-sLYVqu5uPY4XSUIlX5EDTA"
+        },
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "cachedResultName": "Lista",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ipihUx7v2e9HZlGFfxG2-sLYVqu5uPY4XSUIlX5EDTA/edit#gid=0",
+          "mode": "list",
+          "value": "gid=0"
+        }
+      },
+      "position": [
+        -416,
+        96
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7
+    },
+    {
+      "id": "bea6cd6d-5b85-46ac-9cdd-730195757fdc",
+      "name": "HTTP Request",
+      "onError": "continueErrorOutput",
+      "parameters": {
+        "options": {},
+        "url": "={{ $json.URL }}"
+      },
+      "position": [
+        -208,
+        96
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3
+    },
+    {
+      "credentials": {
+        "telegramApi": {
+          "id": "8lzTgy1fvGio8liY",
+          "name": "[bot] B.I.U."
+        }
+      },
+      "id": "ebc4a210-461b-4d1f-a3ac-9f11d8e0b266",
+      "name": "Send a text message",
+      "parameters": {
+        "additionalFields": {
+          "appendAttribution": false
+        },
+        "chatId": "6329122319",
+        "text": "=🚨 ALERTA CRÍTICO: Website FORA DO AR! 🚨\nAtenção! Detectamos uma falha grave em um dos seus projetos. É necessária uma ação imediata! 🛠️\n\n🛑 Projeto Afetado:\n\nNome do Projeto: {{ $('Get row(s) in sheet').item.json['Nome Projeto'] }}\n\nURL: {{ $('Get row(s) in sheet').item.json.URL }}\n\n📉 Detalhes da Falha:\n\nStatus de Erro: {{ $('HTTP Request').item.json.error.status }}\n\n⚠️ Ação Imediata Necessária: Verifique os logs e a hospedagem o mais rápido possível! ⚠️"
+      },
+      "position": [
+        208,
+        192
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "4020cf1b-4134-4af8-8ffa-cf9865160eb5"
+    },
+    {
+      "id": "0ab30c13-9ab6-4288-8f6d-e77b5a2e6ffd",
+      "name": "Schedule Trigger",
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 12
+            }
+          ]
+        }
+      },
+      "position": [
+        -704,
+        96
+      ],
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3
+    },
+    {
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "kYYVcUgp217Zebjp",
+          "name": "[sheets] markniel1408@gmail.com"
+        }
+      },
+      "id": "ca201ad1-9394-4302-9196-121a2046bbcb",
+      "name": "Logs Sucesso",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Projeto",
+              "id": "Projeto",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "URL",
+              "id": "URL",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status",
+              "id": "Status",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Data",
+              "id": "Data",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Data": "==HOJE()",
+            "Projeto": "={{ $('Get row(s) in sheet').item.json['Nome Projeto'] }}",
+            "Status": "200",
+            "URL": "={{ $('Get row(s) in sheet').item.json.URL }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "cachedResultName": "N8N Monitoramento Sites",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ipihUx7v2e9HZlGFfxG2-sLYVqu5uPY4XSUIlX5EDTA/edit?usp=drivesdk",
+          "mode": "list",
+          "value": "1ipihUx7v2e9HZlGFfxG2-sLYVqu5uPY4XSUIlX5EDTA"
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "cachedResultName": "Logs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ipihUx7v2e9HZlGFfxG2-sLYVqu5uPY4XSUIlX5EDTA/edit#gid=1243937105",
+          "mode": "list",
+          "value": 1243937105
+        }
+      },
+      "position": [
+        0,
+        0
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7
+    },
+    {
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "kYYVcUgp217Zebjp",
+          "name": "[sheets] markniel1408@gmail.com"
+        }
+      },
+      "id": "36458769-fb97-4b2b-95b9-f9c07312dc4d",
+      "name": "Logs Erro",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Projeto",
+              "id": "Projeto",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "URL",
+              "id": "URL",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status",
+              "id": "Status",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Data",
+              "id": "Data",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Data": "==HOJE()",
+            "Projeto": "={{ $json['Nome Projeto'] }}",
+            "Status": "={{ $json.error.status }}",
+            "URL": "={{ $('Get row(s) in sheet').item.json.URL }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "cachedResultName": "N8N Monitoramento Sites",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ipihUx7v2e9HZlGFfxG2-sLYVqu5uPY4XSUIlX5EDTA/edit?usp=drivesdk",
+          "mode": "list",
+          "value": "1ipihUx7v2e9HZlGFfxG2-sLYVqu5uPY4XSUIlX5EDTA"
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "cachedResultName": "Logs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ipihUx7v2e9HZlGFfxG2-sLYVqu5uPY4XSUIlX5EDTA/edit#gid=1243937105",
+          "mode": "list",
+          "value": 1243937105
+        }
+      },
+      "position": [
+        0,
+        192
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "availableInMCP": false,
+    "binaryMode": "separate",
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-06-17T23:52:06.344Z",
+      "projectId": "kCVHFkXvuUipUeFN",
+      "role": "workflow:owner",
+      "updatedAt": "2026-06-17T23:52:06.344Z",
+      "workflowId": "luRggyOFA6HSgFwH"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2026-06-27T04:10:59.213Z",
+      "id": "0TXj6tSZQHNsUCSl",
+      "name": "Monitoramento & Backup",
+      "updatedAt": "2026-06-27T04:13:32.986Z"
+    }
+  ],
+  "triggerCount": 1
+}
