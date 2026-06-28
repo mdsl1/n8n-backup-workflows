@@ -1,0 +1,934 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Retornar Consulta",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Adicionar informações na planilha": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Get row(s) in sheet",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Atualizar valores das contas": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Retornar Mensagem de Sucesso",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Classificador de Textos": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Text Classifier",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Atualizar valores das contas",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Text Classifier",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Especialista em Finanças": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Extrator de Dados": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Information Extractor",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Code in JavaScript",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Information Extractor": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Adicionar informações na planilha",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Obter informações da planilha": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Information Extractor",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "Retornar \"Erro\"",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Edit Fields",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "RGeMxU5gLWdQrz1O",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "[T.A.C.O.] Gestor de Finanças",
+  "nodes": [
+    {
+      "id": "7f517435-e1cf-4386-bb93-844024dcf9d3",
+      "name": "Text Classifier",
+      "parameters": {
+        "categories": {
+          "categories": [
+            {
+              "category": "Transações Financeiras",
+              "description": "Se conter qualquer termo relacionado à compra, recebimento ou transferência de dinheiro."
+            },
+            {
+              "category": "Consultas Financeiras",
+              "description": "Se conter qualquer termo relacionado à consulta de saldo em conta, histórico de compras etc."
+            }
+          ]
+        },
+        "inputText": "={{ $json.prompt }}",
+        "options": {
+          "fallback": "other"
+        }
+      },
+      "position": [
+        -608,
+        368
+      ],
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "93e20a14-1c11-4d07-a096-c8b0c8930957",
+      "name": "Information Extractor",
+      "parameters": {
+        "attributes": {
+          "attributes": [
+            {
+              "description": "Nome do mês da transação por extenso (ex: Janeiro, Abril). Baseie-se na data atual se não informado.",
+              "name": "mes"
+            },
+            {
+              "description": "Apenas o número do dia da transação. Se o usuário disser \"ontem\", calcule com base na data atual.",
+              "name": "dia",
+              "type": "number"
+            },
+            {
+              "description": "Apenas o valor numérico da transação. Use ponto para decimais. Ex: 40.00",
+              "name": "valor",
+              "type": "number"
+            },
+            {
+              "description": "Definir estritamente como: \"Entrada\" (ganhos), \"Saída\" (gastos) ou \"Movimentação\" (transferência entre contas). SEMPRE RESPEITE A ACENTUAÇÃO.",
+              "name": "tipo_transacao"
+            },
+            {
+              "description": "Escolha estritamente entre: 'Cartão Crédito', 'Cartão Débito', 'Pix', 'Dinheiro Vivo' ou 'Outros'. IMPORTANTE: Sempre que a transação for do tipo 'Movimentação' (transferência entre bancos ou contas), o tipo_valor deve ser obrigatoriamente 'Outros'. Use 'Dinheiro Vivo' apenas para gastos com papel moeda físico. SEMPRE RESPEITE A ACENTUAÇÃO.",
+              "name": "tipo_valor"
+            },
+            {
+              "description": "Categorias: \"Alimentação\" (refeições reais), \"Besteiras\" (doces, lanches, salgados de faculdade), \"Essenciais\" (contas, remédios), \"Combustível\", \"Lazer\", \"Transferências\". SEMPRE RESPEITE A ACENTUAÇÃO.",
+              "name": "classificacao_valor"
+            },
+            {
+              "description": "Origem do dinheiro: \"Santander\", \"Nubank\", \"Itaú\", \"99Pay\" ou \"Outros\". Se for movimentação, use o banco de origem. SEMPRE RESPEITE A ACENTUAÇÃO.",
+              "name": "centro_de_custo"
+            },
+            {
+              "description": "Um resumo bem curto e direto do gasto ou ganho. SEMPRE RESPEITE A ACENTUAÇÃO.",
+              "name": "descricao"
+            }
+          ]
+        },
+        "options": {
+          "systemPromptTemplate": "=Hoje é dia {{ $now.format('dd/MM/yyyy') }}\n"
+        },
+        "text": "={{ $json.prompt }}"
+      },
+      "position": [
+        0,
+        0
+      ],
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1.2
+    },
+    {
+      "credentials": {
+        "groqApi": {
+          "id": "KwoGn0N7Ng6wYa9P",
+          "name": "[groq-key: text-classifier] markniel1408@gmail.com"
+        }
+      },
+      "id": "6b7363d3-c956-4551-a96d-04e2ac6e1a8c",
+      "name": "Classificador de Textos",
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "position": [
+        -608,
+        576
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1
+    },
+    {
+      "credentials": {
+        "groqApi": {
+          "id": "Jjg7y06jrA38F1wz",
+          "name": "[groq-key: text-extractor] markniel1408@gmail.com"
+        }
+      },
+      "id": "5658a1ca-367b-4203-862a-35370d13800e",
+      "name": "Extrator de Dados",
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "position": [
+        0,
+        176
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1
+    },
+    {
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "kYYVcUgp217Zebjp",
+          "name": "[sheets] markniel1408@gmail.com"
+        }
+      },
+      "id": "98270da6-9c58-4948-b80b-57e47d2ee529",
+      "name": "Adicionar informações na planilha",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Mês",
+              "id": "Mês",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Dia",
+              "id": "Dia",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Valor",
+              "id": "Valor",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Tipo Transação",
+              "id": "Tipo Transação",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Tipo Valor",
+              "id": "Tipo Valor",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Classificação Valor",
+              "id": "Classificação Valor",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Centro de Custo",
+              "id": "Centro de Custo",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Descrição",
+              "id": "Descrição",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Saldo Santander",
+              "id": "Saldo Santander",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Poupança Santander",
+              "id": "Poupança Santander",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Saldo Nubank",
+              "id": "Saldo Nubank",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Caixinha Nubank",
+              "id": "Caixinha Nubank",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Saldo 99Pay",
+              "id": "Saldo 99Pay",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Saldo Itaú",
+              "id": "Saldo Itaú",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Investimentos Rico",
+              "id": "Investimentos Rico",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "Centro de Custo": "={{ $json.output.centro_de_custo }}",
+            "Classificação Valor": "={{ $json.output.classificacao_valor }}",
+            "Descrição": "={{ $json.output.descricao }}",
+            "Dia": "={{ $json.output.dia }}",
+            "Mês": "={{ $json.output.mes }}",
+            "Tipo Transação": "={{ $json.output.tipo_transacao }}",
+            "Tipo Valor": "={{ $json.output.tipo_valor }}",
+            "Valor": "={{ $json.output.valor }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "cachedResultName": "Controle Finanças",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YGayk4Gl27a_gSGSUzJRPHS0b_StCYOI9bcIclxIDEs/edit?usp=drivesdk",
+          "mode": "list",
+          "value": "1YGayk4Gl27a_gSGSUzJRPHS0b_StCYOI9bcIclxIDEs"
+        },
+        "operation": "append",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "cachedResultName": "Dados",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YGayk4Gl27a_gSGSUzJRPHS0b_StCYOI9bcIclxIDEs/edit#gid=0",
+          "mode": "list",
+          "value": "gid=0"
+        }
+      },
+      "position": [
+        384,
+        0
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7
+    },
+    {
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "kYYVcUgp217Zebjp",
+          "name": "[sheets] markniel1408@gmail.com"
+        }
+      },
+      "id": "a28f6ed7-82e7-4293-86d8-14a47a5ae344",
+      "name": "Obter informações da planilha",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "cachedResultName": "Controle Finanças",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YGayk4Gl27a_gSGSUzJRPHS0b_StCYOI9bcIclxIDEs/edit?usp=drivesdk",
+          "mode": "list",
+          "value": "1YGayk4Gl27a_gSGSUzJRPHS0b_StCYOI9bcIclxIDEs"
+        },
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "cachedResultName": "Dados",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YGayk4Gl27a_gSGSUzJRPHS0b_StCYOI9bcIclxIDEs/edit#gid=0",
+          "mode": "list",
+          "value": "gid=0"
+        }
+      },
+      "position": [
+        160,
+        768
+      ],
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7
+    },
+    {
+      "credentials": {
+        "groqApi": {
+          "id": "3LdcpckX3lH2Hhjn",
+          "name": "[groq-key: ai-agent] markniel1408@gmail.com"
+        }
+      },
+      "id": "a7552fd6-e524-461d-819c-b1707eca0a70",
+      "name": "Especialista em Finanças",
+      "parameters": {
+        "options": {
+          "temperature": 0.7
+        }
+      },
+      "position": [
+        16,
+        768
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1
+    },
+    {
+      "id": "c04ecd43-5b40-4e21-b1af-71202908c301",
+      "name": "AI Agent",
+      "parameters": {
+        "options": {
+          "systemMessage": "Role:\nVocê é um Especialista em Finanças Pessoais focado em análise de dados estruturados. Sua única fonte de verdade é o retorno da ferramenta Obter informações da planilha.\n\nProtocolo de Pensamento (Chain of Thought):\n\nLeitura: Antes de qualquer resposta, execute a ferramenta e leia a Linha 2 (Saldos) e as linhas seguintes (Histórico).\n\nFiltragem: Identifique se o usuário perguntou sobre \"Saldo Atual\", \"Investimentos\" ou \"Histórico de Gastos\".\n\nIsolamento: Nunca misture valores de Reservas ou Investimentos em cálculos de \"Saldo Disponível\".\n\nSegmentação de Dados (Obrigatória):\n\n1. Disponibilidade Imediata (Saldo Real): Use exclusivamente a Linha 2 das colunas: Saldo Santander, Saldo Nubank, Saldo 99Pay e Saldo Itaú.\n\nRegra: Quando perguntado \"Quanto eu tenho?\", some apenas estes 4 bancos. Não cite reservas ou investimentos aqui.\n\n2. Reservas de Emergência: Use a Linha 2 das colunas: Caixinha Nubank e Poupança Santander.\n\nRegra de Ouro: Estes valores são \"invisíveis\". Você SÓ deve mencioná-los se o usuário perguntar especificamente por \"Reservas\", \"Emergência\" ou \"Quanto tenho guardado\".\n\n2. Investimentos: Use a Linha 2 da coluna: Investimentos Rico.\n\nRegra de Ouro: Estes valores são \"invisíveis\". Você SÓ deve mencioná-los se o usuário perguntar especificamente por \"Investimentos\", \"Dinheiro Aplicado\" ou \"Quanto tenho investido\".\n\n3. Histórico de Transações: Use todas as linhas (da 3 em diante) das colunas: Mês, Dia, Valor, Tipo Transação, Classificação Valor, Centro de Custo e Descrição.\n\nAplicação: Use para responder: \"Quanto gastei com combustível?\", \"Quanto foi gasto em alimentação no mês X?\".\n\nDiretrizes de Resposta:\n\nConsultas por Banco: Se perguntado sobre um banco específico (ex: \"Saldo do Itaú\"), dê apenas o valor de conta corrente daquele banco.\n\nAnálise de \"Besteiras\": Sempre monitore a categoria \"Besteiras\" (lanches/salgados). Se os gastos aqui forem altos e a \"Disponibilidade Imediata\" estiver baixa, dê um conselho construtivo.\n\nTratamento de Movimentações: Ignore transações do tipo \"Movimentação\" em cálculos de soma de gastos, pois são apenas transferências entre contas.\n\nLimpeza de Output: Responda de forma direta e humana. Proibido exibir tags de sistema, JSON ou nomes de funções como <function...> na resposta final.\n\nTom de Voz:\nMentor financeiro. Profissional, direto e atento aos detalhes. Use termos como \"Seu poder de compra atual é...\", \"Seu gasto acumulado em [Categoria] é...\" ou \"Notei uma reserva disponível para emergências de...\"."
+        },
+        "promptType": "define",
+        "text": "={{ $json.prompt }}"
+      },
+      "position": [
+        16,
+        592
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1
+    },
+    {
+      "id": "df87fd42-165b-4a93-8f15-8d42339437c5",
+      "name": "Code in JavaScript",
+      "parameters": {
+        "jsCode": "// 1. Acesso aos dados\nconst saldosAtuais = $input.first().json; \nconst transacao = $('Information Extractor').first().json.output;\nconst valorLimpo = parseFloat(transacao.valor || 0);\n\nconst tipo = transacao.tipo_transacao;\nconst is_credito = transacao.tipo_valor === \"Cartão Crédito\";\nconst bancoOrigem = transacao.centro_de_custo; \nconst descricao = transacao.descricao || \"\";\n\n// 3. Mapeamento de colunas\nconst getColuna = (nome) => {\n    const mapa = {\n        \"Santander\": \"Saldo Santander\",\n        \"Nubank\": \"Saldo Nubank\",\n        \"Itaú\": \"Saldo Itaú\",\n        \"99Pay\": \"Saldo 99Pay\",\n        \"Rico\": \"Investimentos Rico\",\n        \"Caixinha\": \"Caixinha Nubank\",\n        \"Poupança\": \"Poupança Santander\"\n    };\n    return mapa[nome] || nome;\n};\n\nconsole.log(\"DADOS CAPTURADOS:\", { bancoOrigem, tipo, valorLimpo, is_credito });\n\n// 4. Lógica de Cálculo\ntry {\n    if (tipo === \"Movimentação\") {\n        const bancos = [\"Santander\", \"Nubank\", \"Itaú\", \"99Pay\", \"Rico\", \"Caixinha\", \"Poupança\"];\n        let bancoDestino = bancos.find(b => {\n            const descricaoSemAcento = descricao.normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\").toLowerCase();\n            const bancoSemAcento = b.normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\").toLowerCase();\n            \n            return descricaoSemAcento.includes(bancoSemAcento) && b !== bancoOrigem;\n        });\n\n      console.log(`Banco Origem: ${bancoOrigem}, Banco Destino: ${bancoDestino}`);\n        if (bancoOrigem && bancoDestino) {\n            const colOrigem = getColuna(bancoOrigem);\n            const colDestino = getColuna(bancoDestino);\n            \n            saldosAtuais[colOrigem] = parseFloat((Number(saldosAtuais[colOrigem] || 0) - valorLimpo).toFixed(2));\n            saldosAtuais[colDestino] = parseFloat((Number(saldosAtuais[colDestino] || 0) + valorLimpo).toFixed(2));\n        }\n    } else if (!is_credito) {\n        const coluna = getColuna(bancoOrigem);\n        \n        // Log de debug para você ver no console do navegador se quiser\n        console.log(`Calculando: ${coluna}, Tipo: ${tipo}, Valor: ${valorLimpo}`);\n\n        if (saldosAtuais.hasOwnProperty(coluna)) {\n            const saldoAtualNum = Number(saldosAtuais[coluna] || 0);\n            saldosAtuais[coluna] = (tipo === \"Entrada\") ? saldoAtualNum + valorLimpo : saldoAtualNum - valorLimpo;\n        }\n    }\n} catch (e) {\n    throw new Error(\"Erro no processamento: \" + e.message);\n}\n\n// 5. Retorna o objeto\nreturn { json: saldosAtuais };"
+      },
+      "position": [
+        832,
+        0
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "kYYVcUgp217Zebjp",
+          "name": "[sheets] markniel1408@gmail.com"
+        }
+      },
+      "id": "d032fd44-e3d1-459e-a488-819251dc5c40",
+      "name": "Get row(s) in sheet",
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "cachedResultName": "Controle Finanças",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YGayk4Gl27a_gSGSUzJRPHS0b_StCYOI9bcIclxIDEs/edit?usp=drivesdk",
+          "mode": "list",
+          "value": "1YGayk4Gl27a_gSGSUzJRPHS0b_StCYOI9bcIclxIDEs"
+        },
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "cachedResultName": "Dados",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YGayk4Gl27a_gSGSUzJRPHS0b_StCYOI9bcIclxIDEs/edit#gid=0",
+          "mode": "list",
+          "value": "gid=0"
+        }
+      },
+      "position": [
+        624,
+        0
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7
+    },
+    {
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "kYYVcUgp217Zebjp",
+          "name": "[sheets] markniel1408@gmail.com"
+        }
+      },
+      "id": "f7d25c59-fa8d-453e-9ebe-b5d17e88093f",
+      "name": "Atualizar valores das contas",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Mês",
+              "id": "Mês",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Dia",
+              "id": "Dia",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Valor",
+              "id": "Valor",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Tipo Transação",
+              "id": "Tipo Transação",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Tipo Valor",
+              "id": "Tipo Valor",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Classificação Valor",
+              "id": "Classificação Valor",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Centro de Custo",
+              "id": "Centro de Custo",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Descrição",
+              "id": "Descrição",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Saldo Santander",
+              "id": "Saldo Santander",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Poupança Santander",
+              "id": "Poupança Santander",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Saldo Nubank",
+              "id": "Saldo Nubank",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Caixinha Nubank",
+              "id": "Caixinha Nubank",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Saldo 99Pay",
+              "id": "Saldo 99Pay",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Saldo Itaú",
+              "id": "Saldo Itaú",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Investimentos Rico",
+              "id": "Investimentos Rico",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "row_number",
+              "id": "row_number",
+              "readOnly": true,
+              "removed": false,
+              "required": false,
+              "type": "number"
+            }
+          ],
+          "value": {
+            "Caixinha Nubank": "={{ $json['Caixinha Nubank'] }}",
+            "Investimentos Rico": "={{ $json['Investimentos Rico'] }}",
+            "Poupança Santander": "={{ $json['Poupança Santander'] }}",
+            "Saldo 99Pay": "={{ $json['Saldo 99Pay'] }}",
+            "Saldo Itaú": "={{ $json['Saldo Itaú'] }}",
+            "Saldo Nubank": "={{ $json['Saldo Nubank'] }}",
+            "Saldo Santander": "={{ $json['Saldo Santander'] }}",
+            "row_number": "={{ $json.row_number }}"
+          }
+        },
+        "documentId": {
+          "__rl": true,
+          "cachedResultName": "Controle Finanças",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YGayk4Gl27a_gSGSUzJRPHS0b_StCYOI9bcIclxIDEs/edit?usp=drivesdk",
+          "mode": "list",
+          "value": "1YGayk4Gl27a_gSGSUzJRPHS0b_StCYOI9bcIclxIDEs"
+        },
+        "operation": "update",
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "cachedResultName": "Dados",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YGayk4Gl27a_gSGSUzJRPHS0b_StCYOI9bcIclxIDEs/edit#gid=0",
+          "mode": "list",
+          "value": "gid=0"
+        }
+      },
+      "position": [
+        1056,
+        0
+      ],
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7
+    },
+    {
+      "id": "3af09b9a-5d02-4dee-80e2-18fb9ead437d",
+      "name": "Retornar \"Erro\"",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d743f56b-7123-471f-96b6-bf9b67e033b3",
+              "name": "resposta",
+              "type": "string",
+              "value": "Não compreendi o que você quis dizer. (Gestor de Finanças)"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        -304,
+        608
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "697b7de1-a6e3-4157-a4f5-6f78add6a06c",
+      "name": "Retornar Consulta",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d743f56b-7123-471f-96b6-bf9b67e033b3",
+              "name": "resposta",
+              "type": "string",
+              "value": "={{ $json.output }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        384,
+        592
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "7fbdc6c8-c802-4053-93c3-94169e51ac05",
+      "name": "Retornar Mensagem de Sucesso",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d743f56b-7123-471f-96b6-bf9b67e033b3",
+              "name": "resposta",
+              "type": "string",
+              "value": "={{ $('Information Extractor').first().json.output.tipo_transacao }} de R$ {{ $('Information Extractor').first().json.output.valor }} no banco {{ $('Information Extractor').first().json.output.centro_de_custo }} adicionada com sucesso à planilha."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        1280,
+        0
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "6961a4a8-c1e5-4f10-8517-ada95cc48a53",
+      "name": "When Executed by Another Workflow",
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "prompt"
+            }
+          ]
+        }
+      },
+      "position": [
+        -1088,
+        384
+      ],
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "e3688e96-c3a0-4da0-ae4a-19ca81fe3111",
+      "name": "Edit Fields",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "06b11ad9-911d-4f29-ac80-815a23026818",
+              "name": "bancos",
+              "type": "array",
+              "value": "Santander, Nubank, 99Pay"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        -880,
+        384
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "availableInMCP": false,
+    "binaryMode": "separate",
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-06-27T21:16:28.375Z",
+      "projectId": "kCVHFkXvuUipUeFN",
+      "role": "workflow:owner",
+      "updatedAt": "2026-06-27T21:16:28.375Z",
+      "workflowId": "RGeMxU5gLWdQrz1O"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0
+}
