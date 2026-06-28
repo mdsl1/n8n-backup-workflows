@@ -180,9 +180,9 @@
         ]
       }
     },
-    "createdAt": "2026-06-27T16:43:23.559Z",
+    "createdAt": "2026-06-27T17:35:41.440Z",
     "description": "",
-    "name": "27062026.01",
+    "name": "27062026.02",
     "nodeGroups": [],
     "nodes": [
       {
@@ -590,7 +590,7 @@
         "id": "a58e94f4-48ca-4f8e-bd3a-283c5e925cab",
         "name": "Comparação Arquivo n8n - Github",
         "parameters": {
-          "jsCode": "// Função auxiliar para ordenar as chaves do JSON de forma idêntica\nconst orderJsonKeys = (jsonObj) => {\n    if (typeof jsonObj !== 'object' || jsonObj === null) return jsonObj;\n    \n    if (Array.isArray(jsonObj)) {\n        return jsonObj.map(orderJsonKeys);\n    }\n\n    const ordered = {};\n    Object.keys(jsonObj).sort().forEach(key => {\n        ordered[key] = orderJsonKeys(jsonObj[key]);\n    });\n    return ordered;\n};\n\n// Função para remover metadados que quebram a comparação\nconst sanitizeWorkflow = (workflow) => {\n    const data = { ...workflow };\n    delete data.versionId;\n    delete data.updatedAt;\n    delete data.createdAt;\n    return data;\n};\n\n// Captura o workflow vindo do Loop e faz o tratamento\nconst rawN8nWorkflow = $('Loop Over Items').item.json;\nconst n8nWorkflowClean = sanitizeWorkflow(rawN8nWorkflow);\nconst n8nItem = orderJsonKeys(n8nWorkflowClean);\n\n// Captura a resposta vinda do Github (pode ou não ser um arquivo)\nconst githubResponse = $input.item.json;\n\n// Define o caminho no Github baseado nas tags do workflow\nlet folderName = '';\nif (rawN8nWorkflow.tags && rawN8nWorkflow.tags.length > 0) {\n    folderName = rawN8nWorkflow.tags[0].name.trim().replace(/[\\/\\\\?%*:|\"<>]/g, '-');\n}\nconst defaultPath = `${folderName}/${rawN8nWorkflow.name}.json`;\nlet githubStatus = \"new\";\nlet filePath = defaultPath;\n\n// Se o arquivo existe no GitHub (contém a chave \"content\")\nif (githubResponse && githubResponse.content) {\n    try {\n        // Decodifica o Base64 do GitHub\n        const githubBase64 = githubResponse.content.replace(/\\s/g, '');\n        const githubTextContent = Buffer.from(githubBase64, 'base64').toString('utf-8');\n        const githubWorkflow = JSON.parse(githubTextContent);\n        \n        // Limpa e ordena ambos para comparação justa\n        const githubItem = orderJsonKeys(sanitizeWorkflow(githubWorkflow));\n\n        // Compara o workflow n8n com o workflow github\n        if (JSON.stringify(githubItem) === JSON.stringify(n8nItem)) {\n            // Totalmente igual\n            githubStatus = \"do_nothing\"; \n        } else {\n            // Houve alteração real\n            githubStatus = \"update\";     \n        }\n    } catch (e) {\n        // Se falhar na decodificação, força update por segurança\n        githubStatus = \"update\"; \n    }\n    filePath = githubResponse.path || defaultPath;\n} \n\n// 7. Monta o payload final que será injetado no fluxo\nconst outputJson = {\n    result: {\n      github_status: githubStatus,\n      github_file_path: filePath,\n      n8nCleanData: {\n        content: JSON.stringify(n8nItem, null, 2)\n      }\n    },\n    n8nRawData: {\n      ...rawN8nWorkflow\n    },\n};\n\nreturn { json: outputJson };"
+          "jsCode": "// Função auxiliar para ordenar as chaves do JSON de forma idêntica\nconst orderJsonKeys = (jsonObj) => {\n    if (typeof jsonObj !== 'object' || jsonObj === null) return jsonObj;\n    \n    if (Array.isArray(jsonObj)) {\n        return jsonObj.map(orderJsonKeys);\n    }\n\n    const ordered = {};\n    Object.keys(jsonObj).sort().forEach(key => {\n        ordered[key] = orderJsonKeys(jsonObj[key]);\n    });\n    return ordered;\n};\n\n// Função para remover metadados que quebram a comparação\nconst sanitizeWorkflow = (workflow) => {\n    const data = { ...workflow };\n    delete data.versionId;\n    delete data.updatedAt;\n    delete data.createdAt;\n    return data;\n};\n\n// Captura o workflow vindo do Loop e faz o tratamento\nconst rawN8nWorkflow = $('Loop Over Items').item.json;\nconst n8nWorkflowClean = sanitizeWorkflow(rawN8nWorkflow);\nconst n8nItem = orderJsonKeys(n8nWorkflowClean);\n\n// Captura a resposta vinda do Github (pode ou não ser um arquivo)\nconst githubResponse = $input.item.json;\n\n// Define o caminho no Github baseado nas tags do workflow\nlet folderName = 'Gerais';\nif (rawN8nWorkflow.tags && rawN8nWorkflow.tags.length > 0) {\n    folderName = rawN8nWorkflow.tags[0].name.trim().replace(/[\\/\\\\?%*:|\"<>]/g, '-');\n}\nconst defaultPath = `${folderName}/${rawN8nWorkflow.name}.json`;\nlet githubStatus = \"new\";\nlet filePath = defaultPath;\n\n// Se o arquivo existe no GitHub (contém a chave \"content\")\nif (githubResponse && githubResponse.content) {\n    try {\n        // Decodifica o Base64 do GitHub\n        const githubBase64 = githubResponse.content.replace(/\\s/g, '');\n        const githubTextContent = Buffer.from(githubBase64, 'base64').toString('utf-8');\n        const githubWorkflow = JSON.parse(githubTextContent);\n        \n        // Limpa e ordena ambos para comparação justa\n        const githubItem = orderJsonKeys(sanitizeWorkflow(githubWorkflow));\n\n        // Compara o workflow n8n com o workflow github\n        if (JSON.stringify(githubItem) === JSON.stringify(n8nItem)) {\n            // Totalmente igual\n            githubStatus = \"do_nothing\"; \n        } else {\n            // Houve alteração real\n            githubStatus = \"update\";     \n        }\n    } catch (e) {\n        // Se falhar na decodificação, força update por segurança\n        githubStatus = \"update\"; \n    }\n    filePath = githubResponse.path || defaultPath;\n} \n\n// 7. Monta o payload final que será injetado no fluxo\nconst outputJson = {\n    result: {\n      github_status: githubStatus,\n      github_file_path: filePath,\n      n8nCleanData: {\n        content: JSON.stringify(n8nItem, null, 2)\n      }\n    },\n    n8nRawData: {\n      ...rawN8nWorkflow\n    },\n};\n\nreturn { json: outputJson };"
         },
         "position": [
           1424,
@@ -611,11 +611,11 @@
         "typeVersion": 1
       }
     ],
-    "updatedAt": "2026-06-27T16:43:38.000Z",
-    "versionId": "0dc77db3-39e0-42a0-b1b7-c4729ce021e0",
+    "updatedAt": "2026-06-27T17:36:38.000Z",
+    "versionId": "a859bf3c-5fe3-48cc-ae34-30467ac9c9fd",
     "workflowId": "UBYPN81u6nvFrznD"
   },
-  "activeVersionId": "0dc77db3-39e0-42a0-b1b7-c4729ce021e0",
+  "activeVersionId": "a859bf3c-5fe3-48cc-ae34-30467ac9c9fd",
   "connections": {
     "Code in JavaScript1": {
       "main": [
@@ -1243,7 +1243,9 @@
   ],
   "staticData": {
     "node:Schedule Trigger": {
-      "recurrenceRules": []
+      "recurrenceRules": [
+        179
+      ]
     }
   },
   "tags": [
