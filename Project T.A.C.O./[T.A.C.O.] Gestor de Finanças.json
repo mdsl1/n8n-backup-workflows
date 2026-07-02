@@ -527,6 +527,7 @@
       "id": "a7552fd6-e524-461d-819c-b1707eca0a70",
       "name": "Especialista em Finanças",
       "parameters": {
+        "model": "llama-3.3-70b-versatile",
         "options": {
           "temperature": 0.7
         }
