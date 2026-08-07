@@ -1,0 +1,359 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "SET Response": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[Agenda Dr.] Return Data",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Setup": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[POST] Criar Agenda",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Setup1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Basic LLM Chain",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[Agenda Dr.] Return Data": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "No Operation, do nothing",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[CREATE] Agenda Dr.": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Setup",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[CREATE] Agendamento": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Setup1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[POST] Criar Agenda": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "SET Response",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "wXVF9y6RlQ22QRwY",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "[CRUD] Calendar Agend.AI",
+  "nodes": [
+    {
+      "id": "1975a1c3-f416-403b-a0d9-de5d2b2e2aee",
+      "name": "Setup",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5cfd939a-79a5-40c0-871a-47861f53bf35",
+              "name": "timezone",
+              "type": "string",
+              "value": "America/Sao_Paulo"
+            },
+            {
+              "id": "548006ae-6934-468b-857d-542e31e0a219",
+              "name": "nome_completo",
+              "type": "string",
+              "value": "={{ $json.body.nome }}"
+            },
+            {
+              "id": "986571c5-926c-44c0-9bbd-40ef80b148e0",
+              "name": "nome",
+              "type": "string",
+              "value": "={{ $json.body.nome.split(' ')[0] }} {{ $json.body.nome.split(' ').last() }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        -176,
+        -16
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "8ecd15e9-f194-4f5b-a220-2d2fc9061fe4",
+      "name": "[CREATE] Agenda Dr.",
+      "parameters": {
+        "httpMethod": "POST",
+        "options": {},
+        "path": "8c6ff736-f915-4a03-9a44-5292a7f61fea",
+        "responseMode": "responseNode"
+      },
+      "position": [
+        -400,
+        -16
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "webhookId": "8c6ff736-f915-4a03-9a44-5292a7f61fea"
+    },
+    {
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "TbTbx7HkF2IEC13L",
+          "name": "[calendar] administradorchatwoot@gmail.com"
+        }
+      },
+      "id": "4dc591a4-121b-4c70-ae51-e19c2e2a368e",
+      "name": "[POST] Criar Agenda",
+      "parameters": {
+        "authentication": "predefinedCredentialType",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "summary",
+              "value": "=Dr. {{ $json.nome }}"
+            },
+            {
+              "name": "description",
+              "value": "=Agenda do Dr. {{ $json.nome_completo }}"
+            },
+            {
+              "name": "timeZone",
+              "value": "={{ $json.timezone }}"
+            }
+          ]
+        },
+        "method": "POST",
+        "nodeCredentialType": "googleCalendarOAuth2Api",
+        "options": {},
+        "sendBody": true,
+        "url": "https://www.googleapis.com/calendar/v3/calendars"
+      },
+      "position": [
+        48,
+        -16
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4
+    },
+    {
+      "id": "4411067a-d444-4762-baf4-4d0e4820781c",
+      "name": "SET Response",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "abf0223f-9475-4b75-93f6-66f584a31b5f",
+              "name": "identifier",
+              "type": "string",
+              "value": "={{ $json.summary }}"
+            },
+            {
+              "id": "ab131c59-2ed4-4fa2-b56f-5563659e0cb9",
+              "name": "id",
+              "type": "string",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        272,
+        -16
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "bb1e402f-8bba-445f-90c9-dc4e1714d49e",
+      "name": "No Operation, do nothing",
+      "parameters": {},
+      "position": [
+        720,
+        -16
+      ],
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1
+    },
+    {
+      "id": "2f6a9697-a6d9-4abd-9c73-dde0f6bcee1d",
+      "name": "[Agenda Dr.] Return Data",
+      "parameters": {
+        "options": {},
+        "respondWith": "json",
+        "responseBody": "={\n  \"id_agenda\": {{ JSON.stringify($json.id) }},\n  \"identifier\": {{ JSON.stringify($json.identifier) }}\n} "
+      },
+      "position": [
+        496,
+        -16
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5
+    },
+    {
+      "id": "3a246193-4124-43f4-9e86-00a6c73e05ab",
+      "name": "Sticky Note",
+      "parameters": {
+        "content": "Body:\n{\n    \"nome\": \"Paulo Plínio\"\n}",
+        "height": 112,
+        "width": 192
+      },
+      "position": [
+        -432,
+        -144
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "13f842e7-8ec6-4a61-acb8-aa12a0ecd5dd",
+      "name": "Sticky Note1",
+      "parameters": {
+        "content": "Body:\n{\n    \"nome\": \"Paulo Plínio\"\n}",
+        "height": 112,
+        "width": 192
+      },
+      "position": [
+        -432,
+        272
+      ],
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1
+    },
+    {
+      "id": "b6bb61f4-8040-4f8a-930c-2101624124be",
+      "name": "[CREATE] Agendamento",
+      "parameters": {
+        "httpMethod": "POST",
+        "options": {},
+        "path": "2425ac49-0cb7-4716-a9d6-86790ec737f2",
+        "responseMode": "responseNode"
+      },
+      "position": [
+        -384,
+        400
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "webhookId": "2425ac49-0cb7-4716-a9d6-86790ec737f2"
+    },
+    {
+      "id": "2e623e6d-27ec-4cd3-9707-c1e385401329",
+      "name": "Setup1",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5cfd939a-79a5-40c0-871a-47861f53bf35",
+              "name": "timezone",
+              "type": "string",
+              "value": "America/Sao_Paulo"
+            },
+            {
+              "id": "548006ae-6934-468b-857d-542e31e0a219",
+              "name": "nome_completo",
+              "type": "string",
+              "value": "={{ $json.body.nome }}"
+            },
+            {
+              "id": "986571c5-926c-44c0-9bbd-40ef80b148e0",
+              "name": "nome",
+              "type": "string",
+              "value": "={{ $json.body.nome.split(' ')[0] }} {{ $json.body.nome.split(' ').last() }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        -160,
+        400
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "8c4c94c1-62be-48aa-906a-f51bcc862371",
+      "name": "Basic LLM Chain",
+      "parameters": {
+        "batching": {}
+      },
+      "position": [
+        64,
+        400
+      ],
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "availableInMCP": false,
+    "binaryMode": "separate",
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-08-06T21:29:51.884Z",
+      "projectId": "kCVHFkXvuUipUeFN",
+      "role": "workflow:owner",
+      "updatedAt": "2026-08-06T21:29:51.884Z",
+      "workflowId": "wXVF9y6RlQ22QRwY"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2026-07-16T23:54:38.931Z",
+      "id": "MtRFHANTiKvmBtbg",
+      "name": "Agend.AI",
+      "updatedAt": "2026-07-16T23:54:38.931Z"
+    }
+  ],
+  "triggerCount": 0
+}
