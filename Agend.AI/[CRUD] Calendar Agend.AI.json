@@ -1,14 +1,1018 @@
 {
-  "active": false,
-  "activeVersion": null,
-  "activeVersionId": null,
+  "active": true,
+  "activeVersion": {
+    "authors": "Marcos Lima",
+    "autosaved": true,
+    "connections": {
+      "Encontrar Alternativas": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[RETURN] Disponibilidade == false Response",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Validação Disponibilidade": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[RETURN] Disponibilidade == true Response",
+              "type": "main"
+            }
+          ],
+          [
+            {
+              "index": 0,
+              "node": "[RETURN] Disponibilidade error Response",
+              "type": "main"
+            }
+          ],
+          [
+            {
+              "index": 0,
+              "node": "[GET] Eventos próximos Dias",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[CRUD] Agend.AI": {
+        "main": [
+          [],
+          [],
+          [],
+          [
+            {
+              "index": 0,
+              "node": "[POST] Operacoes",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[GET] Consultar eventos by Agenda": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[SET] Response2",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[GET] Disponibilidade by Agenda": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Validação Disponibilidade",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[GET] Eventos próximos Dias": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Encontrar Alternativas",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[POST] Criar Agenda": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[SET] Response",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[POST] Criar Evento": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[SET] Response1",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[POST] Operacoes": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[SET] Dados Agenda",
+              "type": "main"
+            }
+          ],
+          [
+            {
+              "index": 0,
+              "node": "[SET] Dados Evento",
+              "type": "main"
+            }
+          ],
+          [
+            {
+              "index": 0,
+              "node": "[SET] Dados Busca Agenda",
+              "type": "main"
+            }
+          ],
+          [
+            {
+              "index": 0,
+              "node": "[SET] Dados Busca Disponibilidade",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[RETURN] Agenda Response": {
+        "main": [
+          []
+        ]
+      },
+      "[SET] Dados Agenda": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[POST] Criar Agenda",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[SET] Dados Busca Agenda": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[GET] Consultar eventos by Agenda",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[SET] Dados Busca Disponibilidade": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[GET] Disponibilidade by Agenda",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[SET] Dados Evento": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[POST] Criar Evento",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[SET] Response": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[RETURN] Agenda Response",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[SET] Response1": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[RETURN] Agendamento Response",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[SET] Response2": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[RETURN] Agendamentos Response",
+              "type": "main"
+            }
+          ]
+        ]
+      }
+    },
+    "createdAt": "2026-08-12T13:51:28.376Z",
+    "description": "",
+    "name": "12082026.02",
+    "nodeGroups": [],
+    "nodes": [
+      {
+        "alwaysOutputData": true,
+        "credentials": {
+          "googleCalendarOAuth2Api": {
+            "id": "TbTbx7HkF2IEC13L",
+            "name": "[calendar] administradorchatwoot@gmail.com"
+          }
+        },
+        "id": "4dc591a4-121b-4c70-ae51-e19c2e2a368e",
+        "name": "[POST] Criar Agenda",
+        "onError": "continueRegularOutput",
+        "parameters": {
+          "authentication": "predefinedCredentialType",
+          "bodyParameters": {
+            "parameters": [
+              {
+                "name": "summary",
+                "value": "={{ $json.nome_agenda }}"
+              },
+              {
+                "name": "description",
+                "value": "=Agenda do {{ $json.prefixo }} {{ $json.nome_completo }}"
+              },
+              {
+                "name": "timeZone",
+                "value": "={{ $json.timezone }}"
+              }
+            ]
+          },
+          "method": "POST",
+          "nodeCredentialType": "googleCalendarOAuth2Api",
+          "options": {},
+          "sendBody": true,
+          "url": "https://www.googleapis.com/calendar/v3/calendars"
+        },
+        "position": [
+          -1024,
+          -2896
+        ],
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4
+      },
+      {
+        "id": "2f6a9697-a6d9-4abd-9c73-dde0f6bcee1d",
+        "name": "[RETURN] Agenda Response",
+        "parameters": {
+          "options": {},
+          "respondWith": "json",
+          "responseBody": "={\n  \"sucesso\": {{ $json.sucesso }},\n  \"id_agenda\": {{ JSON.stringify($json.id) }},\n  \"identifier\": {{ JSON.stringify($json.identifier) }},\n  \"prefixo\": {{ JSON.stringify($json.prefixo) }}\n} "
+        },
+        "position": [
+          -576,
+          -2896
+        ],
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1.5
+      },
+      {
+        "id": "84857daf-8ed0-4b47-996f-336fabb26038",
+        "name": "[RETURN] Agendamento Response",
+        "parameters": {
+          "options": {},
+          "respondWith": "json",
+          "responseBody": "={\n  \"sucess\": {{ $json.sucess }},\n  \"id_event\": {{ JSON.stringify($json.id_event) }},\n  \"uuid_agendamento\": {{ JSON.stringify($json.id_agendamento) }},\n  \"horario_solicitado\": {\n      \"inicio\": {{ JSON.stringify($json.inicio_solicitado) }},\n      \"fim\": {{ JSON.stringify($json.fim_solicitado) }}\n  }\n} "
+        },
+        "position": [
+          -576,
+          -2704
+        ],
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1.5
+      },
+      {
+        "id": "504c16ea-65b3-45d2-a5c4-af236b1036ce",
+        "name": "[SET] Dados Agenda",
+        "parameters": {
+          "jsCode": "const payload = $(\"[CRUD] Agend.AI\").first().json.body;\nconst nome = payload.nome;\nconst partesNome = nome.trim().split(\" \");\nconst timezone = payload.timezone;\n\nlet nome_agenda = \"\";\nlet prefixo = \"\";\n\nconst response = await this.helpers.httpRequest({\n  method: \"GET\",\n  url: `https://api.genderize.io?name=${partesNome[0]}`,\n  json: true\n});\n\nif(response.probability > 0.9) {\n  prefixo = (response.gender === \"male\") ? \"Dr.\" : \"Dra.\"\n}\nelse {\n  prefixo = \"Dr(a).\"\n}\n\nif(partesNome.length > 2) {\n  nome_agenda = `${prefixo} ${partesNome[0]} ${partesNome[1][0].toUpperCase()} ${partesNome.at(-1) }`;\n}\nelse {\n  nome_agenda = `${prefixo} ${nome}`;\n}\n\nreturn [{\n  json: {\n    prefixo: prefixo,\n    nome_completo: nome,\n    nome_agenda: nome_agenda,\n    timezone: timezone,\n  }\n}];"
+        },
+        "position": [
+          -1248,
+          -2896
+        ],
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2
+      },
+      {
+        "id": "8ecd15e9-f194-4f5b-a220-2d2fc9061fe4",
+        "name": "[CRUD] Agend.AI",
+        "parameters": {
+          "httpMethod": [
+            "GET",
+            "DELETE",
+            "PATCH",
+            "POST"
+          ],
+          "multipleMethods": true,
+          "options": {},
+          "path": "8c6ff736-f915-4a03-9a44-5292a7f61fea",
+          "responseMode": "responseNode"
+        },
+        "position": [
+          -1904,
+          -3200
+        ],
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2.1,
+        "webhookId": "8c6ff736-f915-4a03-9a44-5292a7f61fea"
+      },
+      {
+        "id": "9f9fe28a-442e-4413-840d-573924c7f305",
+        "name": "[POST] Operacoes",
+        "parameters": {
+          "options": {},
+          "rules": {
+            "values": [
+              {
+                "conditions": {
+                  "combinator": "and",
+                  "conditions": [
+                    {
+                      "id": "fe10d5c2-7363-49d2-a71b-6fce6bb406e6",
+                      "leftValue": "={{ $json.body.operacao }}",
+                      "operator": {
+                        "operation": "equals",
+                        "type": "string"
+                      },
+                      "rightValue": "criar_agenda"
+                    }
+                  ],
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  }
+                },
+                "outputKey": "criar_agenda",
+                "renameOutput": true
+              },
+              {
+                "conditions": {
+                  "combinator": "and",
+                  "conditions": [
+                    {
+                      "id": "be8912e4-e392-4e1c-a232-cd182dea5c21",
+                      "leftValue": "={{ $json.body.operacao }}",
+                      "operator": {
+                        "name": "filter.operator.equals",
+                        "operation": "equals",
+                        "type": "string"
+                      },
+                      "rightValue": "criar_agendamento"
+                    }
+                  ],
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  }
+                },
+                "outputKey": "criar_agendamento",
+                "renameOutput": true
+              },
+              {
+                "conditions": {
+                  "combinator": "and",
+                  "conditions": [
+                    {
+                      "id": "eb0f7d14-50c5-4a39-a39f-a8bf72f9d228",
+                      "leftValue": "={{ $json.body.operacao}}",
+                      "operator": {
+                        "name": "filter.operator.equals",
+                        "operation": "equals",
+                        "type": "string"
+                      },
+                      "rightValue": "consultar_agenda"
+                    }
+                  ],
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  }
+                },
+                "outputKey": "consultar_agenda",
+                "renameOutput": true
+              },
+              {
+                "conditions": {
+                  "combinator": "and",
+                  "conditions": [
+                    {
+                      "id": "57e52fae-30e8-49cf-a4e9-249ec6f9a7db",
+                      "leftValue": "={{ $json.body.operacao}}",
+                      "operator": {
+                        "name": "filter.operator.equals",
+                        "operation": "equals",
+                        "type": "string"
+                      },
+                      "rightValue": "consultar_disponibilidade"
+                    }
+                  ],
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  }
+                },
+                "outputKey": "consultar_disponibilidade",
+                "renameOutput": true
+              }
+            ]
+          }
+        },
+        "position": [
+          -1472,
+          -2640
+        ],
+        "type": "n8n-nodes-base.switch",
+        "typeVersion": 3.4
+      },
+      {
+        "id": "4411067a-d444-4762-baf4-4d0e4820781c",
+        "name": "[SET] Response",
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "716d4e15-2f02-4bac-98a9-26b457f68d42",
+                "name": "sucesso",
+                "type": "string",
+                "value": "={{ !$json.id ? false: true }}"
+              },
+              {
+                "id": "abf0223f-9475-4b75-93f6-66f584a31b5f",
+                "name": "identifier",
+                "type": "string",
+                "value": "={{ $json.summary }}"
+              },
+              {
+                "id": "ab131c59-2ed4-4fa2-b56f-5563659e0cb9",
+                "name": "id",
+                "type": "string",
+                "value": "={{ $json.id }}"
+              },
+              {
+                "id": "b546001e-7344-4563-aab8-ea949daa68a5",
+                "name": "prefixo",
+                "type": "string",
+                "value": "={{ $('[SET] Dados Agenda').item.json.prefixo }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "position": [
+          -800,
+          -2896
+        ],
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
+      },
+      {
+        "id": "cd064281-b27c-485d-b87f-1d5a6fbed443",
+        "name": "[SET] Response1",
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "918bef3b-bfd3-442e-9bdd-60c399551bc2",
+                "name": "sucess",
+                "type": "boolean",
+                "value": "={{ !$json.error }}"
+              },
+              {
+                "id": "abf0223f-9475-4b75-93f6-66f584a31b5f",
+                "name": "id_event",
+                "type": "string",
+                "value": "={{ !$json.error ? $json.id : null }}"
+              },
+              {
+                "id": "355b969e-4a48-4e8f-8856-f9d119625c9a",
+                "name": "inicio_solicitado",
+                "type": "string",
+                "value": "={{ $(\"[SET] Dados Evento\").item.json.inicio }}"
+              },
+              {
+                "id": "84f80865-23ed-4250-92e9-0f649a0ff302",
+                "name": "fim_solicitado",
+                "type": "string",
+                "value": "={{ $(\"[SET] Dados Evento\").item.json.fim }}"
+              },
+              {
+                "id": "86d9dbda-0daa-4d5d-81d9-0a08d96a32c7",
+                "name": "id_agendamento",
+                "type": "string",
+                "value": "={{ $('[SET] Dados Evento').item.json.id_agendamento }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "position": [
+          -800,
+          -2704
+        ],
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
+      },
+      {
+        "alwaysOutputData": true,
+        "credentials": {
+          "googleCalendarOAuth2Api": {
+            "id": "TbTbx7HkF2IEC13L",
+            "name": "[calendar] administradorchatwoot@gmail.com"
+          }
+        },
+        "id": "f0ccf0ad-7773-41de-b45e-2b60cfc11a4a",
+        "name": "[POST] Criar Evento",
+        "onError": "continueRegularOutput",
+        "parameters": {
+          "additionalFields": {
+            "description": "={{ $json.descricao }}",
+            "id": "={{ $json.event_id }}",
+            "summary": "={{ $json.titulo }}"
+          },
+          "calendar": {
+            "__rl": true,
+            "mode": "id",
+            "value": "={{ $json.id_calendar }}"
+          },
+          "end": "={{ $json.fim }}",
+          "start": "={{ $json.inicio }}"
+        },
+        "position": [
+          -1024,
+          -2704
+        ],
+        "type": "n8n-nodes-base.googleCalendar",
+        "typeVersion": 1.3
+      },
+      {
+        "id": "40e99338-30af-4370-bb7b-80b2f7053408",
+        "name": "[SET] Dados Evento",
+        "parameters": {
+          "jsCode": "const payload = $(\"[CRUD] Agend.AI\").first().json.body;\n\nconst dadosEvento = payload.evento;\nconst dadosProfissional = payload.profissional;\nconst dadosCliente = payload.cliente;\n\nconst titulo = `${dadosCliente.nome} - ${dadosProfissional.procedimento}`;\nconst descricao = dadosEvento.motivo_contato;\nconst event_id = dadosEvento.id_evento_calendar;\n\nreturn [{\n  json: {\n    id_agendamento: dadosEvento.uuid,\n    id_calendar: dadosProfissional.id_calendar,\n    event_id: event_id,\n    titulo: titulo,\n    descricao: descricao,\n    inicio: dadosEvento.hora_inicio,\n    fim: dadosEvento.hora_fim\n  }\n}];\n"
+        },
+        "position": [
+          -1248,
+          -2704
+        ],
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2
+      },
+      {
+        "id": "e8544684-b11f-4762-b4fa-f0c61dae065d",
+        "name": "[SET] Dados Busca Agenda",
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "b3e9acbe-4a21-4284-9c0d-0b5b3b00adf0",
+                "name": "profissional_uuid",
+                "type": "string",
+                "value": "={{ $json.body.profissional.uuid }}"
+              },
+              {
+                "id": "5b837784-f776-4850-a906-aa8ebaf0a53a",
+                "name": "id_calendar",
+                "type": "string",
+                "value": "={{ $json.body.profissional.id_calendar }}"
+              },
+              {
+                "id": "33ee327f-0b7c-46fd-9570-dee142e5d52c",
+                "name": "periodo.inicio",
+                "type": "string",
+                "value": "={{ $json.body.periodo.inicio }}"
+              },
+              {
+                "id": "4447c971-433c-469f-a7e4-d181981f8575",
+                "name": "periodo.fim",
+                "type": "string",
+                "value": "={{ $json.body.periodo.fim }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "position": [
+          -1248,
+          -2512
+        ],
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
+      },
+      {
+        "id": "abb4c103-0de9-438f-ae9d-64185e80e2cf",
+        "name": "[SET] Dados Busca Disponibilidade",
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "d43bc5cc-2d36-4dbc-92f8-270c958babf1",
+                "name": "timezone",
+                "type": "string",
+                "value": "={{ $json.body.timezone }}"
+              },
+              {
+                "id": "245187ee-5ee9-42df-9683-922f37638f19",
+                "name": "id_calendar",
+                "type": "string",
+                "value": "={{ $json.body.profissional.id_calendar }}"
+              },
+              {
+                "id": "7dbbbf5e-6917-443e-8e1f-3d19fab996dc",
+                "name": "profissional_uuid",
+                "type": "string",
+                "value": "={{ $json.body.profissional.uuid }}"
+              },
+              {
+                "id": "75021008-5ba9-4251-b6b7-57dccfb42e78",
+                "name": "periodo_solicitado.inicio",
+                "type": "string",
+                "value": "={{ $json.body.periodo_solicitado.inicio }}"
+              },
+              {
+                "id": "7b4eed68-4460-4db7-88db-3c1525621bd2",
+                "name": "periodo_solicitado.fim",
+                "type": "string",
+                "value": "={{ $json.body.periodo_solicitado.fim }}"
+              },
+              {
+                "id": "3631a838-4247-4deb-b3b2-37e751a458ae",
+                "name": "janelas_atendimento",
+                "type": "array",
+                "value": "={{ $json.body.janelas_atendimento }}"
+              },
+              {
+                "id": "be6ec3ae-f8ec-454b-a62e-44d6a0d76a93",
+                "name": "qtde_alternativas",
+                "type": "number",
+                "value": "={{ $json.body.opcoes.quantidade_alternativas }}"
+              },
+              {
+                "id": "b840fe9a-a690-459e-9882-1a05d3444699",
+                "name": "dias_busca",
+                "type": "number",
+                "value": "={{ $json.body.opcoes.dias_busca }}"
+              },
+              {
+                "id": "8fbdc59d-990d-4112-bbdb-bd0885694980",
+                "name": "duracao_sessao_minutos",
+                "type": "number",
+                "value": "={{ $json.body.opcoes.duracao_sessao_minutos }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "position": [
+          -1248,
+          -2128
+        ],
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
+      },
+      {
+        "id": "d6c18957-3fbb-41ab-bc2e-d8536500c618",
+        "name": "[SET] Response2",
+        "parameters": {
+          "jsCode": "const data = $(\"[GET] Consultar eventos by Agenda\").all();\nconst profissionalUuid = $('[SET] Dados Busca Agenda').first().json.profissional_uuid;\nconst events = [];\n\nfor (const item of data) {\n  const event = item.json;\n  const id = event.id;\n  const cliente = event.summary.split(\" - \")[0];\n  const procedimento = event.summary.split(\" - \")[1];\n  const inicio = event.start?.dateTime; // Vem no formato 2026-08-07T18:00:00Z, com o timezone America/Sao_Paulo. converter para -03:00\n  const fim = event.end?.dateTime;\n\n  events.push({\n    id: id,\n    title: cliente.trim() || null,\n    inicio: inicio,\n    fim: fim,\n    extendedProps: {\n      patient: cliente.trim() || null,\n      procedure: procedimento || null,\n      doctorUuid: profissionalUuid\n    }\n  })\n}\n\nreturn [\n  {\n    json: {\n      events\n    },\n  },\n];"
+        },
+        "position": [
+          -800,
+          -2512
+        ],
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2
+      },
+      {
+        "id": "4fa7d21d-013d-47af-ae0c-d41b95ea8a52",
+        "name": "[RETURN] Agendamentos Response",
+        "parameters": {
+          "options": {},
+          "respondWith": "json",
+          "responseBody": "={\n  \"sucesso\": {{ !$('[GET] Consultar eventos by Agenda').item.json.error }},\n  \"agendamentos\": {{ JSON.stringify($json.events) }}\n}"
+        },
+        "position": [
+          -576,
+          -2512
+        ],
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1.5
+      },
+      {
+        "alwaysOutputData": true,
+        "credentials": {
+          "googleCalendarOAuth2Api": {
+            "id": "TbTbx7HkF2IEC13L",
+            "name": "[calendar] administradorchatwoot@gmail.com"
+          }
+        },
+        "id": "6e9014f8-e4f4-4080-bdc3-e1c93eb867a0",
+        "name": "[GET] Consultar eventos by Agenda",
+        "onError": "continueRegularOutput",
+        "parameters": {
+          "calendar": {
+            "__rl": true,
+            "mode": "id",
+            "value": "={{ $json.id_calendar }}"
+          },
+          "operation": "getAll",
+          "options": {
+            "orderBy": "startTime"
+          },
+          "returnAll": true,
+          "timeMax": "={{ $json.periodo.fim }}",
+          "timeMin": "={{ $json.periodo.inicio }}"
+        },
+        "position": [
+          -1024,
+          -2512
+        ],
+        "type": "n8n-nodes-base.googleCalendar",
+        "typeVersion": 1.3
+      },
+      {
+        "alwaysOutputData": true,
+        "credentials": {
+          "googleCalendarOAuth2Api": {
+            "id": "TbTbx7HkF2IEC13L",
+            "name": "[calendar] administradorchatwoot@gmail.com"
+          }
+        },
+        "id": "48f0dff1-6d8e-4cbd-bda2-0ce6e2ed24b7",
+        "name": "[GET] Disponibilidade by Agenda",
+        "onError": "continueRegularOutput",
+        "parameters": {
+          "calendar": {
+            "__rl": true,
+            "mode": "id",
+            "value": "={{ $json.id_calendar }}"
+          },
+          "options": {
+            "timezone": {
+              "__rl": true,
+              "mode": "id",
+              "value": "={{ $json.timezone }}"
+            }
+          },
+          "resource": "calendar",
+          "timeMax": "={{ $json.periodo_solicitado.fim }}",
+          "timeMin": "={{ $json.periodo_solicitado.inicio }}"
+        },
+        "position": [
+          -1024,
+          -2128
+        ],
+        "type": "n8n-nodes-base.googleCalendar",
+        "typeVersion": 1.3
+      },
+      {
+        "id": "2f1a1b9c-1340-46af-83d8-8d1c6257e0be",
+        "name": "[RETURN] Disponibilidade == true Response",
+        "parameters": {
+          "options": {},
+          "respondWith": "json",
+          "responseBody": "={\n  \"sucesso\": true,\n  \"profissional_uuid\": {{ JSON.stringify($('[SET] Dados Busca Disponibilidade').item.json.profissional_uuid) }},\n  \"periodo\": {{ JSON.stringify($('[SET] Dados Busca Disponibilidade').item.json.periodo_solicitado) }}\n}"
+        },
+        "position": [
+          -576,
+          -2320
+        ],
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1.5
+      },
+      {
+        "id": "78035770-ac04-4282-9f0f-d3d9b0e4279e",
+        "name": "Validação Disponibilidade",
+        "parameters": {
+          "options": {},
+          "rules": {
+            "values": [
+              {
+                "conditions": {
+                  "combinator": "and",
+                  "conditions": [
+                    {
+                      "id": "b816f3bf-f094-41f3-9d8d-9b88f39bcb5e",
+                      "leftValue": "={{ $json.available }}",
+                      "operator": {
+                        "operation": "true",
+                        "singleValue": true,
+                        "type": "boolean"
+                      },
+                      "rightValue": false
+                    }
+                  ],
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  }
+                },
+                "outputKey": "disponível",
+                "renameOutput": true
+              },
+              {
+                "conditions": {
+                  "combinator": "and",
+                  "conditions": [
+                    {
+                      "id": "2c4986e2-c20c-496e-bf58-fc4b7b529eb7",
+                      "leftValue": "={{ $(\"[GET] Disponibilidade by Agenda\").item.json.error }}",
+                      "operator": {
+                        "operation": "exists",
+                        "singleValue": true,
+                        "type": "string"
+                      },
+                      "rightValue": ""
+                    }
+                  ],
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  }
+                },
+                "outputKey": "erro",
+                "renameOutput": true
+              },
+              {
+                "conditions": {
+                  "combinator": "and",
+                  "conditions": [
+                    {
+                      "id": "f09962fd-8752-4615-8c54-6ed552b022ad",
+                      "leftValue": "={{ $json.available }}",
+                      "operator": {
+                        "operation": "false",
+                        "singleValue": true,
+                        "type": "boolean"
+                      },
+                      "rightValue": false
+                    }
+                  ],
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  }
+                },
+                "outputKey": "não_disponivel",
+                "renameOutput": true
+              }
+            ]
+          }
+        },
+        "position": [
+          -800,
+          -2144
+        ],
+        "type": "n8n-nodes-base.switch",
+        "typeVersion": 3.4
+      },
+      {
+        "id": "1a9374ae-61ca-4ccb-95e2-051f95285c8d",
+        "name": "[RETURN] Disponibilidade error Response",
+        "parameters": {
+          "options": {},
+          "respondWith": "json",
+          "responseBody": "={\n  \"sucesso\": false,\n  \"profissional_uuid\": {{ JSON.stringify($('[SET] Dados Busca Disponibilidade').item.json.profissional_uuid) }},\n  \"periodo\": {{ JSON.stringify($('[SET] Dados Busca Disponibilidade').item.json.periodo_solicitado) }}\n}"
+        },
+        "position": [
+          -576,
+          -2128
+        ],
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1.5
+      },
+      {
+        "id": "ada0395b-c481-48b8-a331-5fa7368c740c",
+        "name": "Encontrar Alternativas",
+        "parameters": {
+          "jsCode": "const entrada = $(\"[SET] Dados Busca Disponibilidade\").first().json;\nconst itensGoogle = $(\"[GET] Eventos próximos Dias\").all();\n\nconst timezone = entrada.timezone ?? \"America/Sao_Paulo\";\nconst quantidade = entrada.quantidade_alternativas ?? 3;\nconst diasBusca = entrada.dias_busca ?? 7;\nconst duracaoMinutos = entrada.duracao_sessao_minutos ?? 60;\n\nconst eventosGoogle = itensGoogle.flatMap((item) => {\n  if (Array.isArray(item.json.items)) {\n    return item.json.items;\n  }\n\n  return Object.keys(item.json).length\n    ? [item.json]\n    : [];\n});\n\nfunction obterDataEvento(evento, propriedade) {\n  const valor = evento[propriedade];\n\n  if (typeof valor === \"string\") {\n    return valor;\n  }\n\n  return valor?.dateTime ?? valor?.date ?? null;\n}\n\nconst ocupados = eventosGoogle\n  .filter((evento) => evento.status !== \"cancelled\")\n  .map((evento) => {\n    const inicio = obterDataEvento(evento, \"start\");\n    const fim = obterDataEvento(evento, \"end\");\n\n    return {\n      inicio: inicio\n        ? DateTime.fromISO(inicio, { zone: timezone }).toMillis()\n        : NaN,\n\n      fim: fim\n        ? DateTime.fromISO(fim, { zone: timezone }).toMillis()\n        : NaN,\n    };\n  })\n  .filter(\n    (evento) =>\n      Number.isFinite(evento.inicio) &&\n      Number.isFinite(evento.fim) &&\n      evento.fim > evento.inicio,\n  );\n\nfunction extrairHorario(valor) {\n  /*\n   * Aceita tanto:\n   *\n   * \"08:00\"\n   *\n   * quanto:\n   *\n   * \"2026-08-12T08:00:00-03:00\"\n   */\n  const resultado = valor.match(\n    /(?:T)?(\\d{2}):(\\d{2})(?::(\\d{2}))?/,\n  );\n\n  if (!resultado) {\n    throw new Error(`Horário inválido: ${valor}`);\n  }\n\n  return {\n    hora: Number(resultado[1]),\n    minuto: Number(resultado[2]),\n    segundo: Number(resultado[3] ?? 0),\n  };\n}\n\nconst regrasPorDia = new Map();\n\nfor (const janela of entrada.janelas_atendimento ?? []) {\n  const diaSemana = Number(\n    janela.dia_semana,\n  );\n\n  regrasPorDia.set(diaSemana, {\n    inicio: extrairHorario(janela.inicio),\n    fim: extrairHorario(janela.fim),\n  });\n}\n\nfunction possuiConflito(inicio, fim) {\n  const inicioMillis = inicio.toMillis();\n  const fimMillis = fim.toMillis();\n\n  return ocupados.some(\n    (ocupado) =>\n      inicioMillis < ocupado.fim &&\n      fimMillis > ocupado.inicio,\n  );\n}\n\nconst inicioBusca = DateTime\n  .fromISO(entrada.periodo_solicitado.fim, {\n    setZone: true,\n  })\n  .setZone(timezone);\n\nif (!inicioBusca.isValid) {\n  throw new Error(\n    \"periodo_solicitado.fim é inválido.\",\n  );\n}\n\nconst fimBusca = inicioBusca.plus({\n  days: diasBusca,\n});\n\nconst alternativas = [];\n\nlet diaAtual = inicioBusca.startOf(\"day\");\n\nwhile (\n  diaAtual < fimBusca &&\n  alternativas.length < quantidade\n) {\n  const regra = regrasPorDia.get(diaAtual.weekday);\n\n  /*\n   * Se não existir regra para o dia, a clínica está\n   * fechada. Por exemplo, domingo.\n   */\n  if (regra) {\n    const abertura = diaAtual.set({\n      hour: regra.inicio.hora,\n      minute: regra.inicio.minuto,\n      second: regra.inicio.segundo,\n      millisecond: 0,\n    });\n\n    const fechamento = diaAtual.set({\n      hour: regra.fim.hora,\n      minute: regra.fim.minuto,\n      second: regra.fim.segundo,\n      millisecond: 0,\n    });\n\n    /*\n     * No primeiro dia, começa no fim do período recusado.\n     * Nos próximos dias, começa na abertura da clínica.\n     */\n    let candidato =\n      inicioBusca > abertura\n        ? inicioBusca\n        : abertura;\n\n    while (\n      candidato.plus({\n        minutes: duracaoMinutos,\n      }) <= fechamento &&\n      candidato < fimBusca &&\n      alternativas.length < quantidade\n    ) {\n      const candidatoFim = candidato.plus({\n        minutes: duracaoMinutos,\n      });\n\n      if (!possuiConflito(candidato, candidatoFim)) {\n        alternativas.push({\n          inicio: candidato.toISO(),\n          fim: candidatoFim.toISO(),\n        });\n      }\n\n      /*\n       * Para manter simples, a duração também funciona\n       * como intervalo entre possíveis horários.\n       */\n      candidato = candidato.plus({\n        minutes: duracaoMinutos,\n      });\n    }\n  }\n\n  diaAtual = diaAtual.plus({\n    days: 1,\n  });\n}\n\nreturn [\n  {\n    json: {\n      sucesso: true,\n      disponivel: false,\n      codigo: \"horario_indisponivel\",\n      timezone,\n      profissional_uuid:\n        entrada.profissional_uuid,\n      periodo_solicitado:\n        entrada.periodo_solicitado,\n      alternativas,\n      busca_esgotada:\n        alternativas.length < quantidade,\n    },\n  },\n];"
+        },
+        "position": [
+          -352,
+          -1936
+        ],
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2
+      },
+      {
+        "alwaysOutputData": true,
+        "credentials": {
+          "googleCalendarOAuth2Api": {
+            "id": "TbTbx7HkF2IEC13L",
+            "name": "[calendar] administradorchatwoot@gmail.com"
+          }
+        },
+        "id": "79cb38fe-323b-44e4-9cf9-d598d8b20b39",
+        "name": "[GET] Eventos próximos Dias",
+        "onError": "continueRegularOutput",
+        "parameters": {
+          "calendar": {
+            "__rl": true,
+            "mode": "id",
+            "value": "={{ $('[SET] Dados Busca Disponibilidade').item.json.id_calendar }}"
+          },
+          "operation": "getAll",
+          "options": {
+            "orderBy": "startTime"
+          },
+          "returnAll": true,
+          "timeMax": "={{ $('[SET] Dados Busca Disponibilidade').item.json.periodo_solicitado.fim.toDateTime().plus({ days: $('[SET] Dados Busca Disponibilidade').item.json.dias_busca }) }}",
+          "timeMin": "={{ $('[SET] Dados Busca Disponibilidade').item.json.periodo_solicitado.fim.toDateTime() }}"
+        },
+        "position": [
+          -576,
+          -1936
+        ],
+        "type": "n8n-nodes-base.googleCalendar",
+        "typeVersion": 1.3
+      },
+      {
+        "id": "7ac7c8ad-a243-4f42-b71a-03153548988c",
+        "name": "[RETURN] Disponibilidade == false Response",
+        "parameters": {
+          "options": {},
+          "respondWith": "json",
+          "responseBody": "={\n  \"sucesso\": {{ $json.sucesso }},\n  \"disponivel\": {{ $json.disponivel }},\n  \"codigo\": {{ JSON.stringify($json.codigo) }},\n  \"profissional_uuid\": {{ JSON.stringify($json.profissional_uuid) }},\n  \"periodo_solicitado\": {{ JSON.stringify($json.periodo_solicitado) }},\n  \"alternativas_disponiveis\": {{ JSON.stringify($json.alternativas) }},\n  \"busca_esgotada\": {{ $json.busca_esgotada }}\n}"
+        },
+        "position": [
+          -128,
+          -1936
+        ],
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1.5
+      }
+    ],
+    "updatedAt": "2026-08-12T13:51:37.000Z",
+    "versionId": "6712daff-f918-451f-ad43-2ee9116be32c",
+    "workflowId": "wXVF9y6RlQ22QRwY"
+  },
+  "activeVersionId": "6712daff-f918-451f-ad43-2ee9116be32c",
   "connections": {
+    "Encontrar Alternativas": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[RETURN] Disponibilidade == false Response",
+            "type": "main"
+          }
+        ]
+      ]
+    },
     "Validação Disponibilidade": {
       "main": [
         [
           {
             "index": 0,
             "node": "[RETURN] Disponibilidade == true Response",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "[RETURN] Disponibilidade error Response",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "[GET] Eventos próximos Dias",
             "type": "main"
           }
         ]
@@ -45,6 +1049,17 @@
           {
             "index": 0,
             "node": "Validação Disponibilidade",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[GET] Eventos próximos Dias": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Encontrar Alternativas",
             "type": "main"
           }
         ]
@@ -230,8 +1245,8 @@
         "url": "https://www.googleapis.com/calendar/v3/calendars"
       },
       "position": [
-        -752,
-        -2512
+        -1024,
+        -2896
       ],
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4
@@ -245,8 +1260,8 @@
         "responseBody": "={\n  \"sucesso\": {{ $json.sucesso }},\n  \"id_agenda\": {{ JSON.stringify($json.id) }},\n  \"identifier\": {{ JSON.stringify($json.identifier) }},\n  \"prefixo\": {{ JSON.stringify($json.prefixo) }}\n} "
       },
       "position": [
-        -304,
-        -2512
+        -576,
+        -2896
       ],
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5
@@ -257,11 +1272,11 @@
       "parameters": {
         "options": {},
         "respondWith": "json",
-        "responseBody": "={\n  \"sucess\": {{ $json.sucess }},\n  \"id_event\": {{ JSON.stringify($json.id_event) }},\n  \"id_agendamento\": {{ JSON.stringify($json.id_agendamento) }},\n  \"horarios_solicitados\": {\n      \"inicio\": {{ JSON.stringify($json.inicio_solicitado) }},\n      \"fim\": {{ JSON.stringify($json.fim_solicitado) }}\n  }\n} "
+        "responseBody": "={\n  \"sucess\": {{ $json.sucess }},\n  \"id_event\": {{ JSON.stringify($json.id_event) }},\n  \"uuid_agendamento\": {{ JSON.stringify($json.id_agendamento) }},\n  \"horario_solicitado\": {\n      \"inicio\": {{ JSON.stringify($json.inicio_solicitado) }},\n      \"fim\": {{ JSON.stringify($json.fim_solicitado) }}\n  }\n} "
       },
       "position": [
-        -304,
-        -2320
+        -576,
+        -2704
       ],
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5
@@ -273,8 +1288,8 @@
         "jsCode": "const payload = $(\"[CRUD] Agend.AI\").first().json.body;\nconst nome = payload.nome;\nconst partesNome = nome.trim().split(\" \");\nconst timezone = payload.timezone;\n\nlet nome_agenda = \"\";\nlet prefixo = \"\";\n\nconst response = await this.helpers.httpRequest({\n  method: \"GET\",\n  url: `https://api.genderize.io?name=${partesNome[0]}`,\n  json: true\n});\n\nif(response.probability > 0.9) {\n  prefixo = (response.gender === \"male\") ? \"Dr.\" : \"Dra.\"\n}\nelse {\n  prefixo = \"Dr(a).\"\n}\n\nif(partesNome.length > 2) {\n  nome_agenda = `${prefixo} ${partesNome[0]} ${partesNome[1][0].toUpperCase()} ${partesNome.at(-1) }`;\n}\nelse {\n  nome_agenda = `${prefixo} ${nome}`;\n}\n\nreturn [{\n  json: {\n    prefixo: prefixo,\n    nome_completo: nome,\n    nome_agenda: nome_agenda,\n    timezone: timezone,\n  }\n}];"
       },
       "position": [
-        -976,
-        -2512
+        -1248,
+        -2896
       ],
       "type": "n8n-nodes-base.code",
       "typeVersion": 2
@@ -295,8 +1310,8 @@
         "responseMode": "responseNode"
       },
       "position": [
-        -1520,
-        -2688
+        -1904,
+        -3200
       ],
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
@@ -412,8 +1427,8 @@
         }
       },
       "position": [
-        -1200,
-        -2256
+        -1472,
+        -2640
       ],
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4
@@ -453,8 +1468,8 @@
         "options": {}
       },
       "position": [
-        -528,
-        -2512
+        -800,
+        -2896
       ],
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4
@@ -500,8 +1515,8 @@
         "options": {}
       },
       "position": [
-        -528,
-        -2320
+        -800,
+        -2704
       ],
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4
@@ -532,8 +1547,8 @@
         "start": "={{ $json.inicio }}"
       },
       "position": [
-        -752,
-        -2320
+        -1024,
+        -2704
       ],
       "type": "n8n-nodes-base.googleCalendar",
       "typeVersion": 1.3
@@ -542,11 +1557,11 @@
       "id": "40e99338-30af-4370-bb7b-80b2f7053408",
       "name": "[SET] Dados Evento",
       "parameters": {
-        "jsCode": "const payload = $(\"[CRUD] Agend.AI\").first().json.body;\n\nconst dadosEvento = payload.evento;\nconst dadosProfissional = payload.profissional;\nconst dadosCliente = payload.cliente;\n\nconst titulo = `${dadosCliente.nome} - ${dadosProfissional.procedimento}`;\nconst descricao = dadosEvento.motivo_contato;\nconst event_id = `ag${dadosEvento.uuid.replace(/-/g, \"\")}`;\n\nreturn [{\n  json: {\n    id_agendamento: dadosEvento.uuid,\n    id_calendar: dadosProfissional.id_calendar,\n    event_id: event_id,\n    titulo: titulo,\n    descricao: descricao,\n    inicio: dadosEvento.hora_inicio,\n    fim: dadosEvento.hora_fim\n  }\n}];\n"
+        "jsCode": "const payload = $(\"[CRUD] Agend.AI\").first().json.body;\n\nconst dadosEvento = payload.evento;\nconst dadosProfissional = payload.profissional;\nconst dadosCliente = payload.cliente;\n\nconst titulo = `${dadosCliente.nome} - ${dadosProfissional.procedimento}`;\nconst descricao = dadosEvento.motivo_contato;\nconst event_id = dadosEvento.id_evento_calendar;\n\nreturn [{\n  json: {\n    id_agendamento: dadosEvento.uuid,\n    id_calendar: dadosProfissional.id_calendar,\n    event_id: event_id,\n    titulo: titulo,\n    descricao: descricao,\n    inicio: dadosEvento.hora_inicio,\n    fim: dadosEvento.hora_fim\n  }\n}];\n"
       },
       "position": [
-        -976,
-        -2320
+        -1248,
+        -2704
       ],
       "type": "n8n-nodes-base.code",
       "typeVersion": 2
@@ -586,8 +1601,8 @@
         "options": {}
       },
       "position": [
-        -976,
-        -2128
+        -1248,
+        -2512
       ],
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4
@@ -627,14 +1642,38 @@
               "name": "periodo_solicitado.fim",
               "type": "string",
               "value": "={{ $json.body.periodo_solicitado.fim }}"
+            },
+            {
+              "id": "3631a838-4247-4deb-b3b2-37e751a458ae",
+              "name": "janelas_atendimento",
+              "type": "array",
+              "value": "={{ $json.body.janelas_atendimento }}"
+            },
+            {
+              "id": "be6ec3ae-f8ec-454b-a62e-44d6a0d76a93",
+              "name": "qtde_alternativas",
+              "type": "number",
+              "value": "={{ $json.body.opcoes.quantidade_alternativas }}"
+            },
+            {
+              "id": "b840fe9a-a690-459e-9882-1a05d3444699",
+              "name": "dias_busca",
+              "type": "number",
+              "value": "={{ $json.body.opcoes.dias_busca }}"
+            },
+            {
+              "id": "8fbdc59d-990d-4112-bbdb-bd0885694980",
+              "name": "duracao_sessao_minutos",
+              "type": "number",
+              "value": "={{ $json.body.opcoes.duracao_sessao_minutos }}"
             }
           ]
         },
         "options": {}
       },
       "position": [
-        -976,
-        -1936
+        -1248,
+        -2128
       ],
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4
@@ -646,8 +1685,8 @@
         "jsCode": "const data = $(\"[GET] Consultar eventos by Agenda\").all();\nconst profissionalUuid = $('[SET] Dados Busca Agenda').first().json.profissional_uuid;\nconst events = [];\n\nfor (const item of data) {\n  const event = item.json;\n  const id = event.id;\n  const cliente = event.summary.split(\" - \")[0];\n  const procedimento = event.summary.split(\" - \")[1];\n  const inicio = event.start?.dateTime; // Vem no formato 2026-08-07T18:00:00Z, com o timezone America/Sao_Paulo. converter para -03:00\n  const fim = event.end?.dateTime;\n\n  events.push({\n    id: id,\n    title: cliente.trim() || null,\n    inicio: inicio,\n    fim: fim,\n    extendedProps: {\n      patient: cliente.trim() || null,\n      procedure: procedimento || null,\n      doctorUuid: profissionalUuid\n    }\n  })\n}\n\nreturn [\n  {\n    json: {\n      events\n    },\n  },\n];"
       },
       "position": [
-        -528,
-        -2128
+        -800,
+        -2512
       ],
       "type": "n8n-nodes-base.code",
       "typeVersion": 2
@@ -661,8 +1700,8 @@
         "responseBody": "={\n  \"sucesso\": {{ !$('[GET] Consultar eventos by Agenda').item.json.error }},\n  \"agendamentos\": {{ JSON.stringify($json.events) }}\n}"
       },
       "position": [
-        -304,
-        -2128
+        -576,
+        -2512
       ],
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5
@@ -693,45 +1732,11 @@
         "timeMin": "={{ $json.periodo.inicio }}"
       },
       "position": [
-        -752,
-        -2128
+        -1024,
+        -2512
       ],
       "type": "n8n-nodes-base.googleCalendar",
       "typeVersion": 1.3
-    },
-    {
-      "id": "c6ffe5e6-25f4-401a-a112-fa72cdf85530",
-      "name": "Validação Disponibilidade",
-      "parameters": {
-        "conditions": {
-          "combinator": "and",
-          "conditions": [
-            {
-              "id": "d5ee2b57-d0af-412f-a678-3d65d581b8a9",
-              "leftValue": "={{ $json.available }}",
-              "operator": {
-                "operation": "true",
-                "singleValue": true,
-                "type": "boolean"
-              },
-              "rightValue": false
-            }
-          ],
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 3
-          }
-        },
-        "options": {}
-      },
-      "position": [
-        -528,
-        -1936
-      ],
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.3
     },
     {
       "alwaysOutputData": true,
@@ -762,8 +1767,8 @@
         "timeMin": "={{ $json.periodo_solicitado.inicio }}"
       },
       "position": [
-        -752,
-        -1936
+        -1024,
+        -2128
       ],
       "type": "n8n-nodes-base.googleCalendar",
       "typeVersion": 1.3
@@ -777,8 +1782,175 @@
         "responseBody": "={\n  \"sucesso\": true,\n  \"profissional_uuid\": {{ JSON.stringify($('[SET] Dados Busca Disponibilidade').item.json.profissional_uuid) }},\n  \"periodo\": {{ JSON.stringify($('[SET] Dados Busca Disponibilidade').item.json.periodo_solicitado) }}\n}"
       },
       "position": [
-        -288,
-        -1952
+        -576,
+        -2320
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5
+    },
+    {
+      "id": "78035770-ac04-4282-9f0f-d3d9b0e4279e",
+      "name": "Validação Disponibilidade",
+      "parameters": {
+        "options": {},
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "b816f3bf-f094-41f3-9d8d-9b88f39bcb5e",
+                    "leftValue": "={{ $json.available }}",
+                    "operator": {
+                      "operation": "true",
+                      "singleValue": true,
+                      "type": "boolean"
+                    },
+                    "rightValue": false
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                }
+              },
+              "outputKey": "disponível",
+              "renameOutput": true
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "2c4986e2-c20c-496e-bf58-fc4b7b529eb7",
+                    "leftValue": "={{ $(\"[GET] Disponibilidade by Agenda\").item.json.error }}",
+                    "operator": {
+                      "operation": "exists",
+                      "singleValue": true,
+                      "type": "string"
+                    },
+                    "rightValue": ""
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                }
+              },
+              "outputKey": "erro",
+              "renameOutput": true
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "f09962fd-8752-4615-8c54-6ed552b022ad",
+                    "leftValue": "={{ $json.available }}",
+                    "operator": {
+                      "operation": "false",
+                      "singleValue": true,
+                      "type": "boolean"
+                    },
+                    "rightValue": false
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                }
+              },
+              "outputKey": "não_disponivel",
+              "renameOutput": true
+            }
+          ]
+        }
+      },
+      "position": [
+        -800,
+        -2144
+      ],
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "1a9374ae-61ca-4ccb-95e2-051f95285c8d",
+      "name": "[RETURN] Disponibilidade error Response",
+      "parameters": {
+        "options": {},
+        "respondWith": "json",
+        "responseBody": "={\n  \"sucesso\": false,\n  \"profissional_uuid\": {{ JSON.stringify($('[SET] Dados Busca Disponibilidade').item.json.profissional_uuid) }},\n  \"periodo\": {{ JSON.stringify($('[SET] Dados Busca Disponibilidade').item.json.periodo_solicitado) }}\n}"
+      },
+      "position": [
+        -576,
+        -2128
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5
+    },
+    {
+      "id": "ada0395b-c481-48b8-a331-5fa7368c740c",
+      "name": "Encontrar Alternativas",
+      "parameters": {
+        "jsCode": "const entrada = $(\"[SET] Dados Busca Disponibilidade\").first().json;\nconst itensGoogle = $(\"[GET] Eventos próximos Dias\").all();\n\nconst timezone = entrada.timezone ?? \"America/Sao_Paulo\";\nconst quantidade = entrada.quantidade_alternativas ?? 3;\nconst diasBusca = entrada.dias_busca ?? 7;\nconst duracaoMinutos = entrada.duracao_sessao_minutos ?? 60;\n\nconst eventosGoogle = itensGoogle.flatMap((item) => {\n  if (Array.isArray(item.json.items)) {\n    return item.json.items;\n  }\n\n  return Object.keys(item.json).length\n    ? [item.json]\n    : [];\n});\n\nfunction obterDataEvento(evento, propriedade) {\n  const valor = evento[propriedade];\n\n  if (typeof valor === \"string\") {\n    return valor;\n  }\n\n  return valor?.dateTime ?? valor?.date ?? null;\n}\n\nconst ocupados = eventosGoogle\n  .filter((evento) => evento.status !== \"cancelled\")\n  .map((evento) => {\n    const inicio = obterDataEvento(evento, \"start\");\n    const fim = obterDataEvento(evento, \"end\");\n\n    return {\n      inicio: inicio\n        ? DateTime.fromISO(inicio, { zone: timezone }).toMillis()\n        : NaN,\n\n      fim: fim\n        ? DateTime.fromISO(fim, { zone: timezone }).toMillis()\n        : NaN,\n    };\n  })\n  .filter(\n    (evento) =>\n      Number.isFinite(evento.inicio) &&\n      Number.isFinite(evento.fim) &&\n      evento.fim > evento.inicio,\n  );\n\nfunction extrairHorario(valor) {\n  /*\n   * Aceita tanto:\n   *\n   * \"08:00\"\n   *\n   * quanto:\n   *\n   * \"2026-08-12T08:00:00-03:00\"\n   */\n  const resultado = valor.match(\n    /(?:T)?(\\d{2}):(\\d{2})(?::(\\d{2}))?/,\n  );\n\n  if (!resultado) {\n    throw new Error(`Horário inválido: ${valor}`);\n  }\n\n  return {\n    hora: Number(resultado[1]),\n    minuto: Number(resultado[2]),\n    segundo: Number(resultado[3] ?? 0),\n  };\n}\n\nconst regrasPorDia = new Map();\n\nfor (const janela of entrada.janelas_atendimento ?? []) {\n  const diaSemana = Number(\n    janela.dia_semana,\n  );\n\n  regrasPorDia.set(diaSemana, {\n    inicio: extrairHorario(janela.inicio),\n    fim: extrairHorario(janela.fim),\n  });\n}\n\nfunction possuiConflito(inicio, fim) {\n  const inicioMillis = inicio.toMillis();\n  const fimMillis = fim.toMillis();\n\n  return ocupados.some(\n    (ocupado) =>\n      inicioMillis < ocupado.fim &&\n      fimMillis > ocupado.inicio,\n  );\n}\n\nconst inicioBusca = DateTime\n  .fromISO(entrada.periodo_solicitado.fim, {\n    setZone: true,\n  })\n  .setZone(timezone);\n\nif (!inicioBusca.isValid) {\n  throw new Error(\n    \"periodo_solicitado.fim é inválido.\",\n  );\n}\n\nconst fimBusca = inicioBusca.plus({\n  days: diasBusca,\n});\n\nconst alternativas = [];\n\nlet diaAtual = inicioBusca.startOf(\"day\");\n\nwhile (\n  diaAtual < fimBusca &&\n  alternativas.length < quantidade\n) {\n  const regra = regrasPorDia.get(diaAtual.weekday);\n\n  /*\n   * Se não existir regra para o dia, a clínica está\n   * fechada. Por exemplo, domingo.\n   */\n  if (regra) {\n    const abertura = diaAtual.set({\n      hour: regra.inicio.hora,\n      minute: regra.inicio.minuto,\n      second: regra.inicio.segundo,\n      millisecond: 0,\n    });\n\n    const fechamento = diaAtual.set({\n      hour: regra.fim.hora,\n      minute: regra.fim.minuto,\n      second: regra.fim.segundo,\n      millisecond: 0,\n    });\n\n    /*\n     * No primeiro dia, começa no fim do período recusado.\n     * Nos próximos dias, começa na abertura da clínica.\n     */\n    let candidato =\n      inicioBusca > abertura\n        ? inicioBusca\n        : abertura;\n\n    while (\n      candidato.plus({\n        minutes: duracaoMinutos,\n      }) <= fechamento &&\n      candidato < fimBusca &&\n      alternativas.length < quantidade\n    ) {\n      const candidatoFim = candidato.plus({\n        minutes: duracaoMinutos,\n      });\n\n      if (!possuiConflito(candidato, candidatoFim)) {\n        alternativas.push({\n          inicio: candidato.toISO(),\n          fim: candidatoFim.toISO(),\n        });\n      }\n\n      /*\n       * Para manter simples, a duração também funciona\n       * como intervalo entre possíveis horários.\n       */\n      candidato = candidato.plus({\n        minutes: duracaoMinutos,\n      });\n    }\n  }\n\n  diaAtual = diaAtual.plus({\n    days: 1,\n  });\n}\n\nreturn [\n  {\n    json: {\n      sucesso: true,\n      disponivel: false,\n      codigo: \"horario_indisponivel\",\n      timezone,\n      profissional_uuid:\n        entrada.profissional_uuid,\n      periodo_solicitado:\n        entrada.periodo_solicitado,\n      alternativas,\n      busca_esgotada:\n        alternativas.length < quantidade,\n    },\n  },\n];"
+      },
+      "position": [
+        -352,
+        -1936
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "TbTbx7HkF2IEC13L",
+          "name": "[calendar] administradorchatwoot@gmail.com"
+        }
+      },
+      "id": "79cb38fe-323b-44e4-9cf9-d598d8b20b39",
+      "name": "[GET] Eventos próximos Dias",
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $('[SET] Dados Busca Disponibilidade').item.json.id_calendar }}"
+        },
+        "operation": "getAll",
+        "options": {
+          "orderBy": "startTime"
+        },
+        "returnAll": true,
+        "timeMax": "={{ $('[SET] Dados Busca Disponibilidade').item.json.periodo_solicitado.fim.toDateTime().plus({ days: $('[SET] Dados Busca Disponibilidade').item.json.dias_busca }) }}",
+        "timeMin": "={{ $('[SET] Dados Busca Disponibilidade').item.json.periodo_solicitado.fim.toDateTime() }}"
+      },
+      "position": [
+        -576,
+        -1936
+      ],
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "7ac7c8ad-a243-4f42-b71a-03153548988c",
+      "name": "[RETURN] Disponibilidade == false Response",
+      "parameters": {
+        "options": {},
+        "respondWith": "json",
+        "responseBody": "={\n  \"sucesso\": {{ $json.sucesso }},\n  \"disponivel\": {{ $json.disponivel }},\n  \"codigo\": {{ JSON.stringify($json.codigo) }},\n  \"profissional_uuid\": {{ JSON.stringify($json.profissional_uuid) }},\n  \"periodo_solicitado\": {{ JSON.stringify($json.periodo_solicitado) }},\n  \"alternativas_disponiveis\": {{ JSON.stringify($json.alternativas) }},\n  \"busca_esgotada\": {{ $json.busca_esgotada }}\n}"
+      },
+      "position": [
+        -128,
+        -1936
       ],
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5
@@ -808,5 +1980,5 @@
       "updatedAt": "2026-07-16T23:54:38.931Z"
     }
   ],
-  "triggerCount": 0
+  "triggerCount": 1
 }
