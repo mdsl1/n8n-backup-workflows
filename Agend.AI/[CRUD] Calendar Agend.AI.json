@@ -1272,7 +1272,7 @@
       "parameters": {
         "options": {},
         "respondWith": "json",
-        "responseBody": "={\n  \"sucess\": {{ $json.sucess }},\n  \"id_event\": {{ JSON.stringify($json.id_event) }},\n  \"uuid_agendamento\": {{ JSON.stringify($json.id_agendamento) }},\n  \"horario_solicitado\": {\n      \"inicio\": {{ JSON.stringify($json.inicio_solicitado) }},\n      \"fim\": {{ JSON.stringify($json.fim_solicitado) }}\n  }\n} "
+        "responseBody": "={\n  \"sucesso\": {{ $json.sucess }},\n  \"id_event\": {{ JSON.stringify($json.id_event) }},\n  \"uuid_agendamento\": {{ JSON.stringify($json.id_agendamento) }},\n  \"horario_solicitado\": {\n      \"inicio\": {{ JSON.stringify($json.inicio_solicitado) }},\n      \"fim\": {{ JSON.stringify($json.fim_solicitado) }}\n  }\n} "
       },
       "position": [
         -576,
@@ -1963,33 +1963,31 @@
           "body": {
             "operacao": "consultar_agenda",
             "periodo": {
-              "fim": "2026-08-10T00:00:00.000-03:00",
-              "inicio": "2026-08-03T00:00:00.000-03:00"
+              "fim": "2026-08-16T00:00:00-03:00",
+              "inicio": "2026-08-09T00:00:00-03:00"
             },
             "profissional": {
               "id_calendar": "79cc0f395833998dfa4cdbfdb226b19cbd715e9754f056b1c59691053878f4f3@group.calendar.google.com",
-              "uuid": "5b0554eb-f9c9-4432-ba0c-3bc259820fd5"
+              "uuid": "8260f73e-e8ca-42aa-804e-2efc912a5654"
             }
           },
           "executionMode": "production",
           "headers": {
-            "accept": "*/*",
             "accept-encoding": "gzip, br",
-            "cache-control": "no-cache",
             "cdn-loop": "cloudflare; loops=1",
-            "cf-connecting-ip": "2804:1254:813d:8507:81bf:9fb5:44d1:bc09",
+            "cf-connecting-ip": "191.242.55.111",
             "cf-ipcountry": "BR",
-            "cf-ray": "a2b42c6a4c64f1db-GRU",
+            "cf-ray": "a2bc39ec3af71ab3-GRU",
             "cf-visitor": "{\"scheme\":\"https\"}",
             "connection": "upgrade",
-            "content-length": "373",
-            "content-type": "application/json",
+            "content-length": "284",
+            "content-type": "application/json; charset=utf-8",
             "host": "n8n.mdsl1.com",
-            "postman-token": "f64099f5-a462-4e90-9c4a-fb6baa6785f6",
-            "user-agent": "PostmanRuntime/7.56.0",
-            "x-forwarded-for": "2804:1254:813d:8507:81bf:9fb5:44d1:bc09, 172.69.138.162",
+            "traceparent": "00-31ea16aa2bfff905f50cd24eb1368c3c-427180668f2ede1b-00",
+            "x-agendai-api-key": "07cd6beba3ebedd5050227c6f4beba8f59a2d53acc6db1519da9d0bbda570b8e",
+            "x-forwarded-for": "191.242.55.111, 172.71.234.190",
             "x-forwarded-proto": "http",
-            "x-real-ip": "172.69.138.162"
+            "x-real-ip": "172.71.234.190"
           },
           "params": {},
           "query": {},
