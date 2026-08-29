@@ -2,7 +2,7 @@
   "active": true,
   "activeVersion": {
     "authors": "Marcos Lima",
-    "autosaved": true,
+    "autosaved": false,
     "connections": {
       "API de transcrição do Groq": {
         "main": [
@@ -11,17 +11,6 @@
               "index": 0,
               "node": "Mensagem Transcrita",
               "type": "main"
-            }
-          ]
-        ]
-      },
-      "Classificador de Textos": {
-        "ai_languageModel": [
-          [
-            {
-              "index": 0,
-              "node": "Text Classifier",
-              "type": "ai_languageModel"
             }
           ]
         ]
@@ -55,6 +44,17 @@
               "index": 0,
               "node": "Conversão de mimeType",
               "type": "main"
+            }
+          ]
+        ]
+      },
+      "Google Gemini Chat Model": {
+        "ai_languageModel": [
+          [
+            {
+              "index": 0,
+              "node": "Text Classifier",
+              "type": "ai_languageModel"
             }
           ]
         ]
@@ -222,9 +222,9 @@
         ]
       }
     },
-    "createdAt": "2026-06-27T04:39:32.068Z",
+    "createdAt": "2026-08-27T17:16:04.793Z",
     "description": "",
-    "name": "27062026.01",
+    "name": "27082026.01",
     "nodeGroups": [],
     "nodes": [
       {
@@ -451,26 +451,6 @@
         "typeVersion": 2
       },
       {
-        "credentials": {
-          "groqApi": {
-            "id": "KwoGn0N7Ng6wYa9P",
-            "name": "[groq_key: text_classifier] markniel1408@gmail.com"
-          }
-        },
-        "id": "be0640a6-b3e1-4748-bc17-8f992e607897",
-        "name": "Classificador de Textos",
-        "parameters": {
-          "model": "llama-3.3-70b-versatile",
-          "options": {}
-        },
-        "position": [
-          -560,
-          784
-        ],
-        "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
-        "typeVersion": 1
-      },
-      {
         "id": "15dd508b-4404-49c3-94e5-693534e91560",
         "name": "Text Classifier",
         "parameters": {
@@ -505,11 +485,12 @@
           -560,
           464
         ],
+        "retryOnFail": true,
         "type": "@n8n/n8n-nodes-langchain.textClassifier",
-        "typeVersion": 1.1
+        "typeVersion": 1.1,
+        "waitBetweenTries": 2000
       },
       {
-        "disabled": true,
         "id": "16a50549-8267-4b5f-a396-ab0391133d20",
         "name": "Gestor de Finanças",
         "parameters": {
@@ -517,17 +498,32 @@
           "workflowId": {
             "__rl": true,
             "cachedResultName": "[T.A.C.O.] Gestor de Finanças",
-            "cachedResultUrl": "/workflow/t1YQANcV35jtsij9",
+            "cachedResultUrl": "/workflow/RGeMxU5gLWdQrz1O",
             "mode": "list",
-            "value": "t1YQANcV35jtsij9"
+            "value": "RGeMxU5gLWdQrz1O"
           },
           "workflowInputs": {
             "attemptToConvertTypes": false,
             "convertFieldsToString": true,
             "mappingMode": "defineBelow",
-            "matchingColumns": [],
-            "schema": [],
-            "value": {}
+            "matchingColumns": [
+              "prompt"
+            ],
+            "schema": [
+              {
+                "canBeUsedToMatch": true,
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "prompt",
+                "id": "prompt",
+                "removed": false,
+                "required": false,
+                "type": "string"
+              }
+            ],
+            "value": {
+              "prompt": "={{ $json.prompt }}"
+            }
           }
         },
         "position": [
@@ -571,7 +567,8 @@
         "name": "Retornar mensagem",
         "parameters": {
           "additionalFields": {
-            "appendAttribution": false
+            "appendAttribution": false,
+            "parse_mode": "HTML"
           },
           "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
           "text": "={{ $json.resposta }}"
@@ -608,6 +605,7 @@
         "typeVersion": 3.4
       },
       {
+        "disabled": true,
         "id": "d408baef-92a2-47ba-99e4-669e04e8d156",
         "name": "set Prompt1",
         "parameters": {
@@ -722,13 +720,33 @@
         ],
         "type": "n8n-nodes-base.executeWorkflow",
         "typeVersion": 1.3
+      },
+      {
+        "credentials": {
+          "googlePalmApi": {
+            "id": "RlELwfJAa5UbXCqL",
+            "name": "[gemini_key] markniel1408@gmail.com"
+          }
+        },
+        "id": "c3c3a4d1-4057-4f20-9840-0e7174e0d900",
+        "name": "Google Gemini Chat Model",
+        "parameters": {
+          "modelName": "models/gemini-3.5-flash-lite",
+          "options": {}
+        },
+        "position": [
+          -560,
+          784
+        ],
+        "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+        "typeVersion": 1.1
       }
     ],
-    "updatedAt": "2026-06-27T04:41:09.000Z",
-    "versionId": "d9913345-06e4-4ebf-9e6e-cd894a091c8a",
+    "updatedAt": "2026-08-27T17:26:21.000Z",
+    "versionId": "414fdfda-9205-47a9-9acf-aec8f4969569",
     "workflowId": "4MljINNgEhpEnMlV"
   },
-  "activeVersionId": "d9913345-06e4-4ebf-9e6e-cd894a091c8a",
+  "activeVersionId": "414fdfda-9205-47a9-9acf-aec8f4969569",
   "connections": {
     "API de transcrição do Groq": {
       "main": [
@@ -737,17 +755,6 @@
             "index": 0,
             "node": "Mensagem Transcrita",
             "type": "main"
-          }
-        ]
-      ]
-    },
-    "Classificador de Textos": {
-      "ai_languageModel": [
-        [
-          {
-            "index": 0,
-            "node": "Text Classifier",
-            "type": "ai_languageModel"
           }
         ]
       ]
@@ -781,6 +788,17 @@
             "index": 0,
             "node": "Conversão de mimeType",
             "type": "main"
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "Text Classifier",
+            "type": "ai_languageModel"
           }
         ]
       ]
@@ -1179,26 +1197,6 @@
       "typeVersion": 2
     },
     {
-      "credentials": {
-        "groqApi": {
-          "id": "KwoGn0N7Ng6wYa9P",
-          "name": "[groq_key: text_classifier] markniel1408@gmail.com"
-        }
-      },
-      "id": "be0640a6-b3e1-4748-bc17-8f992e607897",
-      "name": "Classificador de Textos",
-      "parameters": {
-        "model": "llama-3.3-70b-versatile",
-        "options": {}
-      },
-      "position": [
-        -560,
-        784
-      ],
-      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
-      "typeVersion": 1
-    },
-    {
       "id": "15dd508b-4404-49c3-94e5-693534e91560",
       "name": "Text Classifier",
       "parameters": {
@@ -1233,11 +1231,12 @@
         -560,
         464
       ],
+      "retryOnFail": true,
       "type": "@n8n/n8n-nodes-langchain.textClassifier",
-      "typeVersion": 1.1
+      "typeVersion": 1.1,
+      "waitBetweenTries": 2000
     },
     {
-      "disabled": true,
       "id": "16a50549-8267-4b5f-a396-ab0391133d20",
       "name": "Gestor de Finanças",
       "parameters": {
@@ -1245,17 +1244,32 @@
         "workflowId": {
           "__rl": true,
           "cachedResultName": "[T.A.C.O.] Gestor de Finanças",
-          "cachedResultUrl": "/workflow/t1YQANcV35jtsij9",
+          "cachedResultUrl": "/workflow/RGeMxU5gLWdQrz1O",
           "mode": "list",
-          "value": "t1YQANcV35jtsij9"
+          "value": "RGeMxU5gLWdQrz1O"
         },
         "workflowInputs": {
           "attemptToConvertTypes": false,
           "convertFieldsToString": true,
           "mappingMode": "defineBelow",
-          "matchingColumns": [],
-          "schema": [],
-          "value": {}
+          "matchingColumns": [
+            "prompt"
+          ],
+          "schema": [
+            {
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "prompt",
+              "id": "prompt",
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "prompt": "={{ $json.prompt }}"
+          }
         }
       },
       "position": [
@@ -1266,7 +1280,6 @@
       "typeVersion": 1.3
     },
     {
-      "disabled": true,
       "id": "b1a34d48-e2bc-4f90-804c-f36a8b95ccb4",
       "name": "set Prompt",
       "parameters": {
@@ -1300,7 +1313,8 @@
       "name": "Retornar mensagem",
       "parameters": {
         "additionalFields": {
-          "appendAttribution": false
+          "appendAttribution": false,
+          "parse_mode": "HTML"
         },
         "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
         "text": "={{ $json.resposta }}"
@@ -1452,9 +1466,58 @@
       ],
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.3
+    },
+    {
+      "credentials": {
+        "googlePalmApi": {
+          "id": "RlELwfJAa5UbXCqL",
+          "name": "[gemini_key] markniel1408@gmail.com"
+        }
+      },
+      "id": "c3c3a4d1-4057-4f20-9840-0e7174e0d900",
+      "name": "Google Gemini Chat Model",
+      "parameters": {
+        "modelName": "models/gemini-3.5-flash-lite",
+        "options": {}
+      },
+      "position": [
+        -560,
+        784
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Telegram Trigger": [
+      {
+        "json": {
+          "message": {
+            "chat": {
+              "first_name": "Marcos",
+              "id": 6329122319,
+              "last_name": "Lima",
+              "type": "private"
+            },
+            "date": 1787850851,
+            "from": {
+              "first_name": "Marcos",
+              "id": 6329122319,
+              "is_bot": false,
+              "language_code": "pt-br",
+              "last_name": "Lima"
+            },
+            "message_id": 170,
+            "text": "Em quanto está minha fatura?"
+          },
+          "update_id": 836196853
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
   "settings": {
     "availableInMCP": false,
     "binaryMode": "separate",
