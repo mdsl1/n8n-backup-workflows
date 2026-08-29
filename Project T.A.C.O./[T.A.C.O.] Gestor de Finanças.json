@@ -1,7 +1,910 @@
 {
-  "active": false,
-  "activeVersion": null,
-  "activeVersionId": null,
+  "active": true,
+  "activeVersion": {
+    "authors": "Marcos Lima",
+    "autosaved": true,
+    "connections": {
+      "AI Agent": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Retornar Consulta",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Create a row": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Retornar Mensagem de Sucesso",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Edit Fields": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Create a row",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Google Gemini Chat Model": {
+        "ai_languageModel": [
+          [
+            {
+              "index": 0,
+              "node": "Information Extractor",
+              "type": "ai_languageModel"
+            }
+          ]
+        ]
+      },
+      "Google Gemini Chat Model1": {
+        "ai_languageModel": [
+          [
+            {
+              "index": 0,
+              "node": "Text Classifier",
+              "type": "ai_languageModel"
+            }
+          ]
+        ]
+      },
+      "Google Gemini Chat Model2": {
+        "ai_languageModel": [
+          [
+            {
+              "index": 0,
+              "node": "AI Agent",
+              "type": "ai_languageModel"
+            }
+          ]
+        ]
+      },
+      "Information Extractor": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[GET] Categoria",
+              "type": "main"
+            },
+            {
+              "index": 0,
+              "node": "[GET] Centro custo Origem",
+              "type": "main"
+            },
+            {
+              "index": 0,
+              "node": "[GET] Centro custo Destino",
+              "type": "main"
+            },
+            {
+              "index": 0,
+              "node": "[GET] Cartão crédito",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Merge": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Edit Fields",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Retornar Mensagem de Sucesso": {
+        "main": [
+          []
+        ]
+      },
+      "Text Classifier": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Information Extractor",
+              "type": "main"
+            }
+          ],
+          [
+            {
+              "index": 0,
+              "node": "AI Agent",
+              "type": "main"
+            }
+          ],
+          [
+            {
+              "index": 0,
+              "node": "Retornar \"Erro\"",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "When Executed by Another Workflow": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Text Classifier",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[GET] Cartão crédito": {
+        "main": [
+          [
+            {
+              "index": 1,
+              "node": "Merge",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[GET] Categoria": {
+        "main": [
+          [
+            {
+              "index": 2,
+              "node": "Merge",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[GET] Centro custo Destino": {
+        "main": [
+          [
+            {
+              "index": 3,
+              "node": "Merge",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[GET] Centro custo Origem": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Merge",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "consultar_fatura": {
+        "ai_tool": [
+          [
+            {
+              "index": 0,
+              "node": "AI Agent",
+              "type": "ai_tool"
+            }
+          ]
+        ]
+      },
+      "consultar_gastos_categoria": {
+        "ai_tool": [
+          [
+            {
+              "index": 0,
+              "node": "AI Agent",
+              "type": "ai_tool"
+            }
+          ]
+        ]
+      },
+      "consultar_saldos": {
+        "ai_tool": [
+          [
+            {
+              "index": 0,
+              "node": "AI Agent",
+              "type": "ai_tool"
+            }
+          ]
+        ]
+      },
+      "listar_extrato_detalhado": {
+        "ai_tool": [
+          [
+            {
+              "index": 0,
+              "node": "AI Agent",
+              "type": "ai_tool"
+            }
+          ]
+        ]
+      }
+    },
+    "createdAt": "2026-08-28T14:20:01.344Z",
+    "description": "",
+    "name": "28082026.01",
+    "nodeGroups": [],
+    "nodes": [
+      {
+        "id": "7f517435-e1cf-4386-bb93-844024dcf9d3",
+        "name": "Text Classifier",
+        "parameters": {
+          "categories": {
+            "categories": [
+              {
+                "category": "Transações Financeiras",
+                "description": "Usar quando a mensagem contiver o registro de uma movimentação de dinheiro: compras, saídas, entradas de salário, pix enviado/recebido, transferências entre contas ou pagamentos de contas/boletos."
+              },
+              {
+                "category": "Consultas Financeiras",
+                "description": "Usar quando a mensagem for uma pergunta ou dúvida sobre valores: saldo disponível em conta, valor atual da fatura do cartão, quanto foi gasto no mês ou quanto tem guardado/investido."
+              }
+            ]
+          },
+          "inputText": "={{ $json.prompt }}",
+          "options": {
+            "fallback": "other"
+          }
+        },
+        "position": [
+          -912,
+          656
+        ],
+        "retryOnFail": true,
+        "type": "@n8n/n8n-nodes-langchain.textClassifier",
+        "typeVersion": 1.1,
+        "waitBetweenTries": 2000
+      },
+      {
+        "executeOnce": false,
+        "id": "93e20a14-1c11-4d07-a096-c8b0c8930957",
+        "name": "Information Extractor",
+        "parameters": {
+          "attributes": {
+            "attributes": [
+              {
+                "description": "=Tipo da operação financeira. Deve ser estritamente um dos seguintes valores: 'entrada' (salário, recebimentos), 'saida' (compras, pagamentos de contas, lanches, boletos) ou 'transferencia' (movimentação de dinheiro entre contas próprias ou aportes de reserva/investimento).",
+                "name": "tipo_transacao",
+                "required": true
+              },
+              {
+                "description": "Método utilizado no pagamento ou movimentação. Deve ser estritamente um dos seguintes valores: 'pix', 'cartao_debito', 'cartao_credito', 'boleto' ou 'movimentacao_patrimonial' (usado exclusivamente quando tipo_transacao for transferencia). Se o usuário falar apenas 'crédito' ou 'débito', converta para 'cartao_credito' ou 'cartao_debito'.",
+                "name": "metodo_pagamento",
+                "required": true
+              },
+              {
+                "description": "Valor numérico da transação em reais. Apenas o número decimal positivo (ex: 24.50, 15, 108.00). Não incluir símbolos de moeda como R$.",
+                "name": "valor",
+                "required": true,
+                "type": "number"
+              },
+              {
+                "description": "Nome do banco, carteira ou conta de onde o dinheiro saiu ou ao qual o cartão utilizado pertence. Exemplos comuns: 'Santander', '99Pay', 'Nubank', 'Caixinha Turbo', 'Rico'. Se for compra no crédito Santander, a origem é 'Santander'.",
+                "name": "centro_custo_origem",
+                "required": true
+              },
+              {
+                "description": "Nome do banco ou conta de destino quando o usuário estiver transferindo dinheiro entre contas próprias ou fazendo aportes. Exemplo: 'Santander', 'Caixinha Turbo', 'Rico'. Deixe em branco/nulo se a transação for apenas uma entrada ou saída comum.",
+                "name": "centro_custo_destino"
+              },
+              {
+                "description": "Nome do cartão utilizado caso o metodo_pagamento seja 'cartao_credito' (ex: 'Santander SX'). Deixe em branco/nulo se a transação for no débito, pix, boleto ou transferência.",
+                "name": "cartao_nome"
+              },
+              {
+                "description": "Nome da categoria mais adequada para a despesa/receita: 'Comida' (lanches fora, restaurantes), 'Mercado' (supermercado, mantimentos), 'Transporte' (gasolina, moto, uber), 'Compras' (roupas, eletrônicos), 'Assinaturas de Serviços' (streaming, claro), 'Faturas / Contas' (água, luz, internet, quitação consolidada de cartão), 'Empréstimos' (parcelas de empréstimo), 'Transferências' (pix para terceiros), 'Diversos' (gastos pontuais/imprevistos), 'Investimentos' (aportes em reserva ou bolsa), ou 'Transferencia Interna' (quando tipo_transacao for transferencia entre contas próprias).",
+                "name": "categoria_nome",
+                "required": true
+              },
+              {
+                "description": "Breve descrição do que foi comprado ou da movimentação realizada (ex: 'Pão de queijo na faculdade', 'Combustível pra moto', 'Aporte reserva', 'Salário quinzenal').",
+                "name": "descricao",
+                "required": true
+              },
+              {
+                "description": "Mês e ano da fatura no formato 'YYYY-MM'. Preencher apenas se metodo_pagamento for 'cartao_credito'. Considere que o cartão fecha no dia 07 e vence no dia 14: se a compra ocorrer até o dia 07, entra na fatura do mês atual; se ocorrer após o dia 07, entra na fatura do mês seguinte. Se não for crédito, deixe em branco/nulo.",
+                "name": "fatura_mes_ano"
+              },
+              {
+                "description": "Data informada pelo cliente no formato 'YYYY-MM-DD'. Caso ele não informe, use a data de hoje no formato 'YYYY-MM-DD'.",
+                "name": "data_transacao",
+                "type": "date"
+              }
+            ]
+          },
+          "options": {
+            "systemPromptTemplate": "=Hoje é dia {{ $now.toLocaleString('pt-BR')}}\n"
+          },
+          "text": "={{ $json.prompt }}"
+        },
+        "position": [
+          -368,
+          64
+        ],
+        "retryOnFail": true,
+        "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+        "typeVersion": 1.2,
+        "waitBetweenTries": 2000
+      },
+      {
+        "id": "c04ecd43-5b40-4e21-b1af-71202908c301",
+        "name": "AI Agent",
+        "parameters": {
+          "options": {
+            "systemMessage": "=Role:\nVocê é um Especialista em Finanças Pessoais, focado em análise e consulta de dados financeiros. Sua única fonte de verdade são os retornos das ferramentas de consulta conectadas ao Supabase.\n\nProtocolo de Pensamento (Chain of Thought):\n1. Identificação da Intenção: Identifique com precisão se a dúvida do usuário é sobre \"Saldo Disponível\", \"Reserva/Investimentos\", \"Fatura de Cartão\" ou \"Histórico/Resumo de Gastos\".\n2. Execução da Ferramenta: Chame a ferramenta adequada (consultar_saldos, consultar_fatura ou consultar_gastos_categoria) antes de formular qualquer resposta.\n3. Isolamento Rígido: NUNCA misture valores de Reserva de Emergência ou Investimentos em Bolsa no cálculo de \"Saldo Disponível / Poder de Compra\".\n4. Atualidade Temporal: Leve em conta que hoje é dia {{ $now.toLocaleString('pt-BR') }}\n\nSegmentação de Dados (Regras de Negócio):\n\n1. Disponibilidade Imediata (Saldo Operacional):\n- Contas: \"Conta Corrente Santander\", \"Conta Corrente Nubank\" e \"Conta Corrente 99Pay\" (tipo: conta_corrente e capital_giro).\n- Regra: Quando o usuário perguntar \"Quanto eu tenho?\", \"Qual meu saldo?\" ou \"Quanto posso gastar?\", some EXCLUSIVAMENTE essas 3 contas líquidas.\n\n2. Reserva de Emergência (Renda Fixa):\n- Contas: \"Caixinha Turbo Nubank\" (meta/teto: R$ 5.000) e \"Poupança Santander\" (tipo: reserva_renda_fixa).\n- Regra de Ouro: Estes saldos são protegidos e invisíveis para gastos do dia a dia. Você SÓ deve mencioná-los se o usuário perguntar especificamente por \"Reserva\", \"Emergência\", \"Dinheiro guardado\" ou \"Caixinha\".\n\n3. Investimentos (Bolsa de Valores):\n- Conta: \"Investimentos Rico\" (tipo: investimento).\n- Regra de Ouro: SÓ mencione se o usuário perguntar especificamente por \"Investimentos\", \"Bolsa\", \"Ações/FIIs\" ou \"Dinheiro aplicado\".\n\n4. Fatura de Cartão de Crédito (Santander SX):\n- Fonte: Ferramenta de faturas (vw_faturas_cartao).\n- Regra: O fechamento ocorre todo dia 07 e o vencimento no dia 14. Sempre informe o valor consolidado da fatura atual e, se houver compras lançadas para o mês seguinte, detalhe com clareza.\n\n5. Histórico e Relatórios de Gastos:\n- Fonte: Ferramenta de resumo mensal (vw_resumo_mensal_categorias).\n- Categorias Open Finance: Comida, Mercado, Transporte, Compras, Assinaturas de Serviços, Faturas / Contas, Empréstimos, Diversos.\n- Regra: \"Transferencia Interna\" NUNCA é contabilizada como despesa de consumo.\n\nDiretrizes de Resposta e Postura:\n- Consultas por Banco Específico: Se perguntado \"Quanto tenho no Nubank?\", informe apenas o saldo da Conta Corrente Nubank. Se perguntar da Caixinha, informe o saldo da Caixinha Turbo.\n- Monitoramento de Estilo de Vida: Fique atento a gastos acumulados em \"Comida\" (lanches/delivery) e \"Compras\". Se esses valores estiverem elevados em relação ao saldo operacional disponível, inclua uma observação construtiva e amigável.\n- Limpeza de Output: Resposta 100% humanizada, direta e escaneável. Proibido exibir tags de sistema, JSON, IDs internos ou nomes de funções técnicas. Certifique-se de que todos os asteriscos de negrito estão devidamente fechados aos pares (ex: *texto*).\n- Formatação Numérica: Sempre formate valores no padrão monetário brasileiro: R$ X.XXX,XX.\n\nTom de Voz:\nMentor financeiro pessoal: profissional, analítico, direto e atento ao fluxo de caixa. Use expressões como:\n- \"Seu poder de compra imediato hoje é de...\"\n- \"Sua fatura atual do Santander está em...\"\n- \"Você tem acumulado em reservas...\""
+          },
+          "promptType": "define",
+          "text": "={{ $json.prompt }}"
+        },
+        "position": [
+          -336,
+          672
+        ],
+        "retryOnFail": true,
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "typeVersion": 3.1,
+        "waitBetweenTries": 3000
+      },
+      {
+        "id": "3af09b9a-5d02-4dee-80e2-18fb9ead437d",
+        "name": "Retornar \"Erro\"",
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "d743f56b-7123-471f-96b6-bf9b67e033b3",
+                "name": "resposta",
+                "type": "string",
+                "value": "Não compreendi o que você quis dizer. (Gestor de Finanças)"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "position": [
+          -496,
+          1280
+        ],
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
+      },
+      {
+        "id": "697b7de1-a6e3-4157-a4f5-6f78add6a06c",
+        "name": "Retornar Consulta",
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "d743f56b-7123-471f-96b6-bf9b67e033b3",
+                "name": "resposta",
+                "type": "string",
+                "value": "={{ $json.output }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "position": [
+          192,
+          672
+        ],
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
+      },
+      {
+        "id": "7fbdc6c8-c802-4053-93c3-94169e51ac05",
+        "name": "Retornar Mensagem de Sucesso",
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "d743f56b-7123-471f-96b6-bf9b67e033b3",
+                "name": "resposta",
+                "type": "string",
+                "value": "={{ $json.tipo_transacao.toUpperCase() }} de {{ $json.valor.format('pt-BR', {'style': 'currency', 'currency': 'BRL'}) }} {{ $json.tipo_transacao.toLowerCase() === 'transferencia' ? `de ${$('[GET] Centro custo Origem').item.json.nome} para ${$node['[GET] Centro custo Destino'].json.nome}` : `(${$('Information Extractor').item.json.output.categoria_nome}) via ${ $json.metodo_pagamento.replace('_', ' ')} do ${ $('[GET] Centro custo Origem').item.json.nome.split(' ').last()}`}} registrada com sucesso!"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "position": [
+          1056,
+          64
+        ],
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
+      },
+      {
+        "id": "6961a4a8-c1e5-4f10-8517-ada95cc48a53",
+        "name": "When Executed by Another Workflow",
+        "parameters": {
+          "workflowInputs": {
+            "values": [
+              {
+                "name": "prompt"
+              }
+            ]
+          }
+        },
+        "position": [
+          -1152,
+          672
+        ],
+        "type": "n8n-nodes-base.executeWorkflowTrigger",
+        "typeVersion": 1.1
+      },
+      {
+        "credentials": {
+          "googlePalmApi": {
+            "id": "RlELwfJAa5UbXCqL",
+            "name": "[gemini_key] markniel1408@gmail.com"
+          }
+        },
+        "id": "6d6cb1cf-60ea-4c2b-abe4-c25ce7bd28f6",
+        "name": "Google Gemini Chat Model",
+        "parameters": {
+          "modelName": "models/gemini-3.5-flash-lite",
+          "options": {}
+        },
+        "position": [
+          -304,
+          288
+        ],
+        "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+        "typeVersion": 1.1
+      },
+      {
+        "credentials": {
+          "googlePalmApi": {
+            "id": "RlELwfJAa5UbXCqL",
+            "name": "[gemini_key] markniel1408@gmail.com"
+          }
+        },
+        "id": "fb8d7367-f29f-4d22-8dde-dce0784a3d25",
+        "name": "Google Gemini Chat Model1",
+        "parameters": {
+          "modelName": "models/gemini-3.5-flash-lite",
+          "options": {}
+        },
+        "position": [
+          -832,
+          912
+        ],
+        "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+        "typeVersion": 1.1
+      },
+      {
+        "id": "2c97bfd4-4f76-4bd4-9f3f-ed50da0b7df8",
+        "name": "Merge",
+        "parameters": {
+          "numberInputs": 4
+        },
+        "position": [
+          384,
+          32
+        ],
+        "type": "n8n-nodes-base.merge",
+        "typeVersion": 3.2
+      },
+      {
+        "alwaysOutputData": true,
+        "credentials": {
+          "supabaseApi": {
+            "id": "EpeV2iMisV7hQHf3",
+            "name": "[n8n-mdsl1] marcos.d.s.lima1408@gmail.com"
+          }
+        },
+        "id": "ad851314-f936-4145-9f92-4232777fb6c8",
+        "name": "[GET] Centro custo Origem",
+        "parameters": {
+          "filters": {
+            "conditions": [
+              {
+                "condition": "ilike",
+                "keyName": "nome",
+                "keyValue": "=%{{ $json.output.centro_custo_origem }}%"
+              },
+              {
+                "condition": "is",
+                "keyName": "deleted_at",
+                "keyValue": "=null"
+              }
+            ]
+          },
+          "limit": 1,
+          "matchType": "allFilters",
+          "operation": "getAll",
+          "orderBy": "nome.desc",
+          "tableId": "centros_custo"
+        },
+        "position": [
+          160,
+          -128
+        ],
+        "type": "n8n-nodes-base.supabase",
+        "typeVersion": 1
+      },
+      {
+        "alwaysOutputData": true,
+        "credentials": {
+          "supabaseApi": {
+            "id": "EpeV2iMisV7hQHf3",
+            "name": "[n8n-mdsl1] marcos.d.s.lima1408@gmail.com"
+          }
+        },
+        "id": "724886e9-0c12-4bb5-bc1b-28c894faa600",
+        "name": "[GET] Cartão crédito",
+        "parameters": {
+          "filters": {
+            "conditions": [
+              {
+                "condition": "ilike",
+                "keyName": "nome",
+                "keyValue": "=%{{ $json.output.cartao_nome }}%"
+              }
+            ]
+          },
+          "limit": 1,
+          "matchType": "allFilters",
+          "operation": "getAll",
+          "tableId": "cartoes_credito"
+        },
+        "position": [
+          160,
+          64
+        ],
+        "type": "n8n-nodes-base.supabase",
+        "typeVersion": 1
+      },
+      {
+        "alwaysOutputData": true,
+        "credentials": {
+          "supabaseApi": {
+            "id": "EpeV2iMisV7hQHf3",
+            "name": "[n8n-mdsl1] marcos.d.s.lima1408@gmail.com"
+          }
+        },
+        "id": "4ac20a57-c3cd-40bf-9a55-3feb26d1839c",
+        "name": "[GET] Categoria",
+        "parameters": {
+          "filters": {
+            "conditions": [
+              {
+                "condition": "ilike",
+                "keyName": "nome",
+                "keyValue": "=%{{ $json.output.categoria_nome }}%"
+              }
+            ]
+          },
+          "limit": 1,
+          "matchType": "allFilters",
+          "operation": "getAll",
+          "tableId": "categorias"
+        },
+        "position": [
+          160,
+          256
+        ],
+        "type": "n8n-nodes-base.supabase",
+        "typeVersion": 1
+      },
+      {
+        "alwaysOutputData": true,
+        "credentials": {
+          "supabaseApi": {
+            "id": "EpeV2iMisV7hQHf3",
+            "name": "[n8n-mdsl1] marcos.d.s.lima1408@gmail.com"
+          }
+        },
+        "id": "aa66496e-112f-4088-824b-5e0696e91c0b",
+        "name": "[GET] Centro custo Destino",
+        "parameters": {
+          "filters": {
+            "conditions": [
+              {
+                "condition": "ilike",
+                "keyName": "nome",
+                "keyValue": "=%{{ $json.output.centro_custo_destino || \"aviao\" }}%"
+              },
+              {
+                "condition": "is",
+                "keyName": "deleted_at",
+                "keyValue": "=null"
+              }
+            ]
+          },
+          "limit": 1,
+          "matchType": "allFilters",
+          "operation": "getAll",
+          "orderBy": "nome.desc",
+          "tableId": "centros_custo"
+        },
+        "position": [
+          160,
+          448
+        ],
+        "type": "n8n-nodes-base.supabase",
+        "typeVersion": 1
+      },
+      {
+        "credentials": {
+          "supabaseApi": {
+            "id": "EpeV2iMisV7hQHf3",
+            "name": "[n8n-mdsl1] marcos.d.s.lima1408@gmail.com"
+          }
+        },
+        "id": "0635da74-2893-48b6-8acc-237361be35ec",
+        "name": "Create a row",
+        "parameters": {
+          "fieldsUi": {
+            "fieldValues": [
+              {
+                "fieldId": "data_transacao",
+                "fieldValue": "={{ $json.data_transacao }}"
+              },
+              {
+                "fieldId": "tipo_transacao",
+                "fieldValue": "={{ $json.tipo_transacao }}"
+              },
+              {
+                "fieldId": "metodo_pagamento",
+                "fieldValue": "={{ $json.metodo_pagamento }}"
+              },
+              {
+                "fieldId": "valor",
+                "fieldValue": "={{ $json.valor }}"
+              },
+              {
+                "fieldId": "centro_custo_origem_id",
+                "fieldValue": "={{ $json.centro_custo_origem_id }}"
+              },
+              {
+                "fieldId": "centro_custo_destino_id",
+                "fieldValue": "={{ $json.centro_custo_destino_id }}"
+              },
+              {
+                "fieldId": "cartao_id",
+                "fieldValue": "={{ $json.cartao_id }}"
+              },
+              {
+                "fieldId": "categoria_id",
+                "fieldValue": "={{ $json.categoria_id }}"
+              },
+              {
+                "fieldId": "descricao",
+                "fieldValue": "={{ $json.descricao }}"
+              },
+              {
+                "fieldId": "fatura_mes_ano",
+                "fieldValue": "={{ $json.fatura_mes_ano }}"
+              }
+            ]
+          },
+          "tableId": "extrato"
+        },
+        "position": [
+          832,
+          64
+        ],
+        "type": "n8n-nodes-base.supabase",
+        "typeVersion": 1
+      },
+      {
+        "executeOnce": true,
+        "id": "5114d030-621d-46af-b41a-8c3fdea88b6a",
+        "name": "Edit Fields",
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "49b4961b-76d7-4d35-bdb4-5477c1633416",
+                "name": "data_transacao",
+                "type": "string",
+                "value": "={{ $node['Information Extractor'].json.output.data_transacao }}"
+              },
+              {
+                "id": "d063365b-5bed-47f2-ba44-3f02338e4e1c",
+                "name": "tipo_transacao",
+                "type": "string",
+                "value": "={{ $node['Information Extractor'].json.output.tipo_transacao }}"
+              },
+              {
+                "id": "b8194aa2-e539-4e25-9719-76533d1a6bf7",
+                "name": "metodo_pagamento",
+                "type": "string",
+                "value": "={{ $node['Information Extractor'].json.output.metodo_pagamento }}"
+              },
+              {
+                "id": "90734825-0430-4bb8-8d05-b61d2643597e",
+                "name": "valor",
+                "type": "number",
+                "value": "={{ $('Information Extractor').item.json.output.valor }}"
+              },
+              {
+                "id": "84c5a5a2-5104-4b1b-b8fd-9b2631b22805",
+                "name": "centro_custo_origem_id",
+                "type": "number",
+                "value": "={{ $node['[GET] Centro custo Origem'].json.id }}"
+              },
+              {
+                "id": "b3a22272-3884-4ab7-ad08-c1280e41b7cb",
+                "name": "=centro_custo_destino_id",
+                "type": "number",
+                "value": "={{ $node['[GET] Centro custo Destino'].json.id }}"
+              },
+              {
+                "id": "0fd91581-e997-4664-ac65-0c170e42992e",
+                "name": "cartao_id",
+                "type": "number",
+                "value": "={{ $node['[GET] Cartão crédito'].json.id }}"
+              },
+              {
+                "id": "b15f4f8e-1637-46c8-8817-520313e03c0f",
+                "name": "categoria_id",
+                "type": "number",
+                "value": "={{ $node['[GET] Categoria'].json.id }}"
+              },
+              {
+                "id": "d29dd174-a6a8-48bd-933b-f5e87ba4a644",
+                "name": "descricao",
+                "type": "string",
+                "value": "={{ $node['Information Extractor'].json.output.descricao }}"
+              },
+              {
+                "id": "e7856baa-c551-4483-ade9-d485b01d7515",
+                "name": "fatura_mes_ano",
+                "type": "string",
+                "value": "={{ $node['Information Extractor'].json.output.fatura_mes_ano }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "position": [
+          608,
+          64
+        ],
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
+      },
+      {
+        "credentials": {
+          "googlePalmApi": {
+            "id": "RlELwfJAa5UbXCqL",
+            "name": "[gemini_key] markniel1408@gmail.com"
+          }
+        },
+        "id": "ad3a9298-b3c8-4704-bba7-49367371fad8",
+        "name": "Google Gemini Chat Model2",
+        "parameters": {
+          "modelName": "models/gemini-3.5-flash-lite",
+          "options": {}
+        },
+        "position": [
+          -528,
+          896
+        ],
+        "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+        "typeVersion": 1.1
+      },
+      {
+        "credentials": {
+          "supabaseApi": {
+            "id": "EpeV2iMisV7hQHf3",
+            "name": "[n8n-mdsl1] marcos.d.s.lima1408@gmail.com"
+          }
+        },
+        "id": "4153ccaf-f4c1-4030-be8a-b9b2a5df848f",
+        "name": "consultar_saldos",
+        "parameters": {
+          "descriptionType": "manual",
+          "filters": {
+            "conditions": []
+          },
+          "limit": 100,
+          "operation": "getAll",
+          "tableId": "centros_custo",
+          "toolDescription": "Consulta os saldos atuais de todas as contas (Santander, 99Pay, Nubank, Caixinha Turbo e Rico). Use sempre que o usuário perguntar quanto dinheiro tem, saldo disponível, saldo de um banco específico ou quanto tem na reserva"
+        },
+        "position": [
+          -400,
+          896
+        ],
+        "type": "n8n-nodes-base.supabaseTool",
+        "typeVersion": 1
+      },
+      {
+        "credentials": {
+          "supabaseApi": {
+            "id": "EpeV2iMisV7hQHf3",
+            "name": "[n8n-mdsl1] marcos.d.s.lima1408@gmail.com"
+          }
+        },
+        "id": "101e660e-fea1-4554-ad2c-9bb8f48aba04",
+        "name": "consultar_fatura",
+        "parameters": {
+          "descriptionType": "manual",
+          "limit": 1000,
+          "operation": "getAll",
+          "tableId": "vw_faturas_cartao",
+          "toolDescription": "Consulta os valores consolidados e quantidade de compras das faturas do cartão de crédito (Santander SX) agrupados por mês (fatura_mes_ano). Use para responder sobre valor da fatura atual ou faturas de meses específicos."
+        },
+        "position": [
+          -272,
+          896
+        ],
+        "type": "n8n-nodes-base.supabaseTool",
+        "typeVersion": 1
+      },
+      {
+        "credentials": {
+          "supabaseApi": {
+            "id": "EpeV2iMisV7hQHf3",
+            "name": "[n8n-mdsl1] marcos.d.s.lima1408@gmail.com"
+          }
+        },
+        "id": "7937caf7-8144-41da-bf8d-608f0a5ad2fb",
+        "name": "consultar_gastos_categoria",
+        "parameters": {
+          "descriptionType": "manual",
+          "operation": "getAll",
+          "returnAll": true,
+          "tableId": "vw_resumo_mensal_categorias",
+          "toolDescription": "Consulta o total de despesas agrupadas por categoria (Comida, Mercado, Transporte, etc.) e tipo (essencial, estilo_vida, conta_fixa) para um determinado mês no formato 'YYYY-MM'. Use para responder 'quanto gastei com comida este mês' ou resumos de gastos."
+        },
+        "position": [
+          -144,
+          896
+        ],
+        "type": "n8n-nodes-base.supabaseTool",
+        "typeVersion": 1
+      },
+      {
+        "credentials": {
+          "supabaseApi": {
+            "id": "EpeV2iMisV7hQHf3",
+            "name": "[n8n-mdsl1] marcos.d.s.lima1408@gmail.com"
+          }
+        },
+        "id": "a2a4b01d-8d32-4a45-98f5-84da7d93f647",
+        "name": "listar_extrato_detalhado",
+        "parameters": {
+          "descriptionType": "manual",
+          "operation": "getAll",
+          "returnAll": true,
+          "tableId": "vw_extrato_detalhado",
+          "toolDescription": "Lista transações detalhadas (data, valor, descrição, método e conta) com filtros flexíveis por categoria_nome, categoria_tipo ('estilo_vida', 'essencial', 'conta_fixa') ou mes_ano ('YYYY-MM'). Use sempre que o usuário pedir para listar, detalhar ou mostrar transações específicas."
+        },
+        "position": [
+          -16,
+          896
+        ],
+        "type": "n8n-nodes-base.supabaseTool",
+        "typeVersion": 1
+      }
+    ],
+    "updatedAt": "2026-08-28T14:20:14.000Z",
+    "versionId": "dbd2e866-c3ea-49ce-ba44-3e0d5ce5939c",
+    "workflowId": "RGeMxU5gLWdQrz1O"
+  },
+  "activeVersionId": "dbd2e866-c3ea-49ce-ba44-3e0d5ce5939c",
   "connections": {
     "AI Agent": {
       "main": [
@@ -25,13 +928,13 @@
         ]
       ]
     },
-    "Especialista em Finanças": {
-      "ai_languageModel": [
+    "Edit Fields": {
+      "main": [
         [
           {
             "index": 0,
-            "node": "AI Agent",
-            "type": "ai_languageModel"
+            "node": "Create a row",
+            "type": "main"
           }
         ]
       ]
@@ -53,6 +956,17 @@
           {
             "index": 0,
             "node": "Text Classifier",
+            "type": "ai_languageModel"
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
             "type": "ai_languageModel"
           }
         ]
@@ -89,19 +1003,8 @@
         [
           {
             "index": 0,
-            "node": "Create a row",
+            "node": "Edit Fields",
             "type": "main"
-          }
-        ]
-      ]
-    },
-    "Obter informações da planilha": {
-      "ai_tool": [
-        [
-          {
-            "index": 0,
-            "node": "AI Agent",
-            "type": "ai_tool"
           }
         ]
       ]
@@ -190,6 +1093,50 @@
           }
         ]
       ]
+    },
+    "consultar_fatura": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "consultar_gastos_categoria": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "consultar_saldos": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
+    },
+    "listar_extrato_detalhado": {
+      "ai_tool": [
+        [
+          {
+            "index": 0,
+            "node": "AI Agent",
+            "type": "ai_tool"
+          }
+        ]
+      ]
     }
   },
   "id": "RGeMxU5gLWdQrz1O",
@@ -207,11 +1154,11 @@
           "categories": [
             {
               "category": "Transações Financeiras",
-              "description": "Se conter qualquer termo relacionado à compra, recebimento ou transferência de dinheiro."
+              "description": "Usar quando a mensagem contiver o registro de uma movimentação de dinheiro: compras, saídas, entradas de salário, pix enviado/recebido, transferências entre contas ou pagamentos de contas/boletos."
             },
             {
               "category": "Consultas Financeiras",
-              "description": "Se conter qualquer termo relacionado à consulta de saldo em conta, histórico de compras etc."
+              "description": "Usar quando a mensagem for uma pergunta ou dúvida sobre valores: saldo disponível em conta, valor atual da fatura do cartão, quanto foi gasto no mês ou quanto tem guardado/investido."
             }
           ]
         },
@@ -221,13 +1168,16 @@
         }
       },
       "position": [
-        -880,
-        848
+        -912,
+        656
       ],
+      "retryOnFail": true,
       "type": "@n8n/n8n-nodes-langchain.textClassifier",
-      "typeVersion": 1.1
+      "typeVersion": 1.1,
+      "waitBetweenTries": 2000
     },
     {
+      "executeOnce": false,
       "id": "93e20a14-1c11-4d07-a096-c8b0c8930957",
       "name": "Information Extractor",
       "parameters": {
@@ -275,92 +1225,46 @@
             {
               "description": "Mês e ano da fatura no formato 'YYYY-MM'. Preencher apenas se metodo_pagamento for 'cartao_credito'. Considere que o cartão fecha no dia 07 e vence no dia 14: se a compra ocorrer até o dia 07, entra na fatura do mês atual; se ocorrer após o dia 07, entra na fatura do mês seguinte. Se não for crédito, deixe em branco/nulo.",
               "name": "fatura_mes_ano"
+            },
+            {
+              "description": "Data informada pelo cliente no formato 'YYYY-MM-DD'. Caso ele não informe, use a data de hoje no formato 'YYYY-MM-DD'.",
+              "name": "data_transacao",
+              "type": "date"
             }
           ]
         },
         "options": {
-          "systemPromptTemplate": "=Hoje é dia {{ $now.format('dd/mm/yyyy') }}\n"
+          "systemPromptTemplate": "=Hoje é dia {{ $now.toLocaleString('pt-BR')}}\n"
         },
         "text": "={{ $json.prompt }}"
       },
       "position": [
-        -528,
-        256
+        -368,
+        64
       ],
+      "retryOnFail": true,
       "type": "@n8n/n8n-nodes-langchain.informationExtractor",
-      "typeVersion": 1.2
-    },
-    {
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "kYYVcUgp217Zebjp",
-          "name": "[sheets] markniel1408@gmail.com"
-        }
-      },
-      "id": "a28f6ed7-82e7-4293-86d8-14a47a5ae344",
-      "name": "Obter informações da planilha",
-      "parameters": {
-        "documentId": {
-          "__rl": true,
-          "cachedResultName": "Controle Finanças",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YGayk4Gl27a_gSGSUzJRPHS0b_StCYOI9bcIclxIDEs/edit?usp=drivesdk",
-          "mode": "list",
-          "value": "1YGayk4Gl27a_gSGSUzJRPHS0b_StCYOI9bcIclxIDEs"
-        },
-        "options": {},
-        "sheetName": {
-          "__rl": true,
-          "cachedResultName": "Dados",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YGayk4Gl27a_gSGSUzJRPHS0b_StCYOI9bcIclxIDEs/edit#gid=0",
-          "mode": "list",
-          "value": "gid=0"
-        }
-      },
-      "position": [
-        -288,
-        1088
-      ],
-      "type": "n8n-nodes-base.googleSheetsTool",
-      "typeVersion": 4.7
-    },
-    {
-      "credentials": {
-        "groqApi": {
-          "id": "3LdcpckX3lH2Hhjn",
-          "name": "[groq-key: ai-agent] markniel1408@gmail.com"
-        }
-      },
-      "id": "a7552fd6-e524-461d-819c-b1707eca0a70",
-      "name": "Especialista em Finanças",
-      "parameters": {
-        "model": "llama-3.3-70b-versatile",
-        "options": {
-          "temperature": 0.7
-        }
-      },
-      "position": [
-        -416,
-        1088
-      ],
-      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
-      "typeVersion": 1
+      "typeVersion": 1.2,
+      "waitBetweenTries": 2000
     },
     {
       "id": "c04ecd43-5b40-4e21-b1af-71202908c301",
       "name": "AI Agent",
       "parameters": {
         "options": {
-          "systemMessage": "Role:\nVocê é um Especialista em Finanças Pessoais focado em análise de dados estruturados. Sua única fonte de verdade é o retorno da ferramenta Obter informações da planilha.\n\nProtocolo de Pensamento (Chain of Thought):\n\nLeitura: Antes de qualquer resposta, execute a ferramenta e leia a Linha 2 (Saldos) e as linhas seguintes (Histórico).\n\nFiltragem: Identifique se o usuário perguntou sobre \"Saldo Atual\", \"Investimentos\" ou \"Histórico de Gastos\".\n\nIsolamento: Nunca misture valores de Reservas ou Investimentos em cálculos de \"Saldo Disponível\".\n\nSegmentação de Dados (Obrigatória):\n\n1. Disponibilidade Imediata (Saldo Real): Use exclusivamente a Linha 2 das colunas: Saldo Santander, Saldo Nubank, Saldo 99Pay e Saldo Itaú.\n\nRegra: Quando perguntado \"Quanto eu tenho?\", some apenas estes 4 bancos. Não cite reservas ou investimentos aqui.\n\n2. Reservas de Emergência: Use a Linha 2 das colunas: Caixinha Nubank e Poupança Santander.\n\nRegra de Ouro: Estes valores são \"invisíveis\". Você SÓ deve mencioná-los se o usuário perguntar especificamente por \"Reservas\", \"Emergência\" ou \"Quanto tenho guardado\".\n\n2. Investimentos: Use a Linha 2 da coluna: Investimentos Rico.\n\nRegra de Ouro: Estes valores são \"invisíveis\". Você SÓ deve mencioná-los se o usuário perguntar especificamente por \"Investimentos\", \"Dinheiro Aplicado\" ou \"Quanto tenho investido\".\n\n3. Histórico de Transações: Use todas as linhas (da 3 em diante) das colunas: Mês, Dia, Valor, Tipo Transação, Classificação Valor, Centro de Custo e Descrição.\n\nAplicação: Use para responder: \"Quanto gastei com combustível?\", \"Quanto foi gasto em alimentação no mês X?\".\n\nDiretrizes de Resposta:\n\nConsultas por Banco: Se perguntado sobre um banco específico (ex: \"Saldo do Itaú\"), dê apenas o valor de conta corrente daquele banco.\n\nAnálise de \"Besteiras\": Sempre monitore a categoria \"Besteiras\" (lanches/salgados). Se os gastos aqui forem altos e a \"Disponibilidade Imediata\" estiver baixa, dê um conselho construtivo.\n\nTratamento de Movimentações: Ignore transações do tipo \"Movimentação\" em cálculos de soma de gastos, pois são apenas transferências entre contas.\n\nLimpeza de Output: Responda de forma direta e humana. Proibido exibir tags de sistema, JSON ou nomes de funções como <function...> na resposta final.\n\nTom de Voz:\nMentor financeiro. Profissional, direto e atento aos detalhes. Use termos como \"Seu poder de compra atual é...\", \"Seu gasto acumulado em [Categoria] é...\" ou \"Notei uma reserva disponível para emergências de...\"."
+          "systemMessage": "=Role:\nVocê é um Especialista em Finanças Pessoais, focado em análise e consulta de dados financeiros. Sua única fonte de verdade são os retornos das ferramentas de consulta conectadas ao Supabase.\n\nProtocolo de Pensamento (Chain of Thought):\n1. Identificação da Intenção: Identifique com precisão se a dúvida do usuário é sobre \"Saldo Disponível\", \"Reserva/Investimentos\", \"Fatura de Cartão\" ou \"Histórico/Resumo de Gastos\".\n2. Execução da Ferramenta: Chame a ferramenta adequada (consultar_saldos, consultar_fatura ou consultar_gastos_categoria) antes de formular qualquer resposta.\n3. Isolamento Rígido: NUNCA misture valores de Reserva de Emergência ou Investimentos em Bolsa no cálculo de \"Saldo Disponível / Poder de Compra\".\n4. Atualidade Temporal: Leve em conta que hoje é dia {{ $now.toLocaleString('pt-BR') }}\n\nSegmentação de Dados (Regras de Negócio):\n\n1. Disponibilidade Imediata (Saldo Operacional):\n- Contas: \"Conta Corrente Santander\", \"Conta Corrente Nubank\" e \"Conta Corrente 99Pay\" (tipo: conta_corrente e capital_giro).\n- Regra: Quando o usuário perguntar \"Quanto eu tenho?\", \"Qual meu saldo?\" ou \"Quanto posso gastar?\", some EXCLUSIVAMENTE essas 3 contas líquidas.\n\n2. Reserva de Emergência (Renda Fixa):\n- Contas: \"Caixinha Turbo Nubank\" (meta/teto: R$ 5.000) e \"Poupança Santander\" (tipo: reserva_renda_fixa).\n- Regra de Ouro: Estes saldos são protegidos e invisíveis para gastos do dia a dia. Você SÓ deve mencioná-los se o usuário perguntar especificamente por \"Reserva\", \"Emergência\", \"Dinheiro guardado\" ou \"Caixinha\".\n\n3. Investimentos (Bolsa de Valores):\n- Conta: \"Investimentos Rico\" (tipo: investimento).\n- Regra de Ouro: SÓ mencione se o usuário perguntar especificamente por \"Investimentos\", \"Bolsa\", \"Ações/FIIs\" ou \"Dinheiro aplicado\".\n\n4. Fatura de Cartão de Crédito (Santander SX):\n- Fonte: Ferramenta de faturas (vw_faturas_cartao).\n- Regra: O fechamento ocorre todo dia 07 e o vencimento no dia 14. Sempre informe o valor consolidado da fatura atual e, se houver compras lançadas para o mês seguinte, detalhe com clareza.\n\n5. Histórico e Relatórios de Gastos:\n- Fonte: Ferramenta de resumo mensal (vw_resumo_mensal_categorias).\n- Categorias Open Finance: Comida, Mercado, Transporte, Compras, Assinaturas de Serviços, Faturas / Contas, Empréstimos, Diversos.\n- Regra: \"Transferencia Interna\" NUNCA é contabilizada como despesa de consumo.\n\nDiretrizes de Resposta e Postura:\n- Consultas por Banco Específico: Se perguntado \"Quanto tenho no Nubank?\", informe apenas o saldo da Conta Corrente Nubank. Se perguntar da Caixinha, informe o saldo da Caixinha Turbo.\n- Monitoramento de Estilo de Vida: Fique atento a gastos acumulados em \"Comida\" (lanches/delivery) e \"Compras\". Se esses valores estiverem elevados em relação ao saldo operacional disponível, inclua uma observação construtiva e amigável.\n- Limpeza de Output: Resposta 100% humanizada, direta e escaneável. Proibido exibir tags de sistema, JSON, IDs internos ou nomes de funções técnicas. Certifique-se de que todos os asteriscos de negrito estão devidamente fechados aos pares (ex: *texto*).\n- Formatação Numérica: Sempre formate valores no padrão monetário brasileiro: R$ X.XXX,XX.\n\nTom de Voz:\nMentor financeiro pessoal: profissional, analítico, direto e atento ao fluxo de caixa. Use expressões como:\n- \"Seu poder de compra imediato hoje é de...\"\n- \"Sua fatura atual do Santander está em...\"\n- \"Você tem acumulado em reservas...\""
         },
         "promptType": "define",
         "text": "={{ $json.prompt }}"
       },
       "position": [
-        -432,
-        864
+        -336,
+        672
       ],
+      "retryOnFail": true,
       "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 3.1
+      "typeVersion": 3.1,
+      "waitBetweenTries": 3000
     },
     {
       "id": "3af09b9a-5d02-4dee-80e2-18fb9ead437d",
@@ -379,8 +1283,8 @@
         "options": {}
       },
       "position": [
-        -480,
-        1472
+        -496,
+        1280
       ],
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4
@@ -402,8 +1306,8 @@
         "options": {}
       },
       "position": [
-        -80,
-        976
+        192,
+        672
       ],
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4
@@ -418,15 +1322,15 @@
               "id": "d743f56b-7123-471f-96b6-bf9b67e033b3",
               "name": "resposta",
               "type": "string",
-              "value": "={{ $('Information Extractor').first().json.output.tipo_transacao }} de R$ {{ $('Information Extractor').first().json.output.valor }} no banco {{ $('Information Extractor').first().json.output.centro_de_custo }} adicionada com sucesso à planilha."
+              "value": "={{ $json.tipo_transacao.toUpperCase() }} de {{ $json.valor.format('pt-BR', {'style': 'currency', 'currency': 'BRL'}) }} {{ $json.tipo_transacao.toLowerCase() === 'transferencia' ? `de ${$('[GET] Centro custo Origem').item.json.nome} para ${$node['[GET] Centro custo Destino'].json.nome}` : `(${$('Information Extractor').item.json.output.categoria_nome}) via ${ $json.metodo_pagamento.replace('_', ' ')} do ${ $('[GET] Centro custo Origem').item.json.nome.split(' ').last()}`}} registrada com sucesso!"
             }
           ]
         },
         "options": {}
       },
       "position": [
-        512,
-        384
+        1056,
+        64
       ],
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4
@@ -444,8 +1348,8 @@
         }
       },
       "position": [
-        -1104,
-        848
+        -1152,
+        672
       ],
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1
@@ -464,51 +1368,11 @@
         "options": {}
       },
       "position": [
-        -448,
-        480
+        -304,
+        288
       ],
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1.1
-    },
-    {
-      "credentials": {
-        "supabaseApi": {
-          "id": "EpeV2iMisV7hQHf3",
-          "name": "[n8n-mdsl1] marcos.d.s.lima1408@gmail.com"
-        }
-      },
-      "id": "0635da74-2893-48b6-8acc-237361be35ec",
-      "name": "Create a row",
-      "parameters": {
-        "fieldsUi": {
-          "fieldValues": [
-            {
-              "fieldId": "tipo_transacao",
-              "fieldValue": "={{ $('Information Extractor').item.json.output.tipo_transacao }}"
-            },
-            {
-              "fieldId": "metodo_pagamento",
-              "fieldValue": "={{ $('Information Extractor').item.json.output.metodo_pagamento }}"
-            },
-            {
-              "fieldId": "valor",
-              "fieldValue": "={{ $('Information Extractor').item.json.output.valor }}"
-            },
-            {
-              "fieldId": "centro_custo_origem_id",
-              "fieldValue": "={{ $json.id }}"
-            },
-            {}
-          ]
-        },
-        "tableId": "extrato"
-      },
-      "position": [
-        288,
-        384
-      ],
-      "type": "n8n-nodes-base.supabase",
-      "typeVersion": 1
     },
     {
       "credentials": {
@@ -524,8 +1388,8 @@
         "options": {}
       },
       "position": [
-        -800,
-        1104
+        -832,
+        912
       ],
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1.1
@@ -537,13 +1401,14 @@
         "numberInputs": 4
       },
       "position": [
-        80,
-        352
+        384,
+        32
       ],
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2
     },
     {
+      "alwaysOutputData": true,
       "credentials": {
         "supabaseApi": {
           "id": "EpeV2iMisV7hQHf3",
@@ -559,22 +1424,29 @@
               "condition": "ilike",
               "keyName": "nome",
               "keyValue": "=%{{ $json.output.centro_custo_origem }}%"
+            },
+            {
+              "condition": "is",
+              "keyName": "deleted_at",
+              "keyValue": "=null"
             }
           ]
         },
-        "limit": 5,
+        "limit": 1,
         "matchType": "allFilters",
         "operation": "getAll",
+        "orderBy": "nome.desc",
         "tableId": "centros_custo"
       },
       "position": [
-        -176,
-        64
+        160,
+        -128
       ],
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1
     },
     {
+      "alwaysOutputData": true,
       "credentials": {
         "supabaseApi": {
           "id": "EpeV2iMisV7hQHf3",
@@ -593,19 +1465,20 @@
             }
           ]
         },
-        "limit": 5,
+        "limit": 1,
         "matchType": "allFilters",
         "operation": "getAll",
         "tableId": "cartoes_credito"
       },
       "position": [
-        -176,
-        256
+        160,
+        64
       ],
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1
     },
     {
+      "alwaysOutputData": true,
       "credentials": {
         "supabaseApi": {
           "id": "EpeV2iMisV7hQHf3",
@@ -624,19 +1497,20 @@
             }
           ]
         },
-        "limit": 5,
+        "limit": 1,
         "matchType": "allFilters",
         "operation": "getAll",
         "tableId": "categorias"
       },
       "position": [
-        -176,
-        448
+        160,
+        256
       ],
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1
     },
     {
+      "alwaysOutputData": true,
       "credentials": {
         "supabaseApi": {
           "id": "EpeV2iMisV7hQHf3",
@@ -652,19 +1526,281 @@
               "condition": "ilike",
               "keyName": "nome",
               "keyValue": "=%{{ $json.output.centro_custo_destino || \"aviao\" }}%"
+            },
+            {
+              "condition": "is",
+              "keyName": "deleted_at",
+              "keyValue": "=null"
             }
           ]
         },
         "limit": 1,
         "matchType": "allFilters",
         "operation": "getAll",
+        "orderBy": "nome.desc",
         "tableId": "centros_custo"
       },
       "position": [
-        -176,
-        640
+        160,
+        448
       ],
       "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1
+    },
+    {
+      "credentials": {
+        "supabaseApi": {
+          "id": "EpeV2iMisV7hQHf3",
+          "name": "[n8n-mdsl1] marcos.d.s.lima1408@gmail.com"
+        }
+      },
+      "id": "0635da74-2893-48b6-8acc-237361be35ec",
+      "name": "Create a row",
+      "parameters": {
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "data_transacao",
+              "fieldValue": "={{ $json.data_transacao }}"
+            },
+            {
+              "fieldId": "tipo_transacao",
+              "fieldValue": "={{ $json.tipo_transacao }}"
+            },
+            {
+              "fieldId": "metodo_pagamento",
+              "fieldValue": "={{ $json.metodo_pagamento }}"
+            },
+            {
+              "fieldId": "valor",
+              "fieldValue": "={{ $json.valor }}"
+            },
+            {
+              "fieldId": "centro_custo_origem_id",
+              "fieldValue": "={{ $json.centro_custo_origem_id }}"
+            },
+            {
+              "fieldId": "centro_custo_destino_id",
+              "fieldValue": "={{ $json.centro_custo_destino_id }}"
+            },
+            {
+              "fieldId": "cartao_id",
+              "fieldValue": "={{ $json.cartao_id }}"
+            },
+            {
+              "fieldId": "categoria_id",
+              "fieldValue": "={{ $json.categoria_id }}"
+            },
+            {
+              "fieldId": "descricao",
+              "fieldValue": "={{ $json.descricao }}"
+            },
+            {
+              "fieldId": "fatura_mes_ano",
+              "fieldValue": "={{ $json.fatura_mes_ano }}"
+            }
+          ]
+        },
+        "tableId": "extrato"
+      },
+      "position": [
+        832,
+        64
+      ],
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1
+    },
+    {
+      "executeOnce": true,
+      "id": "5114d030-621d-46af-b41a-8c3fdea88b6a",
+      "name": "Edit Fields",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "49b4961b-76d7-4d35-bdb4-5477c1633416",
+              "name": "data_transacao",
+              "type": "string",
+              "value": "={{ $node['Information Extractor'].json.output.data_transacao }}"
+            },
+            {
+              "id": "d063365b-5bed-47f2-ba44-3f02338e4e1c",
+              "name": "tipo_transacao",
+              "type": "string",
+              "value": "={{ $node['Information Extractor'].json.output.tipo_transacao }}"
+            },
+            {
+              "id": "b8194aa2-e539-4e25-9719-76533d1a6bf7",
+              "name": "metodo_pagamento",
+              "type": "string",
+              "value": "={{ $node['Information Extractor'].json.output.metodo_pagamento }}"
+            },
+            {
+              "id": "90734825-0430-4bb8-8d05-b61d2643597e",
+              "name": "valor",
+              "type": "number",
+              "value": "={{ $('Information Extractor').item.json.output.valor }}"
+            },
+            {
+              "id": "84c5a5a2-5104-4b1b-b8fd-9b2631b22805",
+              "name": "centro_custo_origem_id",
+              "type": "number",
+              "value": "={{ $node['[GET] Centro custo Origem'].json.id }}"
+            },
+            {
+              "id": "b3a22272-3884-4ab7-ad08-c1280e41b7cb",
+              "name": "=centro_custo_destino_id",
+              "type": "number",
+              "value": "={{ $node['[GET] Centro custo Destino'].json.id }}"
+            },
+            {
+              "id": "0fd91581-e997-4664-ac65-0c170e42992e",
+              "name": "cartao_id",
+              "type": "number",
+              "value": "={{ $node['[GET] Cartão crédito'].json.id }}"
+            },
+            {
+              "id": "b15f4f8e-1637-46c8-8817-520313e03c0f",
+              "name": "categoria_id",
+              "type": "number",
+              "value": "={{ $node['[GET] Categoria'].json.id }}"
+            },
+            {
+              "id": "d29dd174-a6a8-48bd-933b-f5e87ba4a644",
+              "name": "descricao",
+              "type": "string",
+              "value": "={{ $node['Information Extractor'].json.output.descricao }}"
+            },
+            {
+              "id": "e7856baa-c551-4483-ade9-d485b01d7515",
+              "name": "fatura_mes_ano",
+              "type": "string",
+              "value": "={{ $node['Information Extractor'].json.output.fatura_mes_ano }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        608,
+        64
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "credentials": {
+        "googlePalmApi": {
+          "id": "RlELwfJAa5UbXCqL",
+          "name": "[gemini_key] markniel1408@gmail.com"
+        }
+      },
+      "id": "ad3a9298-b3c8-4704-bba7-49367371fad8",
+      "name": "Google Gemini Chat Model2",
+      "parameters": {
+        "modelName": "models/gemini-3.5-flash-lite",
+        "options": {}
+      },
+      "position": [
+        -528,
+        896
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1
+    },
+    {
+      "credentials": {
+        "supabaseApi": {
+          "id": "EpeV2iMisV7hQHf3",
+          "name": "[n8n-mdsl1] marcos.d.s.lima1408@gmail.com"
+        }
+      },
+      "id": "4153ccaf-f4c1-4030-be8a-b9b2a5df848f",
+      "name": "consultar_saldos",
+      "parameters": {
+        "descriptionType": "manual",
+        "filters": {
+          "conditions": []
+        },
+        "limit": 100,
+        "operation": "getAll",
+        "tableId": "centros_custo",
+        "toolDescription": "Consulta os saldos atuais de todas as contas (Santander, 99Pay, Nubank, Caixinha Turbo e Rico). Use sempre que o usuário perguntar quanto dinheiro tem, saldo disponível, saldo de um banco específico ou quanto tem na reserva"
+      },
+      "position": [
+        -400,
+        896
+      ],
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1
+    },
+    {
+      "credentials": {
+        "supabaseApi": {
+          "id": "EpeV2iMisV7hQHf3",
+          "name": "[n8n-mdsl1] marcos.d.s.lima1408@gmail.com"
+        }
+      },
+      "id": "101e660e-fea1-4554-ad2c-9bb8f48aba04",
+      "name": "consultar_fatura",
+      "parameters": {
+        "descriptionType": "manual",
+        "limit": 1000,
+        "operation": "getAll",
+        "tableId": "vw_faturas_cartao",
+        "toolDescription": "Consulta os valores consolidados e quantidade de compras das faturas do cartão de crédito (Santander SX) agrupados por mês (fatura_mes_ano). Use para responder sobre valor da fatura atual ou faturas de meses específicos."
+      },
+      "position": [
+        -272,
+        896
+      ],
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1
+    },
+    {
+      "credentials": {
+        "supabaseApi": {
+          "id": "EpeV2iMisV7hQHf3",
+          "name": "[n8n-mdsl1] marcos.d.s.lima1408@gmail.com"
+        }
+      },
+      "id": "7937caf7-8144-41da-bf8d-608f0a5ad2fb",
+      "name": "consultar_gastos_categoria",
+      "parameters": {
+        "descriptionType": "manual",
+        "operation": "getAll",
+        "returnAll": true,
+        "tableId": "vw_resumo_mensal_categorias",
+        "toolDescription": "Consulta o total de despesas agrupadas por categoria (Comida, Mercado, Transporte, etc.) e tipo (essencial, estilo_vida, conta_fixa) para um determinado mês no formato 'YYYY-MM'. Use para responder 'quanto gastei com comida este mês' ou resumos de gastos."
+      },
+      "position": [
+        -144,
+        896
+      ],
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1
+    },
+    {
+      "credentials": {
+        "supabaseApi": {
+          "id": "EpeV2iMisV7hQHf3",
+          "name": "[n8n-mdsl1] marcos.d.s.lima1408@gmail.com"
+        }
+      },
+      "id": "a2a4b01d-8d32-4a45-98f5-84da7d93f647",
+      "name": "listar_extrato_detalhado",
+      "parameters": {
+        "descriptionType": "manual",
+        "operation": "getAll",
+        "returnAll": true,
+        "tableId": "vw_extrato_detalhado",
+        "toolDescription": "Lista transações detalhadas (data, valor, descrição, método e conta) com filtros flexíveis por categoria_nome, categoria_tipo ('estilo_vida', 'essencial', 'conta_fixa') ou mes_ano ('YYYY-MM'). Use sempre que o usuário pedir para listar, detalhar ou mostrar transações específicas."
+      },
+      "position": [
+        -16,
+        896
+      ],
+      "type": "n8n-nodes-base.supabaseTool",
       "typeVersion": 1
     }
   ],
@@ -672,7 +1808,10 @@
     "When Executed by Another Workflow": [
       {
         "json": {
-          "prompt": "compra de 12 reais feita no cartão de crédito do santander, para abastecer a moto"
+          "prompt": "liste todas as transações registradas, quero saber o valor, dia e descrição"
+        },
+        "pairedItem": {
+          "item": 0
         }
       }
     ]
