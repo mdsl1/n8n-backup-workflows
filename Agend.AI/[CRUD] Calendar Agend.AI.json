@@ -224,9 +224,9 @@
         ]
       }
     },
-    "createdAt": "2026-08-21T01:45:41.197Z",
+    "createdAt": "2026-09-05T03:48:51.676Z",
     "description": "",
-    "name": "20082026.01",
+    "name": "05092026.02",
     "nodeGroups": [],
     "nodes": [
       {
@@ -709,7 +709,7 @@
         "id": "d6c18957-3fbb-41ab-bc2e-d8536500c618",
         "name": "[SET] Response2",
         "parameters": {
-          "jsCode": "const data = $(\"[GET] Consultar eventos by Agenda\").all();\nconst profissionalUuid = $('[SET] Dados Busca Agenda').first().json.profissional_uuid;\nconst events = [];\n\nif(Array.isArray(data) && data.length > 0 && Object.keys(data[0].json || {}).length > 0) {\n  for (const item of data) {\n    const event = item.json;\n    const id = event.id;\n    const cliente = event.summary.split(\" - \")[0];\n    const procedimento = event.summary.split(\" - \")[1];\n    const inicio = event.start?.dateTime; // Vem no formato 2026-08-07T18:00:00Z, com o timezone America/Sao_Paulo. converter para -03:00\n    const fim = event.end?.dateTime;\n  \n    events.push({\n      id: id,\n      title: cliente.trim() || null,\n      inicio: inicio,\n      fim: fim,\n      extendedProps: {\n        patient: cliente.trim() || null,\n        procedure: procedimento || null,\n        doctorUuid: profissionalUuid\n      }\n    })\n  }\n}\n\n\nreturn [\n  {\n    json: {\n      events\n    },\n  },\n];"
+          "jsCode": "const data = $(\"[GET] Consultar eventos by Agenda\").all();\nconst profissionalUuid = $('[SET] Dados Busca Agenda').first().json.profissional_uuid;\nconst events = [];\n\nif(Array.isArray(data) && data.length > 0 && Object.keys(data[0].json || {}).length > 0) {\n  for (const item of data) {\n    const event = item.json;\n    const id = event.id;\n    const cliente = event.summary.includes(\"-\") ? event.summary.split(\" - \")[0] : null;\n    const procedimento = event.summary.split(\" - \")[1] || null;\n    const inicio = event.start?.dateTime; // Vem no formato 2026-08-07T18:00:00Z, com o timezone America/Sao_Paulo. converter para -03:00\n    const fim = event.end?.dateTime;\n    const tipo = (cliente === null && procedimento === null) ? \"indisponibilidade\" : \"agendamento\";\n  \n    events.push({\n      id: id,\n      title: cliente || event.summary.trim(),\n      tipo: tipo,\n      inicio: inicio,\n      fim: fim,\n      extendedProps: {\n        patient: cliente || null,\n        procedure: procedimento || null,\n        doctorUuid: profissionalUuid\n      }\n    })\n  }\n}\n\n\nreturn [\n  {\n    json: {\n      events\n    },\n  },\n];"
         },
         "position": [
           -800,
@@ -983,11 +983,11 @@
         "typeVersion": 1.5
       }
     ],
-    "updatedAt": "2026-08-21T01:45:53.000Z",
-    "versionId": "d129c377-40da-44a7-bb07-62bea20419ed",
+    "updatedAt": "2026-09-05T03:49:07.000Z",
+    "versionId": "ae5c1c10-0cda-428e-9d8e-c9243c680224",
     "workflowId": "wXVF9y6RlQ22QRwY"
   },
-  "activeVersionId": "d129c377-40da-44a7-bb07-62bea20419ed",
+  "activeVersionId": "ae5c1c10-0cda-428e-9d8e-c9243c680224",
   "connections": {
     "Encontrar Alternativas": {
       "main": [
@@ -1696,7 +1696,7 @@
       "id": "d6c18957-3fbb-41ab-bc2e-d8536500c618",
       "name": "[SET] Response2",
       "parameters": {
-        "jsCode": "const data = $(\"[GET] Consultar eventos by Agenda\").all();\nconst profissionalUuid = $('[SET] Dados Busca Agenda').first().json.profissional_uuid;\nconst events = [];\n\nif(Array.isArray(data) && data.length > 0 && Object.keys(data[0].json || {}).length > 0) {\n  for (const item of data) {\n    const event = item.json;\n    const id = event.id;\n    const cliente = event.summary.split(\" - \")[0];\n    const procedimento = event.summary.split(\" - \")[1];\n    const inicio = event.start?.dateTime; // Vem no formato 2026-08-07T18:00:00Z, com o timezone America/Sao_Paulo. converter para -03:00\n    const fim = event.end?.dateTime;\n  \n    events.push({\n      id: id,\n      title: cliente.trim() || null,\n      inicio: inicio,\n      fim: fim,\n      extendedProps: {\n        patient: cliente.trim() || null,\n        procedure: procedimento || null,\n        doctorUuid: profissionalUuid\n      }\n    })\n  }\n}\n\n\nreturn [\n  {\n    json: {\n      events\n    },\n  },\n];"
+        "jsCode": "const data = $(\"[GET] Consultar eventos by Agenda\").all();\nconst profissionalUuid = $('[SET] Dados Busca Agenda').first().json.profissional_uuid;\nconst events = [];\n\nif(Array.isArray(data) && data.length > 0 && Object.keys(data[0].json || {}).length > 0) {\n  for (const item of data) {\n    const event = item.json;\n    const id = event.id;\n    const cliente = event.summary.includes(\"-\") ? event.summary.split(\" - \")[0] : null;\n    const procedimento = event.summary.split(\" - \")[1] || null;\n    const inicio = event.start?.dateTime; // Vem no formato 2026-08-07T18:00:00Z, com o timezone America/Sao_Paulo. converter para -03:00\n    const fim = event.end?.dateTime;\n    const tipo = (cliente === null && procedimento === null) ? \"indisponibilidade\" : \"agendamento\";\n  \n    events.push({\n      id: id,\n      title: cliente || event.summary.trim(),\n      tipo: tipo,\n      inicio: inicio,\n      fim: fim,\n      extendedProps: {\n        patient: cliente || null,\n        procedure: procedimento || null,\n        doctorUuid: profissionalUuid\n      }\n    })\n  }\n}\n\n\nreturn [\n  {\n    json: {\n      events\n    },\n  },\n];"
       },
       "position": [
         -800,
@@ -1977,31 +1977,31 @@
           "body": {
             "operacao": "consultar_agenda",
             "periodo": {
-              "fim": "2026-08-22T00:00:00-03:00",
-              "inicio": "2026-08-16T00:00:00-03:00"
+              "fim": "2026-09-09T00:00:00-03:00",
+              "inicio": "2026-09-01T00:00:00-03:00"
             },
             "profissional": {
-              "id_calendar": "1b2769b7ab2f3143b6c5b4c8976e059696a6b15762458e8eb27a44ec233020a8@group.calendar.google.com",
-              "uuid": "f198c33b-2911-41bd-a52e-9ad662518044"
+              "id_calendar": "79cc0f395833998dfa4cdbfdb226b19cbd715e9754f056b1c59691053878f4f3@group.calendar.google.com",
+              "uuid": "09329f2a-3683-4321-a8ba-bd5deab26f3b"
             }
           },
           "executionMode": "production",
           "headers": {
             "accept-encoding": "gzip, br",
             "cdn-loop": "cloudflare; loops=1",
-            "cf-connecting-ip": "191.242.51.223",
+            "cf-connecting-ip": "191.242.53.36",
             "cf-ipcountry": "BR",
-            "cf-ray": "a2e5e2b8ae461dc7-EWR",
+            "cf-ray": "a3624081ecba808f-GRU",
             "cf-visitor": "{\"scheme\":\"https\"}",
             "connection": "upgrade",
             "content-length": "284",
             "content-type": "application/json; charset=utf-8",
             "host": "n8n.mdsl1.com",
-            "traceparent": "00-fc8f46d3b0ffcd654d7d23654aa83d16-568680351924d93d-00",
+            "traceparent": "00-e0789c7364ef88a578a6c4a4773821e4-161071d721ee564b-00",
             "x-agendai-api-key": "07cd6beba3ebedd5050227c6f4beba8f59a2d53acc6db1519da9d0bbda570b8e",
-            "x-forwarded-for": "191.242.51.223, 104.23.190.137",
+            "x-forwarded-for": "191.242.53.36, 104.22.10.178",
             "x-forwarded-proto": "http",
-            "x-real-ip": "104.23.190.137"
+            "x-real-ip": "104.22.10.178"
           },
           "params": {},
           "query": {},
