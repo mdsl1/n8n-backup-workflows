@@ -224,9 +224,9 @@
         ]
       }
     },
-    "createdAt": "2026-09-05T03:48:51.676Z",
+    "createdAt": "2026-09-08T01:24:48.855Z",
     "description": "",
-    "name": "05092026.02",
+    "name": "07092026.01",
     "nodeGroups": [],
     "nodes": [
       {
@@ -806,7 +806,7 @@
         "parameters": {
           "options": {},
           "respondWith": "json",
-          "responseBody": "={\n  \"sucesso\": true,\n  \"profissional_uuid\": {{ JSON.stringify($('[SET] Dados Busca Disponibilidade').item.json.profissional_uuid) }},\n  \"periodo\": {{ JSON.stringify($('[SET] Dados Busca Disponibilidade').item.json.periodo_solicitado) }}\n}"
+          "responseBody": "={\n  \"sucesso\": true,\n  \"disponivel\": {{ $json.available }},\n  \"profissional_uuid\": {{ JSON.stringify($('[SET] Dados Busca Disponibilidade').item.json.profissional_uuid) }},\n  \"periodo_solicitado\": {{ JSON.stringify($('[SET] Dados Busca Disponibilidade').item.json.periodo_solicitado) }},\n  \"alternativas_disponiveis\": [],\n  \"busca_esgotada\": false\n}"
         },
         "position": [
           -576,
@@ -983,11 +983,11 @@
         "typeVersion": 1.5
       }
     ],
-    "updatedAt": "2026-09-05T03:49:07.000Z",
-    "versionId": "ae5c1c10-0cda-428e-9d8e-c9243c680224",
+    "updatedAt": "2026-09-08T01:25:00.000Z",
+    "versionId": "7120384e-435f-4fe0-a54f-a147f5da81c8",
     "workflowId": "wXVF9y6RlQ22QRwY"
   },
-  "activeVersionId": "ae5c1c10-0cda-428e-9d8e-c9243c680224",
+  "activeVersionId": "7120384e-435f-4fe0-a54f-a147f5da81c8",
   "connections": {
     "Encontrar Alternativas": {
       "main": [
@@ -1793,7 +1793,7 @@
       "parameters": {
         "options": {},
         "respondWith": "json",
-        "responseBody": "={\n  \"sucesso\": true,\n  \"profissional_uuid\": {{ JSON.stringify($('[SET] Dados Busca Disponibilidade').item.json.profissional_uuid) }},\n  \"periodo\": {{ JSON.stringify($('[SET] Dados Busca Disponibilidade').item.json.periodo_solicitado) }}\n}"
+        "responseBody": "={\n  \"sucesso\": true,\n  \"disponivel\": {{ $json.available }},\n  \"profissional_uuid\": {{ JSON.stringify($('[SET] Dados Busca Disponibilidade').item.json.profissional_uuid) }},\n  \"periodo_solicitado\": {{ JSON.stringify($('[SET] Dados Busca Disponibilidade').item.json.periodo_solicitado) }},\n  \"alternativas_disponiveis\": [],\n  \"busca_esgotada\": false\n}"
       },
       "position": [
         -576,
@@ -1975,31 +1975,69 @@
       {
         "json": {
           "body": {
-            "operacao": "consultar_agenda",
-            "periodo": {
-              "fim": "2026-09-09T00:00:00-03:00",
-              "inicio": "2026-09-01T00:00:00-03:00"
+            "janelas_atendimento": [
+              {
+                "dia_semana": 1,
+                "fim": "2026-08-17T18:00:00-03:00",
+                "inicio": "2026-08-17T08:00:00-03:00"
+              },
+              {
+                "dia_semana": 2,
+                "fim": "2026-08-17T18:00:00-03:00",
+                "inicio": "2026-08-17T08:00:00-03:00"
+              },
+              {
+                "dia_semana": 3,
+                "fim": "2026-08-17T18:00:00-03:00",
+                "inicio": "2026-08-17T08:00:00-03:00"
+              },
+              {
+                "dia_semana": 4,
+                "fim": "2026-08-17T18:00:00-03:00",
+                "inicio": "2026-08-17T08:00:00-03:00"
+              },
+              {
+                "dia_semana": 5,
+                "fim": "2026-08-17T18:00:00-03:00",
+                "inicio": "2026-08-17T08:00:00-03:00"
+              },
+              {
+                "dia_semana": 6,
+                "fim": "2026-08-17T12:00:00-03:00",
+                "inicio": "2026-08-17T08:00:00-03:00"
+              }
+            ],
+            "opcoes": {
+              "dias_busca": 7,
+              "duracao_sessao_minutos": 30,
+              "quantidade_alternativas": 3
+            },
+            "operacao": "consultar_disponibilidade",
+            "periodo_solicitado": {
+              "fim": "2026-08-17T16:30:00-03:00",
+              "inicio": "2026-08-17T16:00:00-03:00"
             },
             "profissional": {
               "id_calendar": "79cc0f395833998dfa4cdbfdb226b19cbd715e9754f056b1c59691053878f4f3@group.calendar.google.com",
               "uuid": "09329f2a-3683-4321-a8ba-bd5deab26f3b"
-            }
+            },
+            "timezone": "America/Sao_Paulo"
           },
           "executionMode": "production",
           "headers": {
             "accept-encoding": "gzip, br",
             "cdn-loop": "cloudflare; loops=1",
-            "cf-connecting-ip": "191.242.53.36",
+            "cf-connecting-ip": "191.242.51.72",
             "cf-ipcountry": "BR",
-            "cf-ray": "a3624081ecba808f-GRU",
+            "cf-ray": "a37a1f285c720e8a-GRU",
             "cf-visitor": "{\"scheme\":\"https\"}",
             "connection": "upgrade",
-            "content-length": "284",
+            "content-length": "969",
             "content-type": "application/json; charset=utf-8",
             "host": "n8n.mdsl1.com",
-            "traceparent": "00-e0789c7364ef88a578a6c4a4773821e4-161071d721ee564b-00",
+            "traceparent": "00-7130a653c3f9dbc781bc491d5c1a7bee-8cb3d12e6db2596d-00",
             "x-agendai-api-key": "07cd6beba3ebedd5050227c6f4beba8f59a2d53acc6db1519da9d0bbda570b8e",
-            "x-forwarded-for": "191.242.53.36, 104.22.10.178",
+            "x-forwarded-for": "191.242.51.72, 104.22.10.178",
             "x-forwarded-proto": "http",
             "x-real-ip": "104.22.10.178"
           },
