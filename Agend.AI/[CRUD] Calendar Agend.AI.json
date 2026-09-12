@@ -224,9 +224,9 @@
         ]
       }
     },
-    "createdAt": "2026-09-08T01:24:48.855Z",
+    "createdAt": "2026-09-11T23:26:09.686Z",
     "description": "",
-    "name": "07092026.01",
+    "name": "12092026.02",
     "nodeGroups": [],
     "nodes": [
       {
@@ -983,11 +983,11 @@
         "typeVersion": 1.5
       }
     ],
-    "updatedAt": "2026-09-08T01:25:00.000Z",
-    "versionId": "7120384e-435f-4fe0-a54f-a147f5da81c8",
+    "updatedAt": "2026-09-11T23:26:24.000Z",
+    "versionId": "f853e440-5d04-4f91-b49d-3bf8e3d596ef",
     "workflowId": "wXVF9y6RlQ22QRwY"
   },
-  "activeVersionId": "7120384e-435f-4fe0-a54f-a147f5da81c8",
+  "activeVersionId": "f853e440-5d04-4f91-b49d-3bf8e3d596ef",
   "connections": {
     "Encontrar Alternativas": {
       "main": [
