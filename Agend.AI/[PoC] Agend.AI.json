@@ -1,68 +1,1863 @@
 {
-  "active": false,
-  "activeVersion": null,
-  "activeVersionId": null,
+  "active": true,
+  "activeVersion": {
+    "authors": "Marcos Lima",
+    "autosaved": true,
+    "connections": {
+      "Code in JavaScript": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "If1",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Code in JavaScript1": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "If2",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Code in JavaScript2": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Send a text message3",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Code in JavaScript3": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Get row(s)",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Edit Fields": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Switch",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Get row(s)": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "If",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Get row(s)2": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "If3",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Google Gemini Chat Model": {
+        "ai_languageModel": [
+          [
+            {
+              "index": 0,
+              "node": "Information Extractor",
+              "type": "ai_languageModel"
+            }
+          ]
+        ]
+      },
+      "Google Gemini Chat Model1": {
+        "ai_languageModel": [
+          [
+            {
+              "index": 0,
+              "node": "Information Extractor1",
+              "type": "ai_languageModel"
+            }
+          ]
+        ]
+      },
+      "HTTP Request": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Update row(s)1",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "HTTP Request1": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Code in JavaScript2",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "If": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Insert row",
+              "type": "main"
+            }
+          ],
+          [
+            {
+              "index": 0,
+              "node": "Edit Fields",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "If1": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Update row(s)",
+              "type": "main"
+            }
+          ],
+          [
+            {
+              "index": 0,
+              "node": "Send a text message2",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "If2": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "HTTP Request",
+              "type": "main"
+            }
+          ],
+          [
+            {
+              "index": 0,
+              "node": "Send a text message4",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "If3": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Code in JavaScript3",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Information Extractor": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Code in JavaScript",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Information Extractor1": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Code in JavaScript1",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Insert row": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Send a text message",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Insert row1": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Wait",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Switch": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Information Extractor",
+              "type": "main"
+            }
+          ],
+          [
+            {
+              "index": 0,
+              "node": "Information Extractor1",
+              "type": "main"
+            }
+          ],
+          []
+        ]
+      },
+      "Telegram Trigger": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Insert row1",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Telegram Trigger1": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Get row(s)1",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Update row(s)": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Send a text message1",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Update row(s)1": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "HTTP Request1",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Wait": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Get row(s)2",
+              "type": "main"
+            }
+          ]
+        ]
+      }
+    },
+    "createdAt": "2026-09-16T06:48:15.685Z",
+    "description": "",
+    "name": "16092026.04",
+    "nodeGroups": [],
+    "nodes": [
+      {
+        "credentials": {
+          "telegramApi": {
+            "id": "kk8MRWswxUHrarhr",
+            "name": "[bot] Agend.AI - Vita"
+          }
+        },
+        "id": "eac24f1b-4ce0-463a-81b9-44b43a3952c8",
+        "name": "Telegram Trigger",
+        "parameters": {
+          "additionalFields": {},
+          "updates": [
+            "message"
+          ]
+        },
+        "position": [
+          -1680,
+          -32
+        ],
+        "type": "n8n-nodes-base.telegramTrigger",
+        "typeVersion": 1.3,
+        "webhookId": "9edbc279-bc6d-4858-a06f-523f4dd2b7bd"
+      },
+      {
+        "alwaysOutputData": true,
+        "id": "e6f65ecf-1a9b-4518-879e-fbb4beb2d8bb",
+        "name": "Get row(s)",
+        "parameters": {
+          "dataTableId": {
+            "__rl": true,
+            "cachedResultName": "conversas_chatbot_agendai",
+            "cachedResultUrl": "/projects/kCVHFkXvuUipUeFN/datatables/7XUDxS0kMnRF9fOF",
+            "mode": "list",
+            "value": "7XUDxS0kMnRF9fOF"
+          },
+          "filters": {
+            "conditions": [
+              {
+                "keyName": "chat_id",
+                "keyValue": "={{ $('Telegram Trigger').item.json.message.chat.id }}"
+              },
+              {
+                "keyName": "clinica_uuid",
+                "keyValue": "cd109e6b-829d-4f35-aab8-ee04fca89dbc"
+              }
+            ]
+          },
+          "limit": 1,
+          "matchType": "allConditions",
+          "operation": "get"
+        },
+        "position": [
+          -336,
+          -48
+        ],
+        "type": "n8n-nodes-base.dataTable",
+        "typeVersion": 1.1
+      },
+      {
+        "id": "594aab80-0865-42b5-adbe-f2161a6ef463",
+        "name": "If",
+        "parameters": {
+          "conditions": {
+            "combinator": "and",
+            "conditions": [
+              {
+                "id": "78784119-fa81-4325-8f3b-f5cd11645c11",
+                "leftValue": "={{ $json.isEmpty() }}",
+                "operator": {
+                  "operation": "true",
+                  "singleValue": true,
+                  "type": "boolean"
+                },
+                "rightValue": ""
+              }
+            ],
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
+            }
+          },
+          "options": {}
+        },
+        "position": [
+          -112,
+          -48
+        ],
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3
+      },
+      {
+        "credentials": {
+          "telegramApi": {
+            "id": "kk8MRWswxUHrarhr",
+            "name": "[bot] Agend.AI - Vita"
+          }
+        },
+        "id": "0901efc8-dfbe-4d2b-b2d2-9a40ec08793f",
+        "name": "Send a text message",
+        "parameters": {
+          "additionalFields": {
+            "appendAttribution": false
+          },
+          "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+          "text": "Olá, sou Vita, assistente da clinica Vitality. Para lhe atender da melhor forma, poderia me informar seu nome completo?"
+        },
+        "position": [
+          336,
+          -160
+        ],
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "webhookId": "1e795896-d908-4b3f-bbc6-ee119e0291aa"
+      },
+      {
+        "id": "9a8e9807-f967-48fd-ba91-544932423f9e",
+        "name": "Insert row",
+        "parameters": {
+          "columns": {
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false,
+            "mappingMode": "defineBelow",
+            "matchingColumns": [],
+            "schema": [
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "etapa_conversa",
+                "id": "etapa_conversa",
+                "readOnly": false,
+                "removed": false,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "clinica_uuid",
+                "id": "clinica_uuid",
+                "readOnly": false,
+                "removed": false,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "chat_id",
+                "id": "chat_id",
+                "readOnly": false,
+                "removed": false,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "cliente_uuid",
+                "id": "cliente_uuid",
+                "readOnly": false,
+                "removed": true,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "nome_cliente",
+                "id": "nome_cliente",
+                "readOnly": false,
+                "removed": true,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "profissional_uuid",
+                "id": "profissional_uuid",
+                "readOnly": false,
+                "removed": true,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "profissional_procedimento_uuid",
+                "id": "profissional_procedimento_uuid",
+                "readOnly": false,
+                "removed": true,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "inicio_escolhido",
+                "id": "inicio_escolhido",
+                "readOnly": false,
+                "removed": true,
+                "required": false,
+                "type": "dateTime"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "idempotency_key",
+                "id": "idempotency_key",
+                "readOnly": false,
+                "removed": true,
+                "required": false,
+                "type": "string"
+              }
+            ],
+            "value": {
+              "chat_id": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+              "clinica_uuid": "cd109e6b-829d-4f35-aab8-ee04fca89dbc",
+              "etapa_conversa": "aguardando_nome"
+            }
+          },
+          "dataTableId": {
+            "__rl": true,
+            "cachedResultName": "conversas_chatbot_agendai",
+            "cachedResultUrl": "/projects/kCVHFkXvuUipUeFN/datatables/7XUDxS0kMnRF9fOF",
+            "mode": "list",
+            "value": "7XUDxS0kMnRF9fOF"
+          },
+          "options": {}
+        },
+        "position": [
+          112,
+          -160
+        ],
+        "type": "n8n-nodes-base.dataTable",
+        "typeVersion": 1.1
+      },
+      {
+        "id": "f58cface-9480-4482-bba3-bddc089f5565",
+        "name": "Switch",
+        "parameters": {
+          "options": {},
+          "rules": {
+            "values": [
+              {
+                "conditions": {
+                  "combinator": "and",
+                  "conditions": [
+                    {
+                      "id": "4bcb489c-0df8-4369-8ecb-a851624e76a3",
+                      "leftValue": "={{ $json.etapa_conversa }}",
+                      "operator": {
+                        "operation": "equals",
+                        "type": "string"
+                      },
+                      "rightValue": "aguardando_nome"
+                    }
+                  ],
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  }
+                },
+                "outputKey": "aguardando_nome",
+                "renameOutput": true
+              },
+              {
+                "conditions": {
+                  "combinator": "and",
+                  "conditions": [
+                    {
+                      "id": "10739f96-2bee-4e62-a096-636e5786de97",
+                      "leftValue": "={{ $json.etapa_conversa }}",
+                      "operator": {
+                        "name": "filter.operator.equals",
+                        "operation": "equals",
+                        "type": "string"
+                      },
+                      "rightValue": "aguardando_telefone"
+                    }
+                  ],
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  }
+                },
+                "outputKey": "aguardando_telefone",
+                "renameOutput": true
+              },
+              {
+                "conditions": {
+                  "combinator": "and",
+                  "conditions": [
+                    {
+                      "id": "4f1d7482-4ca9-4630-86b7-b34f7b1206c0",
+                      "leftValue": "={{ $json.etapa_conversa }}",
+                      "operator": {
+                        "operation": "equals",
+                        "type": "string"
+                      },
+                      "rightValue": "escolhendo_profissional"
+                    }
+                  ],
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  }
+                },
+                "outputKey": "escolhendo_profissional",
+                "renameOutput": true
+              }
+            ]
+          }
+        },
+        "position": [
+          336,
+          32
+        ],
+        "type": "n8n-nodes-base.switch",
+        "typeVersion": 3.4
+      },
+      {
+        "id": "b7e4da85-f761-499a-9045-26cafb989915",
+        "name": "Edit Fields",
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "af9842e0-92cf-4e78-8bf6-8e8ef526be84",
+                "name": "clinica_uuid",
+                "type": "string",
+                "value": "={{ $('Get row(s)').item.json.clinica_uuid }}"
+              },
+              {
+                "id": "c1fabecc-a47e-4077-94a5-3439f95691a1",
+                "name": "etapa_conversa",
+                "type": "string",
+                "value": "={{ $json.etapa_conversa }}"
+              },
+              {
+                "id": "cdab8638-aa3c-4d39-ba6c-11d040630aa5",
+                "name": "msg",
+                "type": "string",
+                "value": "={{ $('Code in JavaScript3').item.json.combined_message }}"
+              },
+              {
+                "id": "0934346f-1989-421f-9fac-b95cd017febb",
+                "name": "cliente.nome",
+                "type": "string",
+                "value": "={{ $('Get row(s)').item.json.nome_cliente?.trim() ?? null }}"
+              },
+              {
+                "id": "0a859765-9487-47b6-b3c4-2c36071500a0",
+                "name": "cliente.primeiro_nome",
+                "type": "string",
+                "value": "={{ $('Get row(s)').item.json.nome_cliente?.split(\" \")[0] ?? null }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "position": [
+          112,
+          48
+        ],
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
+      },
+      {
+        "id": "37ee1ffb-14e4-474c-87e6-b12e1e1db7dc",
+        "name": "Code in JavaScript",
+        "parameters": {
+          "jsCode": "const rawNome = $input.first().json.output.nome.trim();\n\nconst isName = /^[a-zA-ZÀ-ÿ\\s.'-]+$/.test(rawNome);\nconst isFullName = /^\\S+\\s+\\S+/.test(rawNome);\n\nlet msgError = \"\";\nif (!isName && rawNome === '###') {\n  msgError = \"Identifiquei que você não enviou o seu nome de fato. Por favor, peço que envie seu nome completo para iniciarmos seu atendimento.\"\n}\nelse if (!isName) {\n  msgError = \"O nome que você informou contém caracteres inválidos como números, pontuações etc. Por favor, peço que envie um nome real sem nenhum caractere especial.\"\n}\nelse if (!isFullName) {\n  msgError = \"Identifiquei que você enviou apenas o primeiro nome. Por favor, peço que envie o seu nome completo.\"\n}\n\nconst isValid = isName && isFullName;\n\nreturn [{\n  json: {\n    is_valido: isValid,\n    nome: isValid ? rawNome : null,\n    msgErro: isValid ? null : msgError\n  }\n}]\n\n\n"
+        },
+        "position": [
+          912,
+          -144
+        ],
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2
+      },
+      {
+        "id": "638d0dbe-1552-4098-9649-d004c621cfb5",
+        "name": "If1",
+        "parameters": {
+          "conditions": {
+            "combinator": "and",
+            "conditions": [
+              {
+                "id": "d64e5217-0878-493c-a1e5-975cae55237a",
+                "leftValue": "={{ $json.is_valido }}",
+                "operator": {
+                  "operation": "true",
+                  "singleValue": true,
+                  "type": "boolean"
+                },
+                "rightValue": false
+              }
+            ],
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
+            }
+          },
+          "options": {}
+        },
+        "position": [
+          1136,
+          -144
+        ],
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3
+      },
+      {
+        "credentials": {
+          "telegramApi": {
+            "id": "kk8MRWswxUHrarhr",
+            "name": "[bot] Agend.AI - Vita"
+          }
+        },
+        "id": "f7c28c74-b703-4dc1-be31-e974aa1a5d24",
+        "name": "Send a text message1",
+        "parameters": {
+          "additionalFields": {
+            "appendAttribution": false
+          },
+          "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+          "text": "=Perfeito {{ $('If1').item.json.nome.split(\" \")[0] }}! Agora poderia me informar seu telefone por gentileza? Vou utilizar ele para buscar seu cadastro na base ou caso não tenha, criar um para você."
+        },
+        "position": [
+          1584,
+          -240
+        ],
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "webhookId": "1e795896-d908-4b3f-bbc6-ee119e0291aa"
+      },
+      {
+        "credentials": {
+          "telegramApi": {
+            "id": "kk8MRWswxUHrarhr",
+            "name": "[bot] Agend.AI - Vita"
+          }
+        },
+        "id": "4498c2e6-7ff9-4d89-a5cd-024e780f31f4",
+        "name": "Send a text message2",
+        "parameters": {
+          "additionalFields": {
+            "appendAttribution": false
+          },
+          "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+          "text": "={{ $(\"Code in JavaScript\").item.json.msgErro }}"
+        },
+        "position": [
+          1360,
+          -48
+        ],
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "webhookId": "1e795896-d908-4b3f-bbc6-ee119e0291aa"
+      },
+      {
+        "id": "30e79d9c-0cb7-4266-9d5a-a17dd27ccc9f",
+        "name": "Update row(s)",
+        "parameters": {
+          "columns": {
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false,
+            "mappingMode": "defineBelow",
+            "matchingColumns": [],
+            "schema": [
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "etapa_conversa",
+                "id": "etapa_conversa",
+                "readOnly": false,
+                "removed": false,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "clinica_uuid",
+                "id": "clinica_uuid",
+                "readOnly": false,
+                "removed": true,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "chat_id",
+                "id": "chat_id",
+                "readOnly": false,
+                "removed": true,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "cliente_uuid",
+                "id": "cliente_uuid",
+                "readOnly": false,
+                "removed": true,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "nome_cliente",
+                "id": "nome_cliente",
+                "readOnly": false,
+                "removed": false,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "profissional_uuid",
+                "id": "profissional_uuid",
+                "readOnly": false,
+                "removed": true,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "profissional_procedimento_uuid",
+                "id": "profissional_procedimento_uuid",
+                "readOnly": false,
+                "removed": true,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "inicio_escolhido",
+                "id": "inicio_escolhido",
+                "readOnly": false,
+                "removed": true,
+                "required": false,
+                "type": "dateTime"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "idempotency_key",
+                "id": "idempotency_key",
+                "readOnly": false,
+                "removed": true,
+                "required": false,
+                "type": "string"
+              }
+            ],
+            "value": {
+              "etapa_conversa": "aguardando_telefone",
+              "nome_cliente": "={{ $json.nome }}"
+            }
+          },
+          "dataTableId": {
+            "__rl": true,
+            "cachedResultName": "conversas_chatbot_agendai",
+            "cachedResultUrl": "/projects/kCVHFkXvuUipUeFN/datatables/7XUDxS0kMnRF9fOF",
+            "mode": "list",
+            "value": "7XUDxS0kMnRF9fOF"
+          },
+          "filters": {
+            "conditions": [
+              {
+                "keyName": "chat_id",
+                "keyValue": "={{ $('Telegram Trigger').item.json.message.chat.id }}"
+              },
+              {
+                "keyName": "clinica_uuid",
+                "keyValue": "cd109e6b-829d-4f35-aab8-ee04fca89dbc"
+              }
+            ]
+          },
+          "operation": "update",
+          "options": {}
+        },
+        "position": [
+          1360,
+          -240
+        ],
+        "type": "n8n-nodes-base.dataTable",
+        "typeVersion": 1.1
+      },
+      {
+        "id": "cbe4292d-3757-474f-bd20-04852ca13d6f",
+        "name": "Code in JavaScript1",
+        "parameters": {
+          "jsCode": "const rawTelefone = $input.first().json.output.telefone.trim();\nconst isValid = /^\\(?[1-9]{2}\\)?\\s?9[0-9]{4}-?[0-9]{4}$/.test(rawTelefone);\n\nlet telefone = null;\nif (isValid) {\n  const numbers = rawTelefone.replace(/\\D/g, \"\");\n  telefone = numbers.replace(/^([0-9]{2})([0-9]{5})([0-9]{4})$/, \"($1) $2-$3\");\n}\n\nreturn [{\n  json: {\n    is_valido: isValid,\n    telefone: isValid ? telefone : null\n  }\n}]\n\n\n"
+        },
+        "position": [
+          912,
+          256
+        ],
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2
+      },
+      {
+        "id": "4aff4280-4c7e-4dec-9583-426f1285efc7",
+        "name": "Information Extractor",
+        "parameters": {
+          "attributes": {
+            "attributes": [
+              {
+                "description": "=Você é um extrator de dados especializado na extração de nomes pessoais.\nSua única tarefa é extrair o NOME COMPLETO da pessoa a partir da mensagem fornecida.\n\nRegras estritas:\n1. Responda APENAS E EXCLUSIVAMENTE com o nome extraído.\n2. Não inclua pontos finais, saudações, introduções ou explicações (ex: NÃO diga \"O nome é Marcos\", diga apenas \"Marcos\").\n3. Mantenha as letras maiúsculas e minúsculas corretas do nome próprio.\n4. Se o usuário fornecer um nome e sobrenome, extraia ambos (ex: \"Meu nome é Marcos Silva\" -> \"Marcos Silva\").\n5. Se a mensagem NÃO contiver um nome legível ou for apenas uma saudação genérica, responda estritamente: ###\n\nExemplos de Entrada e Saída:\n- Entrada: \"Olá, bom dia! Meu nome é Marcos Daniel da Silva\" -> Saída: Marcos Daniel da Silva\n- Entrada: \"pode me chamar de Amanda Costa\" -> Saída: Amanda Costa\n- Entrada: \"Marcos\" -> Saída: Marcos\n- Entrada: \"Quero saber o preço\" -> Saída: ###\n",
+                "name": "nome"
+              }
+            ]
+          },
+          "options": {},
+          "text": "={{ $json.msg }}"
+        },
+        "position": [
+          560,
+          -256
+        ],
+        "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+        "typeVersion": 1.2
+      },
+      {
+        "credentials": {
+          "googlePalmApi": {
+            "id": "RlELwfJAa5UbXCqL",
+            "name": "[gemini_key] markniel1408@gmail.com"
+          }
+        },
+        "id": "1ee02e8d-b0ad-46c1-a312-0d132d3392c2",
+        "name": "Google Gemini Chat Model",
+        "parameters": {
+          "modelName": "models/gemini-3.5-flash-lite",
+          "options": {
+            "maxOutputTokens": 500,
+            "temperature": 0
+          }
+        },
+        "position": [
+          640,
+          -32
+        ],
+        "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+        "typeVersion": 1.1
+      },
+      {
+        "id": "79896b53-1ecb-4505-b954-dbe079f254bd",
+        "name": "Information Extractor1",
+        "parameters": {
+          "attributes": {
+            "attributes": [
+              {
+                "description": "Extraia apenas o telefone do cliente. Considere que o telefone pode ter essas estruturas: \n11999999999 (Sem máscara)\n(11)999999999 (Apenas parênteses)\n(11) 99999-9999 (Máscara completa padrão)\n11 99999-9999 (Espaço e hífen, sem parênteses)",
+                "name": "telefone"
+              }
+            ]
+          },
+          "options": {},
+          "text": "={{ $('Edit Fields').item.json.msg }}"
+        },
+        "position": [
+          560,
+          256
+        ],
+        "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+        "typeVersion": 1.2
+      },
+      {
+        "credentials": {
+          "googlePalmApi": {
+            "id": "RlELwfJAa5UbXCqL",
+            "name": "[gemini_key] markniel1408@gmail.com"
+          }
+        },
+        "id": "4f580c2f-d23c-4e35-94da-d73cd6554182",
+        "name": "Google Gemini Chat Model1",
+        "parameters": {
+          "modelName": "models/gemini-3.5-flash-lite",
+          "options": {
+            "temperature": 0
+          }
+        },
+        "position": [
+          640,
+          480
+        ],
+        "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+        "typeVersion": 1.1
+      },
+      {
+        "id": "9799f81b-9e25-433e-aeb0-82f4e28067cb",
+        "name": "If2",
+        "parameters": {
+          "conditions": {
+            "combinator": "and",
+            "conditions": [
+              {
+                "id": "d64e5217-0878-493c-a1e5-975cae55237a",
+                "leftValue": "={{ $json.is_valido }}",
+                "operator": {
+                  "operation": "true",
+                  "singleValue": true,
+                  "type": "boolean"
+                },
+                "rightValue": false
+              }
+            ],
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
+            }
+          },
+          "options": {}
+        },
+        "position": [
+          1136,
+          256
+        ],
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3
+      },
+      {
+        "credentials": {
+          "telegramApi": {
+            "id": "kk8MRWswxUHrarhr",
+            "name": "[bot] Agend.AI - Vita"
+          }
+        },
+        "id": "9daa1311-e93f-4359-9d66-840abd0f30c5",
+        "name": "Send a text message4",
+        "parameters": {
+          "additionalFields": {
+            "appendAttribution": false
+          },
+          "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+          "text": "=O nome que você informou contém caracteres inválidos como números, pontuações etc. Por favor, peço que envie um nome real sem nenhum caractere especial."
+        },
+        "position": [
+          1360,
+          352
+        ],
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "webhookId": "1e795896-d908-4b3f-bbc6-ee119e0291aa"
+      },
+      {
+        "id": "f07fad1b-d8e7-42a2-80c5-113f2c1ada91",
+        "name": "Update row(s)1",
+        "parameters": {
+          "columns": {
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false,
+            "mappingMode": "defineBelow",
+            "matchingColumns": [],
+            "schema": [
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "etapa_conversa",
+                "id": "etapa_conversa",
+                "readOnly": false,
+                "removed": false,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "clinica_uuid",
+                "id": "clinica_uuid",
+                "readOnly": false,
+                "removed": true,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "chat_id",
+                "id": "chat_id",
+                "readOnly": false,
+                "removed": true,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "cliente_uuid",
+                "id": "cliente_uuid",
+                "readOnly": false,
+                "removed": false,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "nome_cliente",
+                "id": "nome_cliente",
+                "readOnly": false,
+                "removed": true,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "profissional_uuid",
+                "id": "profissional_uuid",
+                "readOnly": false,
+                "removed": true,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "profissional_procedimento_uuid",
+                "id": "profissional_procedimento_uuid",
+                "readOnly": false,
+                "removed": true,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "inicio_escolhido",
+                "id": "inicio_escolhido",
+                "readOnly": false,
+                "removed": true,
+                "required": false,
+                "type": "dateTime"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "idempotency_key",
+                "id": "idempotency_key",
+                "readOnly": false,
+                "removed": true,
+                "required": false,
+                "type": "string"
+              }
+            ],
+            "value": {
+              "cliente_uuid": "={{ $json.clienteUuid }}",
+              "etapa_conversa": "escolhendo_profissional"
+            }
+          },
+          "dataTableId": {
+            "__rl": true,
+            "cachedResultName": "conversas_chatbot_agendai",
+            "cachedResultUrl": "/projects/kCVHFkXvuUipUeFN/datatables/7XUDxS0kMnRF9fOF",
+            "mode": "list",
+            "value": "7XUDxS0kMnRF9fOF"
+          },
+          "filters": {
+            "conditions": [
+              {
+                "keyName": "chat_id",
+                "keyValue": "={{ $('Telegram Trigger').item.json.message.chat.id }}"
+              },
+              {
+                "keyName": "clinica_uuid",
+                "keyValue": "cd109e6b-829d-4f35-aab8-ee04fca89dbc"
+              }
+            ]
+          },
+          "operation": "update",
+          "options": {}
+        },
+        "position": [
+          1584,
+          144
+        ],
+        "type": "n8n-nodes-base.dataTable",
+        "typeVersion": 1.1
+      },
+      {
+        "id": "2ab9328b-79b4-47d0-8af2-6705d1ffbf5b",
+        "name": "HTTP Request",
+        "parameters": {
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          },
+          "jsonBody": "={\n  \"nome\": {{ JSON.stringify($('Edit Fields').item.json.cliente.nome) }},\n  \"telefone\": {{ JSON.stringify($('Code in JavaScript1').item.json.telefone) }},\n  \"telegramUserId\": {{ JSON.stringify($('Telegram Trigger').item.json.message.from.id.toString()) }}\n}",
+          "method": "POST",
+          "options": {},
+          "queryParameters": {
+            "parameters": [
+              {
+                "name": "clinicaUuid",
+                "value": "={{ $('Edit Fields').item.json.clinica_uuid }}"
+              }
+            ]
+          },
+          "sendBody": true,
+          "sendHeaders": true,
+          "sendQuery": true,
+          "specifyBody": "json",
+          "url": "https://niel.tail17e705.ts.net/api/clientes/resolver"
+        },
+        "position": [
+          1360,
+          144
+        ],
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4
+      },
+      {
+        "id": "fd6336a4-8376-446b-8a5c-da8e0f64ac23",
+        "name": "HTTP Request1",
+        "parameters": {
+          "options": {},
+          "queryParameters": {
+            "parameters": [
+              {
+                "name": "clinicaUuid",
+                "value": "={{ $('Edit Fields').item.json.clinica_uuid }}"
+              }
+            ]
+          },
+          "sendQuery": true,
+          "url": "https://niel.tail17e705.ts.net/api/profissionais"
+        },
+        "position": [
+          1808,
+          144
+        ],
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4
+      },
+      {
+        "disabled": true,
+        "id": "b3959b13-449c-4856-ab61-6e7b0c4b9c35",
+        "name": "Code in JavaScript2",
+        "parameters": {
+          "jsCode": "const profissionais = $input.first().json.profissionais;\n\nlet\nfor (const profissional in profissionais) {\n  const \n}"
+        },
+        "position": [
+          2032,
+          144
+        ],
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2
+      },
+      {
+        "credentials": {
+          "telegramApi": {
+            "id": "kk8MRWswxUHrarhr",
+            "name": "[bot] Agend.AI - Vita"
+          }
+        },
+        "disabled": true,
+        "id": "dc87ac2a-e5c8-43ff-913b-3051cccf1d9d",
+        "name": "Telegram Trigger1",
+        "parameters": {
+          "additionalFields": {},
+          "updates": [
+            "callback_query"
+          ]
+        },
+        "position": [
+          -1456,
+          576
+        ],
+        "type": "n8n-nodes-base.telegramTrigger",
+        "typeVersion": 1.3,
+        "webhookId": "723c8e51-91a5-44cb-85ac-87c291a7a29e"
+      },
+      {
+        "alwaysOutputData": true,
+        "id": "10221674-4987-4d20-bcee-bf3874e8c26a",
+        "name": "Get row(s)1",
+        "parameters": {
+          "dataTableId": {
+            "__rl": true,
+            "cachedResultName": "conversas_chatbot_agendai",
+            "cachedResultUrl": "/projects/kCVHFkXvuUipUeFN/datatables/7XUDxS0kMnRF9fOF",
+            "mode": "list",
+            "value": "7XUDxS0kMnRF9fOF"
+          },
+          "filters": {
+            "conditions": [
+              {
+                "keyName": "chat_id",
+                "keyValue": "={{ $json.message.chat.id }}"
+              },
+              {
+                "keyName": "clinica_uuid",
+                "keyValue": "cd109e6b-829d-4f35-aab8-ee04fca89dbc"
+              }
+            ]
+          },
+          "matchType": "allConditions",
+          "operation": "get"
+        },
+        "position": [
+          -1232,
+          576
+        ],
+        "type": "n8n-nodes-base.dataTable",
+        "typeVersion": 1.1
+      },
+      {
+        "credentials": {
+          "telegramApi": {
+            "id": "kk8MRWswxUHrarhr",
+            "name": "[bot] Agend.AI - Vita"
+          }
+        },
+        "id": "a9563d87-bc20-476b-b6d9-b3f2da47521d",
+        "name": "Send a text message3",
+        "parameters": {
+          "additionalFields": {},
+          "chatId": "={{ $('Get row(s)').item.json.chat_id }}",
+          "inlineKeyboard": {
+            "rows": [
+              {
+                "row": {
+                  "buttons": [
+                    {
+                      "additionalFields": {
+                        "switch_inline_query_current_chat": "asfasdfasf"
+                      },
+                      "text": "asdfasf"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "replyMarkup": "inlineKeyboard",
+          "text": "asfasdfasdf"
+        },
+        "position": [
+          2256,
+          144
+        ],
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "webhookId": "68f1b12e-f0a8-4e3d-b845-a8aa60e5caf7"
+      },
+      {
+        "id": "f89ed883-baa3-4c1e-a53f-92635c85807a",
+        "name": "Insert row1",
+        "parameters": {
+          "columns": {
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false,
+            "mappingMode": "defineBelow",
+            "matchingColumns": [],
+            "schema": [
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "chat_id",
+                "id": "chat_id",
+                "readOnly": false,
+                "removed": false,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "msg_id",
+                "id": "msg_id",
+                "readOnly": false,
+                "removed": false,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "content",
+                "id": "content",
+                "readOnly": false,
+                "removed": false,
+                "required": false,
+                "type": "string"
+              }
+            ],
+            "value": {
+              "chat_id": "={{ $json.message.chat.id }}",
+              "content": "={{ $json.message.text }}",
+              "msg_id": "={{ $json.message.message_id }}"
+            }
+          },
+          "dataTableId": {
+            "__rl": true,
+            "cachedResultName": "buffer_msgs_agendai",
+            "cachedResultUrl": "/projects/kCVHFkXvuUipUeFN/datatables/wENoFYAYXKdyd4TV",
+            "mode": "list",
+            "value": "wENoFYAYXKdyd4TV"
+          },
+          "options": {}
+        },
+        "position": [
+          -1456,
+          -32
+        ],
+        "type": "n8n-nodes-base.dataTable",
+        "typeVersion": 1.1
+      },
+      {
+        "id": "4ca6c9ee-3fa2-4ac9-9479-a1ab082c543e",
+        "name": "Wait",
+        "parameters": {
+          "amount": 8
+        },
+        "position": [
+          -1232,
+          -32
+        ],
+        "type": "n8n-nodes-base.wait",
+        "typeVersion": 1.1,
+        "webhookId": "f81525d4-576c-48a2-bb77-a307cf6c8ef0"
+      },
+      {
+        "id": "fc14e6af-ec42-4080-9bd6-aa8677a205f9",
+        "name": "If3",
+        "parameters": {
+          "conditions": {
+            "combinator": "and",
+            "conditions": [
+              {
+                "id": "dbd8dccc-72b4-48ef-9296-fda3bf9e2b94",
+                "leftValue": "={{ $('Get row(s)2').all().slice(-1)[0].json.msg_id === $('Telegram Trigger').item.json.message.message_id.toString() }}",
+                "operator": {
+                  "operation": "true",
+                  "singleValue": true,
+                  "type": "boolean"
+                },
+                "rightValue": "={{ $('Telegram Trigger').item.json.message.message_id }}"
+              }
+            ],
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
+            }
+          },
+          "options": {}
+        },
+        "position": [
+          -784,
+          -32
+        ],
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3
+      },
+      {
+        "id": "0e20a26e-1b85-4397-a609-055b4f1a9de3",
+        "name": "Get row(s)2",
+        "parameters": {
+          "dataTableId": {
+            "__rl": true,
+            "cachedResultName": "buffer_msgs_agendai",
+            "cachedResultUrl": "/projects/kCVHFkXvuUipUeFN/datatables/wENoFYAYXKdyd4TV",
+            "mode": "list",
+            "value": "wENoFYAYXKdyd4TV"
+          },
+          "filters": {
+            "conditions": [
+              {
+                "keyName": "chat_id",
+                "keyValue": "={{ $('Telegram Trigger').item.json.message.chat.id }}"
+              }
+            ]
+          },
+          "matchType": "allConditions",
+          "operation": "get",
+          "orderBy": true,
+          "orderByDirection": "ASC",
+          "returnAll": true
+        },
+        "position": [
+          -1008,
+          -32
+        ],
+        "type": "n8n-nodes-base.dataTable",
+        "typeVersion": 1.1
+      },
+      {
+        "id": "3f61a5d5-01b7-42e1-b58b-9cfc64af26b8",
+        "name": "Code in JavaScript3",
+        "parameters": {
+          "jsCode": "const allRows = $(\"Get row(s)2\").all();\nconst fullText = allRows.map(item => item.json.content).join('\\n');\n\nreturn {\n  json: {\n    combined_message: fullText\n  }\n};"
+        },
+        "position": [
+          -560,
+          -48
+        ],
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2
+      }
+    ],
+    "updatedAt": "2026-09-16T06:48:32.000Z",
+    "versionId": "b14bfec7-fe54-4a7e-b11b-0035f6f46bd5",
+    "workflowId": "h17JOGGPRsypJRKf"
+  },
+  "activeVersionId": "b14bfec7-fe54-4a7e-b11b-0035f6f46bd5",
   "connections": {
-    "Basic LLM Chain": {
+    "Agrupa msgs enviadas": {
       "main": [
         [
           {
             "index": 0,
-            "node": "Get many events",
+            "node": "[DEL] Limpar Buffer",
             "type": "main"
           }
         ]
       ]
     },
-    "Groq Chat Model": {
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "HTTP Request",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Etapas Atendimento": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[Extractor] Nome Completo",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "[Extractor] Telefone",
+            "type": "main"
+          }
+        ],
+        []
+      ]
+    },
+    "Google Gemini Chat Model": {
       "ai_languageModel": [
         [
           {
             "index": 0,
-            "node": "Basic LLM Chain",
+            "node": "[Extractor] Nome Completo",
             "type": "ai_languageModel"
           }
         ]
       ]
     },
-    "Structured Output Parser": {
-      "ai_outputParser": [
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
         [
           {
             "index": 0,
-            "node": "Basic LLM Chain",
-            "type": "ai_outputParser"
+            "node": "[Extractor] Telefone",
+            "type": "ai_languageModel"
           }
         ]
       ]
     },
-    "Webhook": {
+    "HTTP Request": {
       "main": [
         [
           {
             "index": 0,
-            "node": "Get availability in a calendar",
+            "node": "Send a text message3",
             "type": "main"
           }
         ]
       ]
     },
-    "When clicking ‘Execute workflow’": {
+    "Telegram Trigger": {
       "main": [
         [
           {
             "index": 0,
-            "node": "Get availability in a calendar",
+            "node": "[POST] Msg no Buffer",
             "type": "main"
-          },
+          }
+        ]
+      ]
+    },
+    "Validação nome completo": {
+      "main": [
+        [
           {
             "index": 0,
-            "node": "Get many events1",
+            "node": "[PATCH] Nome & Etapa_Conversa",
             "type": "main"
-          },
+          }
+        ],
+        [
           {
             "index": 0,
-            "node": "HTTP Request",
+            "node": "[MSG] Nome Invalido",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Validação primeira interação": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[POST] Dados iniciais",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "[SET] Dados Conversa",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Validação telefone valido": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[API] /clientes/resolver",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "[MSG] Telefone Invalido",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Validação última msg enviada": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Agrupa msgs enviadas",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[GET] Msgs do Buffer por ChatId",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[API] /clientes/resolver": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[PATCH] ClienteUuid & Etapa_Conversa",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[CODE] Return Nome Valido": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validação nome completo",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[CODE] Return Telefone Valido": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validação telefone valido",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[DEL] Limpar Buffer": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[GET] Dados Conversa",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[Extractor] Nome Completo": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[CODE] Return Nome Valido",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[Extractor] Telefone": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[CODE] Return Telefone Valido",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[GET] Dados Conversa": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validação primeira interação",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[GET] Msgs do Buffer por ChatId": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Validação última msg enviada",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[GET] profissionais": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Code in JavaScript2",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[PATCH] ClienteUuid & Etapa_Conversa": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[GET] profissionais",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[PATCH] Nome & Etapa_Conversa": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[MSG] Coleta Telefone",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[POST] Dados iniciais": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[MSG] Coleta Nome",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[POST] Msg no Buffer": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Wait",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[SET] Dados Conversa": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Etapas Atendimento",
             "type": "main"
           }
         ]
@@ -77,215 +1872,1259 @@
   "name": "[PoC] Agend.AI",
   "nodes": [
     {
-      "id": "20b77ccc-7222-4739-8f8c-e226d1ccd5c6",
-      "name": "When clicking ‘Execute workflow’",
-      "parameters": {},
+      "credentials": {
+        "telegramApi": {
+          "id": "kk8MRWswxUHrarhr",
+          "name": "[bot] Agend.AI - Vita"
+        }
+      },
+      "id": "eac24f1b-4ce0-463a-81b9-44b43a3952c8",
+      "name": "Telegram Trigger",
+      "parameters": {
+        "additionalFields": {},
+        "updates": [
+          "message"
+        ]
+      },
       "position": [
-        -320,
-        -400
+        -1888,
+        -32
       ],
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.3,
+      "webhookId": "9edbc279-bc6d-4858-a06f-523f4dd2b7bd"
     },
     {
       "credentials": {
-        "googleCalendarOAuth2Api": {
-          "id": "q6DrWyX23rfH6nk0",
-          "name": "[calendar] markniel1408@gmail.com"
+        "googlePalmApi": {
+          "id": "RlELwfJAa5UbXCqL",
+          "name": "[gemini_key] markniel1408@gmail.com"
         }
       },
-      "id": "4864052a-efe4-471d-8456-974209c1e4ee",
-      "name": "Get many events",
+      "id": "1ee02e8d-b0ad-46c1-a312-0d132d3392c2",
+      "name": "Google Gemini Chat Model",
       "parameters": {
-        "calendar": {
-          "__rl": true,
-          "cachedResultName": "markniel1408@gmail.com",
-          "mode": "list",
-          "value": "markniel1408@gmail.com"
-        },
-        "operation": "getAll",
-        "options": {},
-        "returnAll": true,
-        "timeMax": "={{ $json.output.fim_semana }}"
+        "modelName": "models/gemini-3.5-flash-lite",
+        "options": {
+          "maxOutputTokens": 500,
+          "temperature": 0
+        }
       },
       "position": [
-        384,
-        240
+        640,
+        -80
       ],
-      "type": "n8n-nodes-base.googleCalendar",
-      "typeVersion": 1.3
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1
     },
     {
-      "id": "21739851-bc6d-4fcf-83a0-48a74806cd78",
-      "name": "Basic LLM Chain",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "RlELwfJAa5UbXCqL",
+          "name": "[gemini_key] markniel1408@gmail.com"
+        }
+      },
+      "id": "4f580c2f-d23c-4e35-94da-d73cd6554182",
+      "name": "Google Gemini Chat Model1",
       "parameters": {
-        "batching": {},
-        "hasOutputParser": true,
-        "messages": {
-          "messageValues": [
+        "modelName": "models/gemini-3.5-flash-lite",
+        "options": {
+          "temperature": 0
+        }
+      },
+      "position": [
+        640,
+        416
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "b3959b13-449c-4856-ab61-6e7b0c4b9c35",
+      "name": "Code in JavaScript2",
+      "parameters": {
+        "jsCode": "const res = $input.first().json;\n\nconst profissionais = Array.isArray(res.profissionais)\n  ? res.profissionais\n  : [];\n\nconst conversa = $('[GET] Dados Conversa').first().json;\nconst chatId = conversa.chat_id ?? conversa.chatId;\n\nif (!chatId) {\n  throw new Error('chat_id não encontrado nos dados da conversa.');\n}\n\nconst botoes = profissionais.map((profissional) => {\n  const especialidade = profissional.especialidade?.nome;\n\n  return {\n    text: especialidade\n      ? `${profissional.nomeExibicao} — ${especialidade}`\n      : profissional.nomeExibicao,\n    callback_data: `prof:${profissional.profissionalUuid}`,\n  };\n});\n\nconst saida = {\n  chat_id: String(chatId),\n  text: botoes.length\n    ? 'Escolha o profissional:'\n    : 'Não há profissionais disponíveis no momento.',\n};\n\nif (botoes.length) {\n  saida.reply_markup = {\n    // Um profissional por linha\n    inline_keyboard: botoes.map((botao) => [botao]),\n  };\n}\n\nreturn [{ json: saida }];"
+      },
+      "position": [
+        2032,
+        144
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "credentials": {
+        "telegramApi": {
+          "id": "kk8MRWswxUHrarhr",
+          "name": "[bot] Agend.AI - Vita"
+        }
+      },
+      "disabled": true,
+      "id": "a9563d87-bc20-476b-b6d9-b3f2da47521d",
+      "name": "Send a text message3",
+      "parameters": {
+        "additionalFields": {},
+        "chatId": "={{ $('[GET] Dados Conversa').item.json.chat_id }}",
+        "inlineKeyboard": {
+          "rows": [
             {
-              "message": "Você é um assistente especializado em formatação de datas e cálculo de calendário. Sua única tarefa é calcular o intervalo da semana corrente (de segunda-feira a domingo) com base em uma data de referência fornecida pelo usuário, aplicando horários específicos de início e fim.\n\n### REGRAS DE CÁLCULO:\n1. Identifique o dia da semana da data de referência fornecida.\n2. Calcule a data da SEGUNDA-FEIRA dessa mesma semana (início da semana corrente).\n3. Calcule a data do DOMINGO dessa mesma semana (fim da semana corrente).\n4. O intervalo deve sempre abranger de segunda-feira a domingo daquela semana específica.\n\n### REGRAS DE FORMATAÇÃO (DATE-TIME):\n- O início da semana (segunda-feira) deve SEMPRE terminar com o horário \"T08:00:00.000-03:00\" (exemplo: YYYY-MM-DDT08:00:00.000-03:00).\n- O fim da semana (domingo) deve SEMPRE terminar com o horário \"T18:00:00.000-03:00\" (exemplo: YYYY-MM-DDT18:00:00.000-03:00).\n\n### REGRAS DE SAÍDA:\n- Retorne estritamente um objeto JSON válido.\n- Não adicione nenhuma introdução, explicação, marcação Markdown (como ```json) ou texto adicional. Retorne APENAS o JSON puro.\n\n### FORMATO DO JSON:\n{\n  \"inicio_semana\": \"YYYY-MM-DDT08:00:00.000-03:00\",\n  \"fim_semana\": \"YYYY-MM-DDT18:00:00.000-03:00\"\n}"
+              "row": {
+                "buttons": [
+                  {
+                    "additionalFields": {
+                      "switch_inline_query_current_chat": "=Profissional: {{ $json.profissionais[0].nomeExibicao }}\nEspecialidade: {{ $json.profissionais[0].especialidade.nome }}\nCódigo_Profissional: {{ $json.profissionais[0].especialidade.uuid }}"
+                    },
+                    "text": "={{ $json.profissionais[0].nomeExibicao }} - {{ $json.profissionais[0].especialidade.nome }}"
+                  }
+                ]
+              }
             }
           ]
         },
-        "promptType": "define",
-        "text": "={{ $now }}"
+        "replyMarkup": "inlineKeyboard",
+        "text": "Escolha o profissional:"
       },
       "position": [
-        -48,
-        240
+        2512,
+        144
       ],
-      "type": "@n8n/n8n-nodes-langchain.chainLlm",
-      "typeVersion": 1.9
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "68f1b12e-f0a8-4e3d-b845-a8aa60e5caf7"
     },
     {
-      "credentials": {
-        "groqApi": {
-          "id": "Jjg7y06jrA38F1wz",
-          "name": "[groq-key: text-extractor] markniel1408@gmail.com"
-        }
-      },
-      "id": "f1dd1b07-eb9d-4efe-9552-bae6d533ea6f",
-      "name": "Groq Chat Model",
+      "id": "4ca6c9ee-3fa2-4ac9-9479-a1ab082c543e",
+      "name": "Wait",
       "parameters": {
-        "model": "meta-llama/llama-prompt-guard-2-86m",
+        "amount": 8
+      },
+      "position": [
+        -1440,
+        -32
+      ],
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "webhookId": "f81525d4-576c-48a2-bb77-a307cf6c8ef0"
+    },
+    {
+      "id": "0e20a26e-1b85-4397-a609-055b4f1a9de3",
+      "name": "[GET] Msgs do Buffer por ChatId",
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "cachedResultName": "buffer_msgs_agendai",
+          "cachedResultUrl": "/projects/kCVHFkXvuUipUeFN/datatables/wENoFYAYXKdyd4TV",
+          "mode": "list",
+          "value": "wENoFYAYXKdyd4TV"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "chat_id",
+              "keyValue": "={{ $('Telegram Trigger').item.json.message.chat.id }}"
+            }
+          ]
+        },
+        "matchType": "allConditions",
+        "operation": "get",
+        "orderBy": true,
+        "orderByDirection": "ASC",
+        "returnAll": true
+      },
+      "position": [
+        -1216,
+        -32
+      ],
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "f89ed883-baa3-4c1e-a53f-92635c85807a",
+      "name": "[POST] Msg no Buffer",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "chat_id",
+              "id": "chat_id",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "msg_id",
+              "id": "msg_id",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "content",
+              "id": "content",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "chat_id": "={{ $json.message.chat.id }}",
+            "content": "={{ $json.message.text }}",
+            "msg_id": "={{ $json.message.message_id }}"
+          }
+        },
+        "dataTableId": {
+          "__rl": true,
+          "cachedResultName": "buffer_msgs_agendai",
+          "cachedResultUrl": "/projects/kCVHFkXvuUipUeFN/datatables/wENoFYAYXKdyd4TV",
+          "mode": "list",
+          "value": "wENoFYAYXKdyd4TV"
+        },
         "options": {}
       },
       "position": [
-        -48,
-        448
+        -1664,
+        -32
       ],
-      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
-      "typeVersion": 1
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1
     },
     {
-      "id": "8f6fe0df-e767-4004-a85b-bbe428153bf2",
-      "name": "Structured Output Parser",
+      "id": "fc14e6af-ec42-4080-9bd6-aa8677a205f9",
+      "name": "Validação última msg enviada",
       "parameters": {
-        "inputSchema": "{\n\t\"type\": \"object\",\n\t\"properties\": {\n\t\t\"inicio_semana\": {\n\t\t\t\"type\": \"timedate\"\n\t\t},\n\t\t\"fim_semana\": {\n\t\t\t\"type\": \"timedate\"\n\t\t}\n\t}\n}",
-        "schemaType": "manual"
-      },
-      "position": [
-        96,
-        448
-      ],
-      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
-      "typeVersion": 1.3
-    },
-    {
-      "credentials": {
-        "googleCalendarOAuth2Api": {
-          "id": "TbTbx7HkF2IEC13L",
-          "name": "[calendar] administradorchatwoot@gmail.com"
-        }
-      },
-      "id": "4134fe37-7721-46ed-9bda-243fa58045af",
-      "name": "Get availability in a calendar",
-      "parameters": {
-        "calendar": {
-          "__rl": true,
-          "cachedResultName": "Dr. Fulano",
-          "mode": "list",
-          "value": "e1d31a5d8b585c8eff78e02405aa60717a22eff739928e55bbeeb4a310fc082f@group.calendar.google.com"
-        },
-        "options": {},
-        "resource": "calendar",
-        "timeMax": "={{ $now.plus(1, 'day').minus(3, 'hours') }}",
-        "timeMin": "={{ $now.plus(1, 'day').minus(4, 'hours') }}"
-      },
-      "position": [
-        32,
-        -288
-      ],
-      "type": "n8n-nodes-base.googleCalendar",
-      "typeVersion": 1.3
-    },
-    {
-      "disabled": true,
-      "id": "59c30de0-81cf-4553-bf26-45a9232257dc",
-      "name": "Webhook",
-      "parameters": {
-        "options": {},
-        "path": "cdec4d1e-2dc3-48f6-abb5-471d2718098e"
-      },
-      "position": [
-        -336,
-        -176
-      ],
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2.1,
-      "webhookId": "cdec4d1e-2dc3-48f6-abb5-471d2718098e"
-    },
-    {
-      "credentials": {
-        "googleCalendarOAuth2Api": {
-          "id": "TbTbx7HkF2IEC13L",
-          "name": "[calendar] administradorchatwoot@gmail.com"
-        }
-      },
-      "id": "45691a85-e6b7-4f8e-a02c-f0c8d12226e5",
-      "name": "Get many events1",
-      "parameters": {
-        "calendar": {
-          "__rl": true,
-          "cachedResultName": "Dr. Fulano",
-          "mode": "list",
-          "value": "e1d31a5d8b585c8eff78e02405aa60717a22eff739928e55bbeeb4a310fc082f@group.calendar.google.com"
-        },
-        "operation": "getAll",
-        "options": {},
-        "returnAll": true,
-        "timeMax": "={{ $now.plus(1,'week') }}"
-      },
-      "position": [
-        32,
-        -528
-      ],
-      "type": "n8n-nodes-base.googleCalendar",
-      "typeVersion": 1.3
-    },
-    {
-      "credentials": {
-        "googleCalendarOAuth2Api": {
-          "id": "TbTbx7HkF2IEC13L",
-          "name": "[calendar] administradorchatwoot@gmail.com"
-        }
-      },
-      "id": "1436174c-6f36-4190-896c-b94a8efadcf7",
-      "name": "HTTP Request",
-      "parameters": {
-        "authentication": "predefinedCredentialType",
-        "bodyParameters": {
-          "parameters": [
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
             {
-              "name": "summary",
-              "value": "Dr. Chucrute"
+              "id": "dbd8dccc-72b4-48ef-9296-fda3bf9e2b94",
+              "leftValue": "={{ $('[GET] Msgs do Buffer por ChatId').all().slice(-1)[0].json.msg_id === $('Telegram Trigger').item.json.message.message_id.toString() }}",
+              "operator": {
+                "operation": "true",
+                "singleValue": true,
+                "type": "boolean"
+              },
+              "rightValue": "={{ $('Telegram Trigger').item.json.message.message_id }}"
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        -992,
+        -32
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3
+    },
+    {
+      "id": "3f61a5d5-01b7-42e1-b58b-9cfc64af26b8",
+      "name": "Agrupa msgs enviadas",
+      "parameters": {
+        "jsCode": "const allRows = $(\"[GET] Msgs do Buffer por ChatId\").all();\nconst fullText = allRows.map(item => item.json.content).join('\\n');\n\nreturn {\n  json: {\n    combined_message: fullText\n  }\n};"
+      },
+      "position": [
+        -768,
+        -48
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "alwaysOutputData": true,
+      "id": "e6f65ecf-1a9b-4518-879e-fbb4beb2d8bb",
+      "name": "[GET] Dados Conversa",
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "cachedResultName": "conversas_chatbot_agendai",
+          "cachedResultUrl": "/projects/kCVHFkXvuUipUeFN/datatables/7XUDxS0kMnRF9fOF",
+          "mode": "list",
+          "value": "7XUDxS0kMnRF9fOF"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "chat_id",
+              "keyValue": "={{ $('Telegram Trigger').item.json.message.chat.id }}"
             },
             {
-              "name": "description",
-              "value": "Calendário criado via cURL"
-            },
-            {
-              "name": "timeZone",
-              "value": "America/Sao_Paulo"
+              "keyName": "clinica_uuid",
+              "keyValue": "cd109e6b-829d-4f35-aab8-ee04fca89dbc"
             }
           ]
         },
-        "method": "POST",
-        "nodeCredentialType": "googleCalendarOAuth2Api",
-        "options": {},
-        "sendBody": true,
-        "url": "https://www.googleapis.com/calendar/v3/calendars"
+        "limit": 1,
+        "matchType": "allConditions",
+        "operation": "get"
       },
       "position": [
-        32,
-        -720
+        -336,
+        -48
+      ],
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "594aab80-0865-42b5-adbe-f2161a6ef463",
+      "name": "Validação primeira interação",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "78784119-fa81-4325-8f3b-f5cd11645c11",
+              "leftValue": "={{ $json.isEmpty() }}",
+              "operator": {
+                "operation": "true",
+                "singleValue": true,
+                "type": "boolean"
+              },
+              "rightValue": ""
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        -112,
+        -48
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3
+    },
+    {
+      "id": "9a8e9807-f967-48fd-ba91-544932423f9e",
+      "name": "[POST] Dados iniciais",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "etapa_conversa",
+              "id": "etapa_conversa",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "clinica_uuid",
+              "id": "clinica_uuid",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "chat_id",
+              "id": "chat_id",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "cliente_uuid",
+              "id": "cliente_uuid",
+              "readOnly": false,
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "nome_cliente",
+              "id": "nome_cliente",
+              "readOnly": false,
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "profissional_uuid",
+              "id": "profissional_uuid",
+              "readOnly": false,
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "profissional_procedimento_uuid",
+              "id": "profissional_procedimento_uuid",
+              "readOnly": false,
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "inicio_escolhido",
+              "id": "inicio_escolhido",
+              "readOnly": false,
+              "removed": true,
+              "required": false,
+              "type": "dateTime"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "idempotency_key",
+              "id": "idempotency_key",
+              "readOnly": false,
+              "removed": true,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "chat_id": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+            "clinica_uuid": "cd109e6b-829d-4f35-aab8-ee04fca89dbc",
+            "etapa_conversa": "aguardando_nome"
+          }
+        },
+        "dataTableId": {
+          "__rl": true,
+          "cachedResultName": "conversas_chatbot_agendai",
+          "cachedResultUrl": "/projects/kCVHFkXvuUipUeFN/datatables/7XUDxS0kMnRF9fOF",
+          "mode": "list",
+          "value": "7XUDxS0kMnRF9fOF"
+        },
+        "options": {}
+      },
+      "position": [
+        112,
+        -160
+      ],
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1
+    },
+    {
+      "credentials": {
+        "telegramApi": {
+          "id": "kk8MRWswxUHrarhr",
+          "name": "[bot] Agend.AI - Vita"
+        }
+      },
+      "id": "0901efc8-dfbe-4d2b-b2d2-9a40ec08793f",
+      "name": "[MSG] Coleta Nome",
+      "parameters": {
+        "additionalFields": {
+          "appendAttribution": false
+        },
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "Olá, sou Vita, assistente da clinica Vitality. Para lhe atender da melhor forma, poderia me informar seu nome completo?"
+      },
+      "position": [
+        336,
+        -160
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "1e795896-d908-4b3f-bbc6-ee119e0291aa"
+    },
+    {
+      "id": "b7e4da85-f761-499a-9045-26cafb989915",
+      "name": "[SET] Dados Conversa",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "af9842e0-92cf-4e78-8bf6-8e8ef526be84",
+              "name": "clinica_uuid",
+              "type": "string",
+              "value": "={{ $('[GET] Dados Conversa').item.json.clinica_uuid }}"
+            },
+            {
+              "id": "c1fabecc-a47e-4077-94a5-3439f95691a1",
+              "name": "etapa_conversa",
+              "type": "string",
+              "value": "={{ $json.etapa_conversa }}"
+            },
+            {
+              "id": "cdab8638-aa3c-4d39-ba6c-11d040630aa5",
+              "name": "msg",
+              "type": "string",
+              "value": "={{ $('Agrupa msgs enviadas').item.json.combined_message }}"
+            },
+            {
+              "id": "0934346f-1989-421f-9fac-b95cd017febb",
+              "name": "cliente.nome",
+              "type": "string",
+              "value": "={{ $('[GET] Dados Conversa').item.json.nome_cliente?.trim() ?? null }}"
+            },
+            {
+              "id": "0a859765-9487-47b6-b3c4-2c36071500a0",
+              "name": "cliente.primeiro_nome",
+              "type": "string",
+              "value": "={{ $('[GET] Dados Conversa').item.json.nome_cliente?.split(\" \")[0] ?? null }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        112,
+        48
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "f58cface-9480-4482-bba3-bddc089f5565",
+      "name": "Etapas Atendimento",
+      "parameters": {
+        "options": {},
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "4bcb489c-0df8-4369-8ecb-a851624e76a3",
+                    "leftValue": "={{ $json.etapa_conversa }}",
+                    "operator": {
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "aguardando_nome"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                }
+              },
+              "outputKey": "aguardando_nome",
+              "renameOutput": true
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "10739f96-2bee-4e62-a096-636e5786de97",
+                    "leftValue": "={{ $json.etapa_conversa }}",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "aguardando_telefone"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                }
+              },
+              "outputKey": "aguardando_telefone",
+              "renameOutput": true
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "4f1d7482-4ca9-4630-86b7-b34f7b1206c0",
+                    "leftValue": "={{ $json.etapa_conversa }}",
+                    "operator": {
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "escolhendo_profissional"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                }
+              },
+              "outputKey": "escolhendo_profissional",
+              "renameOutput": true
+            }
+          ]
+        }
+      },
+      "position": [
+        336,
+        32
+      ],
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "4aff4280-4c7e-4dec-9583-426f1285efc7",
+      "name": "[Extractor] Nome Completo",
+      "parameters": {
+        "attributes": {
+          "attributes": [
+            {
+              "description": "=Você é um extrator de dados especializado na extração de nomes pessoais.\nSua única tarefa é extrair o NOME COMPLETO da pessoa a partir da mensagem fornecida.\n\nRegras estritas:\n1. Responda APENAS E EXCLUSIVAMENTE com o nome extraído.\n2. Não inclua pontos finais, saudações, introduções ou explicações (ex: NÃO diga \"O nome é Marcos\", diga apenas \"Marcos\").\n3. Mantenha as letras maiúsculas e minúsculas corretas do nome próprio.\n4. Se o usuário fornecer um nome e sobrenome, extraia ambos (ex: \"Meu nome é Marcos Silva\" -> \"Marcos Silva\").\n5. Se a mensagem NÃO contiver um nome legível ou for apenas uma saudação genérica, responda estritamente: ###\n\nExemplos de Entrada e Saída:\n- Entrada: \"Olá, bom dia! Meu nome é Marcos Daniel da Silva\" -> Saída: Marcos Daniel da Silva\n- Entrada: \"pode me chamar de Amanda Costa\" -> Saída: Amanda Costa\n- Entrada: \"Marcos\" -> Saída: Marcos\n- Entrada: \"Quero saber o preço\" -> Saída: ###\n",
+              "name": "nome"
+            }
+          ]
+        },
+        "options": {},
+        "text": "={{ $json.msg }}"
+      },
+      "position": [
+        560,
+        -256
+      ],
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "79896b53-1ecb-4505-b954-dbe079f254bd",
+      "name": "[Extractor] Telefone",
+      "parameters": {
+        "attributes": {
+          "attributes": [
+            {
+              "description": "Extraia apenas o telefone do cliente. Considere que o telefone pode ter essas estruturas: \n11999999999 (Sem máscara)\n(11)999999999 (Apenas parênteses)\n(11) 99999-9999 (Máscara completa padrão)\n11 99999-9999 (Espaço e hífen, sem parênteses)",
+              "name": "telefone"
+            }
+          ]
+        },
+        "options": {},
+        "text": "={{ $('[SET] Dados Conversa').item.json.msg }}"
+      },
+      "position": [
+        560,
+        256
+      ],
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1.2
+    },
+    {
+      "id": "b7cd8dc6-8e39-49ce-adfd-15ceadf7dea8",
+      "name": "[DEL] Limpar Buffer",
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "cachedResultName": "buffer_msgs_agendai",
+          "cachedResultUrl": "/projects/kCVHFkXvuUipUeFN/datatables/wENoFYAYXKdyd4TV",
+          "mode": "list",
+          "value": "wENoFYAYXKdyd4TV"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "chat_id",
+              "keyValue": "={{ $('Telegram Trigger').item.json.message.chat.id }}"
+            }
+          ]
+        },
+        "operation": "deleteRows",
+        "options": {}
+      },
+      "position": [
+        -560,
+        -48
+      ],
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "638d0dbe-1552-4098-9649-d004c621cfb5",
+      "name": "Validação nome completo",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "d64e5217-0878-493c-a1e5-975cae55237a",
+              "leftValue": "={{ $json.is_valido }}",
+              "operator": {
+                "operation": "true",
+                "singleValue": true,
+                "type": "boolean"
+              },
+              "rightValue": false
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        1136,
+        -144
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3
+    },
+    {
+      "id": "30e79d9c-0cb7-4266-9d5a-a17dd27ccc9f",
+      "name": "[PATCH] Nome & Etapa_Conversa",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "etapa_conversa",
+              "id": "etapa_conversa",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "clinica_uuid",
+              "id": "clinica_uuid",
+              "readOnly": false,
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "chat_id",
+              "id": "chat_id",
+              "readOnly": false,
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "cliente_uuid",
+              "id": "cliente_uuid",
+              "readOnly": false,
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "nome_cliente",
+              "id": "nome_cliente",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "profissional_uuid",
+              "id": "profissional_uuid",
+              "readOnly": false,
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "profissional_procedimento_uuid",
+              "id": "profissional_procedimento_uuid",
+              "readOnly": false,
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "inicio_escolhido",
+              "id": "inicio_escolhido",
+              "readOnly": false,
+              "removed": true,
+              "required": false,
+              "type": "dateTime"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "idempotency_key",
+              "id": "idempotency_key",
+              "readOnly": false,
+              "removed": true,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "etapa_conversa": "aguardando_telefone",
+            "nome_cliente": "={{ $json.nome }}"
+          }
+        },
+        "dataTableId": {
+          "__rl": true,
+          "cachedResultName": "conversas_chatbot_agendai",
+          "cachedResultUrl": "/projects/kCVHFkXvuUipUeFN/datatables/7XUDxS0kMnRF9fOF",
+          "mode": "list",
+          "value": "7XUDxS0kMnRF9fOF"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "chat_id",
+              "keyValue": "={{ $('Telegram Trigger').item.json.message.chat.id }}"
+            },
+            {
+              "keyName": "clinica_uuid",
+              "keyValue": "cd109e6b-829d-4f35-aab8-ee04fca89dbc"
+            }
+          ]
+        },
+        "operation": "update",
+        "options": {}
+      },
+      "position": [
+        1360,
+        -240
+      ],
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1
+    },
+    {
+      "credentials": {
+        "telegramApi": {
+          "id": "kk8MRWswxUHrarhr",
+          "name": "[bot] Agend.AI - Vita"
+        }
+      },
+      "id": "f7c28c74-b703-4dc1-be31-e974aa1a5d24",
+      "name": "[MSG] Coleta Telefone",
+      "parameters": {
+        "additionalFields": {
+          "appendAttribution": false
+        },
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=Perfeito {{ $('Validação nome completo').item.json.nome.split(\" \")[0] }}! Agora poderia me informar seu telefone por gentileza? Vou utilizar ele para buscar seu cadastro na base ou caso não tenha, criar um para você."
+      },
+      "position": [
+        1584,
+        -240
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "1e795896-d908-4b3f-bbc6-ee119e0291aa"
+    },
+    {
+      "id": "9799f81b-9e25-433e-aeb0-82f4e28067cb",
+      "name": "Validação telefone valido",
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "d64e5217-0878-493c-a1e5-975cae55237a",
+              "leftValue": "={{ $json.is_valido }}",
+              "operator": {
+                "operation": "true",
+                "singleValue": true,
+                "type": "boolean"
+              },
+              "rightValue": false
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          }
+        },
+        "options": {}
+      },
+      "position": [
+        1136,
+        256
+      ],
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3
+    },
+    {
+      "credentials": {
+        "telegramApi": {
+          "id": "kk8MRWswxUHrarhr",
+          "name": "[bot] Agend.AI - Vita"
+        }
+      },
+      "id": "4498c2e6-7ff9-4d89-a5cd-024e780f31f4",
+      "name": "[MSG] Nome Invalido",
+      "parameters": {
+        "additionalFields": {
+          "appendAttribution": false
+        },
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $(\"[CODE] Return Nome Valido\").item.json.msgErro }}"
+      },
+      "position": [
+        1360,
+        -48
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "1e795896-d908-4b3f-bbc6-ee119e0291aa"
+    },
+    {
+      "credentials": {
+        "telegramApi": {
+          "id": "kk8MRWswxUHrarhr",
+          "name": "[bot] Agend.AI - Vita"
+        }
+      },
+      "id": "9daa1311-e93f-4359-9d66-840abd0f30c5",
+      "name": "[MSG] Telefone Invalido",
+      "parameters": {
+        "additionalFields": {
+          "appendAttribution": false
+        },
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=O nome que você informou contém caracteres inválidos como números, pontuações etc. Por favor, peço que envie um nome real sem nenhum caractere especial."
+      },
+      "position": [
+        1360,
+        352
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "1e795896-d908-4b3f-bbc6-ee119e0291aa"
+    },
+    {
+      "id": "2ab9328b-79b4-47d0-8af2-6705d1ffbf5b",
+      "name": "[API] /clientes/resolver",
+      "parameters": {
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "jsonBody": "={\n  \"nome\": {{ JSON.stringify($('[SET] Dados Conversa').item.json.cliente.nome) }},\n  \"telefone\": {{ JSON.stringify($('[CODE] Return Telefone Valido').item.json.telefone) }},\n  \"telegramUserId\": {{ JSON.stringify($('Telegram Trigger').item.json.message.from.id.toString()) }}\n}",
+        "method": "POST",
+        "options": {},
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "clinicaUuid",
+              "value": "={{ $('[SET] Dados Conversa').item.json.clinica_uuid }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "sendHeaders": true,
+        "sendQuery": true,
+        "specifyBody": "json",
+        "url": "https://niel.tail17e705.ts.net/api/clientes/resolver"
+      },
+      "position": [
+        1360,
+        144
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4
+    },
+    {
+      "id": "f07fad1b-d8e7-42a2-80c5-113f2c1ada91",
+      "name": "[PATCH] ClienteUuid & Etapa_Conversa",
+      "parameters": {
+        "columns": {
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "etapa_conversa",
+              "id": "etapa_conversa",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "clinica_uuid",
+              "id": "clinica_uuid",
+              "readOnly": false,
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "chat_id",
+              "id": "chat_id",
+              "readOnly": false,
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "cliente_uuid",
+              "id": "cliente_uuid",
+              "readOnly": false,
+              "removed": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "nome_cliente",
+              "id": "nome_cliente",
+              "readOnly": false,
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "profissional_uuid",
+              "id": "profissional_uuid",
+              "readOnly": false,
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "profissional_procedimento_uuid",
+              "id": "profissional_procedimento_uuid",
+              "readOnly": false,
+              "removed": true,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "inicio_escolhido",
+              "id": "inicio_escolhido",
+              "readOnly": false,
+              "removed": true,
+              "required": false,
+              "type": "dateTime"
+            },
+            {
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "idempotency_key",
+              "id": "idempotency_key",
+              "readOnly": false,
+              "removed": true,
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "value": {
+            "cliente_uuid": "={{ $json.clienteUuid }}",
+            "etapa_conversa": "escolhendo_profissional"
+          }
+        },
+        "dataTableId": {
+          "__rl": true,
+          "cachedResultName": "conversas_chatbot_agendai",
+          "cachedResultUrl": "/projects/kCVHFkXvuUipUeFN/datatables/7XUDxS0kMnRF9fOF",
+          "mode": "list",
+          "value": "7XUDxS0kMnRF9fOF"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "chat_id",
+              "keyValue": "={{ $('Telegram Trigger').item.json.message.chat.id }}"
+            },
+            {
+              "keyName": "clinica_uuid",
+              "keyValue": "cd109e6b-829d-4f35-aab8-ee04fca89dbc"
+            }
+          ]
+        },
+        "operation": "update",
+        "options": {}
+      },
+      "position": [
+        1584,
+        144
+      ],
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "fd6336a4-8376-446b-8a5c-da8e0f64ac23",
+      "name": "[GET] profissionais",
+      "parameters": {
+        "options": {},
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "clinicaUuid",
+              "value": "={{ $('[SET] Dados Conversa').item.json.clinica_uuid }}"
+            }
+          ]
+        },
+        "sendQuery": true,
+        "url": "https://niel.tail17e705.ts.net/api/profissionais"
+      },
+      "position": [
+        1808,
+        144
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4
+    },
+    {
+      "id": "37ee1ffb-14e4-474c-87e6-b12e1e1db7dc",
+      "name": "[CODE] Return Nome Valido",
+      "parameters": {
+        "jsCode": "const rawNome = $input.first().json.output.nome.trim();\n\nconst isName = /^[a-zA-ZÀ-ÿ\\s.'-]+$/.test(rawNome);\nconst isFullName = /^\\S+\\s+\\S+/.test(rawNome);\n\nlet msgError = \"\";\nif (!isName && rawNome === '###') {\n  msgError = \"Identifiquei que você não enviou o seu nome de fato. Por favor, peço que envie seu nome completo para iniciarmos seu atendimento.\"\n}\nelse if (!isName) {\n  msgError = \"O nome que você informou contém caracteres inválidos como números, pontuações etc. Por favor, peço que envie um nome real sem nenhum caractere especial.\"\n}\nelse if (!isFullName) {\n  msgError = \"Identifiquei que você enviou apenas o primeiro nome. Por favor, peço que envie o seu nome completo.\"\n}\n\nconst isValid = isName && isFullName;\n\nreturn [{\n  json: {\n    is_valido: isValid,\n    nome: isValid ? rawNome : null,\n    msgErro: isValid ? null : msgError\n  }\n}]\n\n\n"
+      },
+      "position": [
+        912,
+        -144
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "cbe4292d-3757-474f-bd20-04852ca13d6f",
+      "name": "[CODE] Return Telefone Valido",
+      "parameters": {
+        "jsCode": "const rawTelefone = $input.first().json.output.telefone.trim();\nconst isValid = /^\\(?[1-9]{2}\\)?\\s?9[0-9]{4}-?[0-9]{4}$/.test(rawTelefone);\n\nlet telefone = null;\nif (isValid) {\n  const numbers = rawTelefone.replace(/\\D/g, \"\");\n  telefone = numbers.replace(/^([0-9]{2})([0-9]{5})([0-9]{4})$/, \"($1) $2-$3\");\n}\n\nreturn [{\n  json: {\n    is_valido: isValid,\n    telefone: isValid ? telefone : null\n  }\n}]\n\n\n"
+      },
+      "position": [
+        912,
+        256
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "id": "32529408-dc82-4ef5-bc08-08d26cde46a7",
+      "name": "HTTP Request",
+      "parameters": {
+        "jsonBody": "={{\n  {\n    chat_id: $json.chat_id,\n    text: $json.text,\n    reply_markup: $json.reply_markup\n  }\n}}",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "url": "=https://api.telegram.org/bot{{ $('[GET] Dados Conversa').item.json.token_chatbot }}/sendMessage"
+      },
+      "position": [
+        2240,
+        144
       ],
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Telegram Trigger": [
+      {
+        "json": {
+          "message": {
+            "chat": {
+              "first_name": "Marcos",
+              "id": 6329122319,
+              "last_name": "Lima",
+              "type": "private"
+            },
+            "date": 1789541412,
+            "entities": [
+              {
+                "length": 11,
+                "offset": 0,
+                "type": "phone_number"
+              }
+            ],
+            "from": {
+              "first_name": "Marcos",
+              "id": 6329122319,
+              "is_bot": false,
+              "language_code": "pt-br",
+              "last_name": "Lima"
+            },
+            "message_id": 47,
+            "text": "14991188562"
+          },
+          "update_id": 786006634
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
   "settings": {
     "availableInMCP": false,
     "binaryMode": "separate",
@@ -309,5 +3148,5 @@
       "updatedAt": "2026-07-16T23:54:38.931Z"
     }
   ],
-  "triggerCount": 0
+  "triggerCount": 1
 }
