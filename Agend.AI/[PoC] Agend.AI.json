@@ -110,7 +110,15 @@
           [
             {
               "index": 0,
-              "node": "[PATCH] ClienteUuid & Etapa_Conversa1",
+              "node": "[SET] Msg Opções Horarios Disponiveis",
+              "type": "main"
+            }
+          ],
+          [],
+          [
+            {
+              "index": 0,
+              "node": "[PATCH] Inicio_Escolhido & Etapa_Conversa",
               "type": "main"
             }
           ]
@@ -360,7 +368,7 @@
           ]
         ]
       },
-      "[GET] Callback no Throttler1": {
+      "[GET] Callbacks Salvos": {
         "main": [
           [
             {
@@ -442,12 +450,12 @@
           ]
         ]
       },
-      "[PATCH] ClienteUuid & Etapa_Conversa1": {
+      "[PATCH] Inicio_Escolhido & Etapa_Conversa": {
         "main": [
           [
             {
               "index": 0,
-              "node": "[GET] Callback no Throttler1",
+              "node": "[GET] Callbacks Salvos",
               "type": "main"
             }
           ]
@@ -541,6 +549,17 @@
           ]
         ]
       },
+      "[SET] Msg Opções Horarios Disponiveis": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[MSG] Coleta Alternativas",
+              "type": "main"
+            }
+          ]
+        ]
+      },
       "[SET] Msg Opções Procedimentos": {
         "main": [
           [
@@ -564,9 +583,9 @@
         ]
       }
     },
-    "createdAt": "2026-09-18T03:31:24.779Z",
+    "createdAt": "2026-09-25T05:12:26.828Z",
     "description": "",
-    "name": "18092026.04",
+    "name": "25092026.01",
     "nodeGroups": [],
     "nodes": [
       {
@@ -1431,9 +1450,17 @@
         "webhookId": "1e795896-d908-4b3f-bbc6-ee119e0291aa"
       },
       {
+        "credentials": {
+          "httpBearerAuth": {
+            "id": "6GzQAcYIyypRPNzi",
+            "name": "Admin"
+          }
+        },
         "id": "2ab9328b-79b4-47d0-8af2-6705d1ffbf5b",
         "name": "[API] /clientes/resolver",
         "parameters": {
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpBearerAuth",
           "headerParameters": {
             "parameters": [
               {
@@ -1602,9 +1629,17 @@
         "typeVersion": 1.1
       },
       {
+        "credentials": {
+          "httpBearerAuth": {
+            "id": "6GzQAcYIyypRPNzi",
+            "name": "Admin"
+          }
+        },
         "id": "fd6336a4-8376-446b-8a5c-da8e0f64ac23",
         "name": "[GET] profissionais",
         "parameters": {
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpBearerAuth",
           "options": {},
           "queryParameters": {
             "parameters": [
@@ -2149,9 +2184,17 @@
         "typeVersion": 4.4
       },
       {
+        "credentials": {
+          "httpBearerAuth": {
+            "id": "6GzQAcYIyypRPNzi",
+            "name": "Admin"
+          }
+        },
         "id": "ee372ab1-add0-43e4-86de-bd81f598374c",
         "name": "[GET] profissionais/uuid/procedimentos",
         "parameters": {
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpBearerAuth",
           "options": {},
           "url": "=https://niel.tail17e705.ts.net/api/profissionais/{{ $('[SET] Dados Callback').item.json.valor_callback.split(':').last() }}/procedimentos"
         },
@@ -2637,11 +2680,19 @@
         "webhookId": "1e795896-d908-4b3f-bbc6-ee119e0291aa"
       },
       {
+        "credentials": {
+          "httpBearerAuth": {
+            "id": "6GzQAcYIyypRPNzi",
+            "name": "Admin"
+          }
+        },
         "executeOnce": false,
         "id": "5198dd25-8f25-4b4e-91af-dbe18f8191d3",
         "name": "[API] /profissionais/uuid/disponibilidade",
         "onError": "continueRegularOutput",
         "parameters": {
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpBearerAuth",
           "headerParameters": {
             "parameters": [
               {
@@ -2692,14 +2743,14 @@
                   "combinator": "and",
                   "conditions": [
                     {
-                      "id": "f092929a-0235-4ea5-9a87-8985a528360d",
-                      "leftValue": "={{ $json.disponivel }}",
+                      "id": "adfaa37c-764f-49d7-85a7-67daba5b40dd",
+                      "leftValue": "={{ !$json.disponivel }}",
                       "operator": {
                         "operation": "true",
                         "singleValue": true,
                         "type": "boolean"
                       },
-                      "rightValue": false
+                      "rightValue": ""
                     }
                   ],
                   "options": {
@@ -2709,7 +2760,7 @@
                     "version": 3
                   }
                 },
-                "outputKey": "horario_disponivel",
+                "outputKey": "horario_indisponivel",
                 "renameOutput": true
               },
               {
@@ -2742,14 +2793,14 @@
                   "combinator": "and",
                   "conditions": [
                     {
-                      "id": "adfaa37c-764f-49d7-85a7-67daba5b40dd",
-                      "leftValue": "={{ !$json.disponivel }}",
+                      "id": "f092929a-0235-4ea5-9a87-8985a528360d",
+                      "leftValue": "={{ $json.disponivel }}",
                       "operator": {
                         "operation": "true",
                         "singleValue": true,
                         "type": "boolean"
                       },
-                      "rightValue": ""
+                      "rightValue": false
                     }
                   ],
                   "options": {
@@ -2759,7 +2810,7 @@
                     "version": 3
                   }
                 },
-                "outputKey": "horario_indisponivel",
+                "outputKey": "horario_disponivel",
                 "renameOutput": true
               }
             ]
@@ -2774,7 +2825,7 @@
       },
       {
         "id": "e3f006a5-b18a-4f35-9306-d051861bbad2",
-        "name": "[PATCH] ClienteUuid & Etapa_Conversa1",
+        "name": "[PATCH] Inicio_Escolhido & Etapa_Conversa",
         "parameters": {
           "columns": {
             "attemptToConvertTypes": false,
@@ -2855,16 +2906,6 @@
               {
                 "defaultMatch": false,
                 "display": true,
-                "displayName": "inicio_escolhido",
-                "id": "inicio_escolhido",
-                "readOnly": false,
-                "removed": false,
-                "required": false,
-                "type": "dateTime"
-              },
-              {
-                "defaultMatch": false,
-                "display": true,
                 "displayName": "idempotency_key",
                 "id": "idempotency_key",
                 "readOnly": false,
@@ -2879,6 +2920,16 @@
                 "id": "token_chatbot",
                 "readOnly": false,
                 "removed": true,
+                "required": false,
+                "type": "string"
+              },
+              {
+                "defaultMatch": false,
+                "display": true,
+                "displayName": "inicio_escolhido",
+                "id": "inicio_escolhido",
+                "readOnly": false,
+                "removed": false,
                 "required": false,
                 "type": "string"
               }
@@ -2907,12 +2958,13 @@
               }
             ]
           },
+          "matchType": "allConditions",
           "operation": "update",
           "options": {}
         },
         "position": [
-          2064,
-          -64
+          2096,
+          352
         ],
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1
@@ -2920,7 +2972,7 @@
       {
         "alwaysOutputData": true,
         "id": "97cb8c7b-1ed2-40fe-952e-30bc15ddd3f4",
-        "name": "[GET] Callback no Throttler1",
+        "name": "[GET] Callbacks Salvos",
         "parameters": {
           "dataTableId": {
             "__rl": true,
@@ -2941,8 +2993,8 @@
           "operation": "get"
         },
         "position": [
-          2288,
-          -64
+          2320,
+          352
         ],
         "type": "n8n-nodes-base.dataTable",
         "typeVersion": 1.1
@@ -2957,55 +3009,92 @@
                 "id": "d54cbd5d-2f73-4f55-b103-afde0972b851",
                 "name": "nome_cliente",
                 "type": "string",
-                "value": "={{ $('[PATCH] ClienteUuid & Etapa_Conversa1').item.json.nome_cliente }}"
+                "value": "={{ $('[PATCH] Inicio_Escolhido & Etapa_Conversa').item.json.nome_cliente }}"
               },
               {
                 "id": "193b4f48-7516-4b8e-a332-b756756cec42",
                 "name": "nome_profissional",
                 "type": "string",
-                "value": "={{ $('[GET] Callback no Throttler1').all()[0].json.callback_content.split(\":\")[0] }}"
+                "value": "={{ $('[GET] Callbacks Salvos').all()[0].json.callback_content.split(\":\")[0] }}"
               },
               {
                 "id": "7ef2a808-ea8c-46bb-bcad-e58c759ff2a3",
                 "name": "nome_procedimento",
                 "type": "string",
-                "value": "={{ $('[GET] Callback no Throttler1').all().last().json.callback_content.split(\":\")[1] }}"
+                "value": "={{ $('[GET] Callbacks Salvos').all().last().json.callback_content.split(\":\")[1] }}"
               },
               {
                 "id": "65298aea-79d5-4dba-8279-28bcfa7303bd",
-                "name": "nome_procedimento",
+                "name": "valor_procedimento",
                 "type": "string",
-                "value": "={{ $('[GET] Callback no Throttler1').all().last().json.callback_content.split(\":\")[2] }}"
+                "value": "={{ $('[GET] Callbacks Salvos').all().last().json.callback_content.split(\":\")[2] }}"
               },
               {
                 "id": "b0ce383e-9c2e-46f4-9ee9-8c9e4f8fbce3",
                 "name": "duracao_procedimento",
                 "type": "string",
-                "value": "={{ $('[GET] Callback no Throttler1').all().last().json.callback_content.split(\":\")[0] }}"
+                "value": "={{ $('[GET] Callbacks Salvos').all().last().json.callback_content.split(\":\")[0] }}"
               },
               {
                 "id": "d5b8c9b0-82d2-4bca-8809-1dbb7d35b350",
                 "name": "inicio_escolhido",
                 "type": "string",
-                "value": "={{ $('[PATCH] ClienteUuid & Etapa_Conversa1').item.json.inicio_escolhido }}"
+                "value": "={{ $('[API] /profissionais/uuid/disponibilidade').item.json.horariosDisponiveis[0].inicio }}"
+              },
+              {
+                "id": "c1433c8d-f94f-4b0d-bb96-8b5e6fde48c8",
+                "name": "fim_estimado",
+                "type": "string",
+                "value": "={{ $('[API] /profissionais/uuid/disponibilidade').item.json.horariosDisponiveis[0].fim }}"
               }
             ]
           },
           "options": {}
         },
         "position": [
-          2496,
-          -64
+          2528,
+          352
         ],
         "type": "n8n-nodes-base.set",
         "typeVersion": 3.4
+      },
+      {
+        "id": "26ac2839-372c-4272-9b15-4367aabf288f",
+        "name": "[SET] Msg Opções Horarios Disponiveis",
+        "parameters": {
+          "jsCode": "const res = $(\"[API] /profissionais/uuid/disponibilidade\").first().json;\nconst nomeCliente = $('[SET] Dados Conversa').first().json.cliente.primeiro_nome;\n\nconst horariosDisponiveis = Array.isArray(res.horariosDisponiveis)\n  ? res.horariosDisponiveis\n  : [];\n\nconst conversa = $('[SET] Dados Conversa').first().json;\nconst chatId = conversa.chat_id;\n\nif (!chatId) {\n  throw new Error('chat_id não encontrado nos dados da conversa.');\n}\n\nconst botoes = horariosDisponiveis.map((opcao) => {\n  \n  const data = new Date(opcao.inicio)\n  const dd = String(data.getDate()).padStart(2, '0');\n  const mm = String(data.getMonth() + 1).padStart(2, '0');\n\n  const horario = data.toLocaleTimeString('pt-BR', {\n  timeZone: 'America/Sao_Paulo',\n  hour: '2-digit',\n  minute: '2-digit'\n}).replace(':', 'h');\n  \n  const timeDate = `${dd}/${mm} às ${horario}`;\n  const diaSemana = new Intl.DateTimeFormat('pt-BR', { weekday: 'long' }).format(data);\n\n  return {\n    text: `${diaSemana}, ${timeDate}`,\n    callback_data: `${timeDate}:${opcao.inicio}:${opcao.fim}`,\n  };\n});\n\nconst saida = {\n  chat_id: String(chatId),\n  text: botoes.length\n    ? `Vish ${nomeCliente}, o horário que você solicitou não está disponível, mas tenho essas opções livres próximas à sua solicitação`\n    : 'Não há horários disponíveis no momento.',\n};\n\nif (botoes.length) {\n  saida.reply_markup = {\n    inline_keyboard: botoes.map((botao) => [botao]),\n  };\n}\n\nreturn [{ json: saida }];"
+        },
+        "position": [
+          2112,
+          32
+        ],
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2
+      },
+      {
+        "id": "dea47a5b-6937-452e-a8a1-c9716dca7359",
+        "name": "[MSG] Coleta Alternativas",
+        "parameters": {
+          "jsonBody": "={{\n  {\n    chat_id: $json.chat_id,\n    text: $json.text,\n    reply_markup: $json.reply_markup\n  }\n}}",
+          "method": "POST",
+          "options": {},
+          "sendBody": true,
+          "specifyBody": "json",
+          "url": "=https://api.telegram.org/bot{{ $('[SET] Dados Conversa').item.json.token_chatbot }}/sendMessage"
+        },
+        "position": [
+          2320,
+          32
+        ],
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4
       }
     ],
-    "updatedAt": "2026-09-18T03:31:35.000Z",
-    "versionId": "458d265f-3acf-4285-b224-d1955f0546b5",
+    "updatedAt": "2026-09-25T05:17:03.000Z",
+    "versionId": "68cee0c1-22f6-4f78-b9ae-8e78442058d0",
     "workflowId": "h17JOGGPRsypJRKf"
   },
-  "activeVersionId": "458d265f-3acf-4285-b224-d1955f0546b5",
+  "activeVersionId": "68cee0c1-22f6-4f78-b9ae-8e78442058d0",
   "connections": {
     "Agrupa msgs enviadas": {
       "main": [
@@ -4455,9 +4544,17 @@
       "webhookId": "1e795896-d908-4b3f-bbc6-ee119e0291aa"
     },
     {
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "6GzQAcYIyypRPNzi",
+          "name": "Admin"
+        }
+      },
       "id": "2ab9328b-79b4-47d0-8af2-6705d1ffbf5b",
       "name": "[API] /clientes/resolver",
       "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
         "headerParameters": {
           "parameters": [
             {
@@ -4626,9 +4723,17 @@
       "typeVersion": 1.1
     },
     {
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "6GzQAcYIyypRPNzi",
+          "name": "Admin"
+        }
+      },
       "id": "fd6336a4-8376-446b-8a5c-da8e0f64ac23",
       "name": "[GET] profissionais",
       "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
         "options": {},
         "queryParameters": {
           "parameters": [
@@ -5173,9 +5278,17 @@
       "typeVersion": 4.4
     },
     {
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "6GzQAcYIyypRPNzi",
+          "name": "Admin"
+        }
+      },
       "id": "ee372ab1-add0-43e4-86de-bd81f598374c",
       "name": "[GET] profissionais/uuid/procedimentos",
       "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
         "options": {},
         "url": "=https://niel.tail17e705.ts.net/api/profissionais/{{ $('[SET] Dados Callback').item.json.valor_callback.split(':').last() }}/procedimentos"
       },
@@ -5661,11 +5774,19 @@
       "webhookId": "1e795896-d908-4b3f-bbc6-ee119e0291aa"
     },
     {
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "6GzQAcYIyypRPNzi",
+          "name": "Admin"
+        }
+      },
       "executeOnce": false,
       "id": "5198dd25-8f25-4b4e-91af-dbe18f8191d3",
       "name": "[API] /profissionais/uuid/disponibilidade",
       "onError": "continueRegularOutput",
       "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
         "headerParameters": {
           "parameters": [
             {
