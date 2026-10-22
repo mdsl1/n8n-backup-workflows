@@ -2,7 +2,7 @@
   "active": true,
   "activeVersion": {
     "authors": "Marcos Lima",
-    "autosaved": false,
+    "autosaved": true,
     "connections": {
       "API de transcrição do Groq": {
         "main": [
@@ -222,9 +222,9 @@
         ]
       }
     },
-    "createdAt": "2026-08-27T17:16:04.793Z",
+    "createdAt": "2026-10-21T00:18:24.784Z",
     "description": "",
-    "name": "27082026.01",
+    "name": "Version ca3d3cd4",
     "nodeGroups": [],
     "nodes": [
       {
@@ -742,11 +742,11 @@
         "typeVersion": 1.1
       }
     ],
-    "updatedAt": "2026-08-27T17:26:21.000Z",
-    "versionId": "414fdfda-9205-47a9-9acf-aec8f4969569",
+    "updatedAt": "2026-10-21T00:18:33.000Z",
+    "versionId": "ca3d3cd4-8905-40ce-b84e-5c5992b7b9f7",
     "workflowId": "4MljINNgEhpEnMlV"
   },
-  "activeVersionId": "414fdfda-9205-47a9-9acf-aec8f4969569",
+  "activeVersionId": "ca3d3cd4-8905-40ce-b84e-5c5992b7b9f7",
   "connections": {
     "API de transcrição do Groq": {
       "main": [
