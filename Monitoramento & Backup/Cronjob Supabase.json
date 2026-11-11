@@ -1,0 +1,950 @@
+{
+  "active": true,
+  "activeVersion": {
+    "authors": "Marcos Lima",
+    "autosaved": true,
+    "connections": {
+      "Schedule Trigger": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[POST] logs portfolio_mdsl1",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Switch": {
+        "main": [
+          [],
+          [
+            {
+              "index": 0,
+              "node": "[SET] Msg Erro",
+              "type": "main"
+            }
+          ],
+          [
+            {
+              "index": 0,
+              "node": "[SET] Msg Erro1",
+              "type": "main"
+            }
+          ],
+          [
+            {
+              "index": 0,
+              "node": "[SET] Msg Erro2",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[POST] logs n8n_mdsl1": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[SET] n8n",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[POST] logs portfolio_mdsl1": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[SET] Portfolio",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[SET] Msg Erro": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Send a text message",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[SET] Msg Erro1": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Send a text message",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[SET] Msg Erro2": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Send a text message",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[SET] Portfolio": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[POST] logs n8n_mdsl1",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[SET] n8n": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Switch",
+              "type": "main"
+            }
+          ]
+        ]
+      }
+    },
+    "createdAt": "2026-11-10T15:08:57.891Z",
+    "description": "",
+    "name": "10112026.01",
+    "nodeGroups": [],
+    "nodes": [
+      {
+        "id": "2319b5e0-7ad3-4e4f-953a-c223bac55f2f",
+        "name": "Schedule Trigger",
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "triggerAtHour": 12
+              }
+            ]
+          }
+        },
+        "position": [
+          -112,
+          160
+        ],
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.3
+      },
+      {
+        "credentials": {
+          "supabaseApi": {
+            "id": "w7DkROHYyZgiqhsQ",
+            "name": "[marcos.d.s.lima1408@gmail.com] db_portfolio_mdsl1"
+          }
+        },
+        "id": "03cc7e9a-078f-4cca-aa4a-00f504d3b8c1",
+        "name": "[POST] logs portfolio_mdsl1",
+        "parameters": {
+          "fieldsUi": {
+            "fieldValues": [
+              {
+                "fieldId": "data_criacao",
+                "fieldValue": "={{ $now }}"
+              }
+            ]
+          },
+          "tableId": "log_ativo",
+          "useCustomSchema": true
+        },
+        "position": [
+          112,
+          160
+        ],
+        "type": "n8n-nodes-base.supabase",
+        "typeVersion": 1
+      },
+      {
+        "id": "b73a570b-ca36-4607-99c1-638dd243547e",
+        "name": "Switch",
+        "parameters": {
+          "options": {},
+          "rules": {
+            "values": [
+              {
+                "conditions": {
+                  "combinator": "and",
+                  "conditions": [
+                    {
+                      "id": "af15d0d5-1fc7-4db1-b531-ea05e8c1575e",
+                      "leftValue": "={{ $json['n8n-mdsl1'].sucesso && $('[SET] Portfolio').item.json.portfolio_mdsl1.sucesso }}",
+                      "operator": {
+                        "operation": "true",
+                        "singleValue": true,
+                        "type": "boolean"
+                      },
+                      "rightValue": ""
+                    }
+                  ],
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  }
+                },
+                "outputKey": "log_sucess",
+                "renameOutput": true
+              },
+              {
+                "conditions": {
+                  "combinator": "and",
+                  "conditions": [
+                    {
+                      "id": "14d31db1-1f69-4654-b24f-782bd2259385",
+                      "leftValue": "={{ !$json['n8n-mdsl1'].sucesso && $('[SET] Portfolio').item.json.portfolio_mdsl1.sucesso }}",
+                      "operator": {
+                        "operation": "true",
+                        "singleValue": true,
+                        "type": "boolean"
+                      },
+                      "rightValue": ""
+                    }
+                  ],
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  }
+                },
+                "outputKey": "log_portfolio_error",
+                "renameOutput": true
+              },
+              {
+                "conditions": {
+                  "combinator": "and",
+                  "conditions": [
+                    {
+                      "id": "cce7998f-7c0f-49ad-be86-7c398e08b22f",
+                      "leftValue": "={{ $json['n8n-mdsl1'].sucesso && !$('[SET] Portfolio').item.json.portfolio_mdsl1.sucesso }}",
+                      "operator": {
+                        "operation": "true",
+                        "singleValue": true,
+                        "type": "boolean"
+                      },
+                      "rightValue": ""
+                    }
+                  ],
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  }
+                },
+                "outputKey": "log_n8n_error",
+                "renameOutput": true
+              },
+              {
+                "conditions": {
+                  "combinator": "and",
+                  "conditions": [
+                    {
+                      "id": "5365a767-e8f8-436e-916e-853ae2f292ce",
+                      "leftValue": "={{ !$json['n8n-mdsl1'].sucesso && !$('[SET] Portfolio').item.json.portfolio_mdsl1.sucesso }}",
+                      "operator": {
+                        "operation": "true",
+                        "singleValue": true,
+                        "type": "boolean"
+                      },
+                      "rightValue": ""
+                    }
+                  ],
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  }
+                },
+                "outputKey": "log_error",
+                "renameOutput": true
+              }
+            ]
+          }
+        },
+        "position": [
+          1008,
+          128
+        ],
+        "type": "n8n-nodes-base.switch",
+        "typeVersion": 3.4
+      },
+      {
+        "credentials": {
+          "supabaseApi": {
+            "id": "EpeV2iMisV7hQHf3",
+            "name": "[marcos.d.s.lima1408@gmail.com] db_n8n_mdsl1"
+          }
+        },
+        "id": "05bcd7db-f91f-4d79-a03d-aa56b0fc6463",
+        "name": "[POST] logs n8n_mdsl1",
+        "parameters": {
+          "fieldsUi": {
+            "fieldValues": [
+              {
+                "fieldId": "data_criacao",
+                "fieldValue": "={{ $now }}"
+              }
+            ]
+          },
+          "tableId": "log_ativo",
+          "useCustomSchema": true
+        },
+        "position": [
+          560,
+          160
+        ],
+        "type": "n8n-nodes-base.supabase",
+        "typeVersion": 1
+      },
+      {
+        "id": "288c6747-1ead-4b6b-806a-dc608a42b99f",
+        "name": "[SET] Portfolio",
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "65b8f277-6b51-420f-847d-8e07e0c65314",
+                "name": "portfolio_mdsl1.sucesso",
+                "type": "boolean",
+                "value": "={{ !!$json.id }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "position": [
+          336,
+          160
+        ],
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
+      },
+      {
+        "id": "b04c090f-3f45-4458-ad07-de4b81cbb495",
+        "name": "[SET] n8n",
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "65b8f277-6b51-420f-847d-8e07e0c65314",
+                "name": "n8n-mdsl1.sucesso",
+                "type": "boolean",
+                "value": "={{ !!$json.id }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "position": [
+          784,
+          160
+        ],
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
+      },
+      {
+        "id": "671319a7-f7a7-405d-91be-1649404d6a03",
+        "name": "[SET] Msg Erro",
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "6314e39b-8e5f-42ab-8e90-5f3b006878fb",
+                "name": "db_erro",
+                "type": "string",
+                "value": "portfolio-mdsl1.logs_ativo"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "position": [
+          1232,
+          -32
+        ],
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
+      },
+      {
+        "id": "cf0f5ce3-c2bd-4f06-a98e-4637363b4220",
+        "name": "[SET] Msg Erro1",
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "6314e39b-8e5f-42ab-8e90-5f3b006878fb",
+                "name": "db_erro",
+                "type": "string",
+                "value": "[n8n-mdsl1].logs_ativo"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "position": [
+          1232,
+          160
+        ],
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
+      },
+      {
+        "id": "730c581a-2b67-47a8-8d37-892ea73565ad",
+        "name": "[SET] Msg Erro2",
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "6314e39b-8e5f-42ab-8e90-5f3b006878fb",
+                "name": "db_erro",
+                "type": "string",
+                "value": "[n8n-mdsl1].logs_ativo & [portfolio-mdsl1].logs_ativo"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "position": [
+          1232,
+          352
+        ],
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
+      },
+      {
+        "credentials": {
+          "telegramApi": {
+            "id": "8lzTgy1fvGio8liY",
+            "name": "[bot] B.I.U."
+          }
+        },
+        "id": "90b339ed-556c-419d-b010-2cb891eae264",
+        "name": "Send a text message",
+        "parameters": {
+          "additionalFields": {
+            "appendAttribution": false,
+            "parse_mode": "HTML"
+          },
+          "chatId": "6329122319",
+          "text": "=⚠️ <b>Erro no Cronjob • Logs Ativos Supabase</b>\n\nOcorreu um erro durante a rotina de registro de logs no Supabase:\n───────────────────────\n📝 Banco(s) afetado(s): {{ $json.db_erro }}\n📅 Data Registro: {{ $now.format('yyyy-MM-dd, hh:mm:ss') }}"
+        },
+        "position": [
+          1456,
+          160
+        ],
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "webhookId": "cb4edf78-2420-44a4-a449-6ce282eed646"
+      }
+    ],
+    "updatedAt": "2026-11-10T15:09:10.000Z",
+    "versionId": "2a9debe0-e8cb-47a0-848c-cba8c508bdba",
+    "workflowId": "k8zwMprwVHxg0wru"
+  },
+  "activeVersionId": "2a9debe0-e8cb-47a0-848c-cba8c508bdba",
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[POST] logs portfolio_mdsl1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [],
+        [
+          {
+            "index": 0,
+            "node": "[SET] Msg Erro",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "[SET] Msg Erro1",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "[SET] Msg Erro2",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[POST] logs n8n_mdsl1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[SET] n8n",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[POST] logs portfolio_mdsl1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[SET] Portfolio",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[SET] Msg Erro": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send a text message",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[SET] Msg Erro1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send a text message",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[SET] Msg Erro2": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Send a text message",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[SET] Portfolio": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[POST] logs n8n_mdsl1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[SET] n8n": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Switch",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "id": "k8zwMprwVHxg0wru",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Cronjob Supabase",
+  "nodes": [
+    {
+      "id": "2319b5e0-7ad3-4e4f-953a-c223bac55f2f",
+      "name": "Schedule Trigger",
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 12
+            }
+          ]
+        }
+      },
+      "position": [
+        -112,
+        160
+      ],
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3
+    },
+    {
+      "credentials": {
+        "supabaseApi": {
+          "id": "w7DkROHYyZgiqhsQ",
+          "name": "[marcos.d.s.lima1408@gmail.com] db_portfolio_mdsl1"
+        }
+      },
+      "id": "03cc7e9a-078f-4cca-aa4a-00f504d3b8c1",
+      "name": "[POST] logs portfolio_mdsl1",
+      "parameters": {
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "data_criacao",
+              "fieldValue": "={{ $now }}"
+            }
+          ]
+        },
+        "tableId": "log_ativo",
+        "useCustomSchema": true
+      },
+      "position": [
+        112,
+        160
+      ],
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1
+    },
+    {
+      "id": "b73a570b-ca36-4607-99c1-638dd243547e",
+      "name": "Switch",
+      "parameters": {
+        "options": {},
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "af15d0d5-1fc7-4db1-b531-ea05e8c1575e",
+                    "leftValue": "={{ $json['n8n-mdsl1'].sucesso && $('[SET] Portfolio').item.json.portfolio_mdsl1.sucesso }}",
+                    "operator": {
+                      "operation": "true",
+                      "singleValue": true,
+                      "type": "boolean"
+                    },
+                    "rightValue": ""
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                }
+              },
+              "outputKey": "log_sucess",
+              "renameOutput": true
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "14d31db1-1f69-4654-b24f-782bd2259385",
+                    "leftValue": "={{ !$json['n8n-mdsl1'].sucesso && $('[SET] Portfolio').item.json.portfolio_mdsl1.sucesso }}",
+                    "operator": {
+                      "operation": "true",
+                      "singleValue": true,
+                      "type": "boolean"
+                    },
+                    "rightValue": ""
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                }
+              },
+              "outputKey": "log_portfolio_error",
+              "renameOutput": true
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "cce7998f-7c0f-49ad-be86-7c398e08b22f",
+                    "leftValue": "={{ $json['n8n-mdsl1'].sucesso && !$('[SET] Portfolio').item.json.portfolio_mdsl1.sucesso }}",
+                    "operator": {
+                      "operation": "true",
+                      "singleValue": true,
+                      "type": "boolean"
+                    },
+                    "rightValue": ""
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                }
+              },
+              "outputKey": "log_n8n_error",
+              "renameOutput": true
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "5365a767-e8f8-436e-916e-853ae2f292ce",
+                    "leftValue": "={{ !$json['n8n-mdsl1'].sucesso && !$('[SET] Portfolio').item.json.portfolio_mdsl1.sucesso }}",
+                    "operator": {
+                      "operation": "true",
+                      "singleValue": true,
+                      "type": "boolean"
+                    },
+                    "rightValue": ""
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                }
+              },
+              "outputKey": "log_error",
+              "renameOutput": true
+            }
+          ]
+        }
+      },
+      "position": [
+        1008,
+        128
+      ],
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4
+    },
+    {
+      "credentials": {
+        "supabaseApi": {
+          "id": "EpeV2iMisV7hQHf3",
+          "name": "[marcos.d.s.lima1408@gmail.com] db_n8n_mdsl1"
+        }
+      },
+      "id": "05bcd7db-f91f-4d79-a03d-aa56b0fc6463",
+      "name": "[POST] logs n8n_mdsl1",
+      "parameters": {
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "data_criacao",
+              "fieldValue": "={{ $now }}"
+            }
+          ]
+        },
+        "tableId": "log_ativo",
+        "useCustomSchema": true
+      },
+      "position": [
+        560,
+        160
+      ],
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1
+    },
+    {
+      "id": "288c6747-1ead-4b6b-806a-dc608a42b99f",
+      "name": "[SET] Portfolio",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "65b8f277-6b51-420f-847d-8e07e0c65314",
+              "name": "portfolio_mdsl1.sucesso",
+              "type": "boolean",
+              "value": "={{ !!$json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        336,
+        160
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "b04c090f-3f45-4458-ad07-de4b81cbb495",
+      "name": "[SET] n8n",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "65b8f277-6b51-420f-847d-8e07e0c65314",
+              "name": "n8n-mdsl1.sucesso",
+              "type": "boolean",
+              "value": "={{ !!$json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        784,
+        160
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "671319a7-f7a7-405d-91be-1649404d6a03",
+      "name": "[SET] Msg Erro",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6314e39b-8e5f-42ab-8e90-5f3b006878fb",
+              "name": "db_erro",
+              "type": "string",
+              "value": "portfolio-mdsl1.logs_ativo"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        1232,
+        -32
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "cf0f5ce3-c2bd-4f06-a98e-4637363b4220",
+      "name": "[SET] Msg Erro1",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6314e39b-8e5f-42ab-8e90-5f3b006878fb",
+              "name": "db_erro",
+              "type": "string",
+              "value": "[n8n-mdsl1].logs_ativo"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        1232,
+        160
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "730c581a-2b67-47a8-8d37-892ea73565ad",
+      "name": "[SET] Msg Erro2",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6314e39b-8e5f-42ab-8e90-5f3b006878fb",
+              "name": "db_erro",
+              "type": "string",
+              "value": "[n8n-mdsl1].logs_ativo & [portfolio-mdsl1].logs_ativo"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        1232,
+        352
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "credentials": {
+        "telegramApi": {
+          "id": "8lzTgy1fvGio8liY",
+          "name": "[bot] B.I.U."
+        }
+      },
+      "id": "90b339ed-556c-419d-b010-2cb891eae264",
+      "name": "Send a text message",
+      "parameters": {
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        },
+        "chatId": "6329122319",
+        "text": "=⚠️ <b>Erro no Cronjob • Logs Ativos Supabase</b>\n\nOcorreu um erro durante a rotina de registro de logs no Supabase:\n───────────────────────\n📝 Banco(s) afetado(s): {{ $json.db_erro }}\n📅 Data Registro: {{ $now.format('yyyy-MM-dd, hh:mm:ss') }}"
+      },
+      "position": [
+        1456,
+        160
+      ],
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "webhookId": "cb4edf78-2420-44a4-a449-6ce282eed646"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "availableInMCP": false,
+    "binaryMode": "separate",
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-11-09T22:42:46.033Z",
+      "projectId": "kCVHFkXvuUipUeFN",
+      "role": "workflow:owner",
+      "updatedAt": "2026-11-09T22:42:46.033Z",
+      "workflowId": "k8zwMprwVHxg0wru"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2026-06-27T04:10:59.213Z",
+      "id": "0TXj6tSZQHNsUCSl",
+      "name": "Monitoramento & Backup",
+      "updatedAt": "2026-06-27T04:13:32.986Z"
+    }
+  ],
+  "triggerCount": 1
+}
