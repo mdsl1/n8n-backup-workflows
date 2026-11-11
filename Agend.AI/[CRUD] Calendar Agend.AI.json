@@ -1123,6 +1123,13 @@
             "node": "[SET] Dados Busca Disponibilidade",
             "type": "main"
           }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "[SET] Evento p/ Excluir",
+            "type": "main"
+          }
         ]
       ]
     },
@@ -1170,6 +1177,17 @@
           {
             "index": 0,
             "node": "[POST] Criar Evento",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[SET] Evento p/ Excluir": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[DELETE] Excluir Evento",
             "type": "main"
           }
         ]
@@ -1252,8 +1270,8 @@
         "url": "https://www.googleapis.com/calendar/v3/calendars"
       },
       "position": [
-        -1024,
-        -2896
+        -1248,
+        -2928
       ],
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4
@@ -1267,8 +1285,8 @@
         "responseBody": "={\n  \"sucesso\": {{ $json.sucesso }},\n  \"id_agenda\": {{ JSON.stringify($json.id) }},\n  \"identifier\": {{ JSON.stringify($json.identifier) }},\n  \"prefixo\": {{ JSON.stringify($json.prefixo) }}\n} "
       },
       "position": [
-        -576,
-        -2896
+        -800,
+        -2928
       ],
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5
@@ -1282,8 +1300,8 @@
         "responseBody": "={\n  \"sucesso\": {{ $json.sucess }},\n  \"id_event\": {{ JSON.stringify($json.id_event) }},\n  \"uuid_agendamento\": {{ JSON.stringify($json.id_agendamento) }},\n  \"horario_solicitado\": {\n      \"inicio\": {{ JSON.stringify($json.inicio_solicitado) }},\n      \"fim\": {{ JSON.stringify($json.fim_solicitado) }}\n  }\n} "
       },
       "position": [
-        -576,
-        -2704
+        -800,
+        -2736
       ],
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5
@@ -1295,8 +1313,8 @@
         "jsCode": "const payload = $(\"[CRUD] Agend.AI\").first().json.body;\nconst nome = payload.nome;\nconst partesNome = nome.trim().split(\" \");\nconst timezone = payload.timezone;\n\nlet nome_agenda = \"\";\nlet prefixo = \"\";\n\nconst response = await this.helpers.httpRequest({\n  method: \"GET\",\n  url: `https://api.genderize.io?name=${partesNome[0]}`,\n  json: true\n});\n\nif(response.probability > 0.9) {\n  prefixo = (response.gender === \"male\") ? \"Dr.\" : \"Dra.\"\n}\nelse {\n  prefixo = \"Dr(a).\"\n}\n\nif(partesNome.length > 2) {\n  nome_agenda = `${prefixo} ${partesNome[0]} ${partesNome[1][0].toUpperCase()} ${partesNome.at(-1) }`;\n}\nelse {\n  nome_agenda = `${prefixo} ${nome}`;\n}\n\nreturn [{\n  json: {\n    prefixo: prefixo,\n    nome_completo: nome,\n    nome_agenda: nome_agenda,\n    timezone: timezone,\n  }\n}];"
       },
       "position": [
-        -1248,
-        -2896
+        -1472,
+        -2928
       ],
       "type": "n8n-nodes-base.code",
       "typeVersion": 2
@@ -1324,8 +1342,8 @@
         "responseMode": "responseNode"
       },
       "position": [
-        -1904,
-        -3200
+        -1920,
+        -2576
       ],
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
@@ -1436,13 +1454,38 @@
               },
               "outputKey": "consultar_disponibilidade",
               "renameOutput": true
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "4f1353ce-ff78-439b-80dc-0b0cd35c5218",
+                    "leftValue": "={{ $json.body.operacao}}",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "excluir_agendamento"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                }
+              },
+              "outputKey": "excluir_agendamento",
+              "renameOutput": true
             }
           ]
         }
       },
       "position": [
-        -1472,
-        -2640
+        -1696,
+        -2592
       ],
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4
@@ -1482,8 +1525,8 @@
         "options": {}
       },
       "position": [
-        -800,
-        -2896
+        -1024,
+        -2928
       ],
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4
@@ -1529,8 +1572,8 @@
         "options": {}
       },
       "position": [
-        -800,
-        -2704
+        -1024,
+        -2736
       ],
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4
@@ -1561,8 +1604,8 @@
         "start": "={{ $json.inicio }}"
       },
       "position": [
-        -1024,
-        -2704
+        -1248,
+        -2736
       ],
       "type": "n8n-nodes-base.googleCalendar",
       "typeVersion": 1.3
@@ -1574,8 +1617,8 @@
         "jsCode": "const payload = $(\"[CRUD] Agend.AI\").first().json.body;\n\nconst dadosEvento = payload.evento;\nconst dadosProfissional = payload.profissional;\nconst dadosCliente = payload.cliente;\n\nconst titulo = `${dadosCliente.nome} - ${dadosProfissional.procedimento}`;\nconst descricao = dadosEvento.motivo_contato;\nconst event_id = dadosEvento.id_evento_calendar;\n\nreturn [{\n  json: {\n    id_agendamento: dadosEvento.uuid,\n    id_calendar: dadosProfissional.id_calendar,\n    event_id: event_id,\n    titulo: titulo,\n    descricao: descricao,\n    inicio: dadosEvento.hora_inicio,\n    fim: dadosEvento.hora_fim\n  }\n}];\n"
       },
       "position": [
-        -1248,
-        -2704
+        -1472,
+        -2736
       ],
       "type": "n8n-nodes-base.code",
       "typeVersion": 2
@@ -1615,8 +1658,8 @@
         "options": {}
       },
       "position": [
-        -1248,
-        -2512
+        -1472,
+        -2544
       ],
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4
@@ -1686,8 +1729,8 @@
         "options": {}
       },
       "position": [
-        -1248,
-        -2128
+        -1472,
+        -2160
       ],
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4
@@ -1699,8 +1742,8 @@
         "jsCode": "const data = $(\"[GET] Consultar eventos by Agenda\").all();\nconst profissionalUuid = $('[SET] Dados Busca Agenda').first().json.profissional_uuid;\nconst events = [];\n\nif(Array.isArray(data) && data.length > 0 && Object.keys(data[0].json || {}).length > 0) {\n  for (const item of data) {\n    const event = item.json;\n    const id = event.id;\n    const cliente = event.summary.includes(\"-\") ? event.summary.split(\" - \")[0] : null;\n    const procedimento = event.summary.split(\" - \")[1] || null;\n    const inicio = event.start?.dateTime; // Vem no formato 2026-08-07T18:00:00Z, com o timezone America/Sao_Paulo. converter para -03:00\n    const fim = event.end?.dateTime;\n    const tipo = (cliente === null && procedimento === null) ? \"indisponibilidade\" : \"agendamento\";\n  \n    events.push({\n      id: id,\n      title: cliente || event.summary.trim(),\n      tipo: tipo,\n      inicio: inicio,\n      fim: fim,\n      extendedProps: {\n        patient: cliente || null,\n        procedure: procedimento || null,\n        doctorUuid: profissionalUuid\n      }\n    })\n  }\n}\n\n\nreturn [\n  {\n    json: {\n      events\n    },\n  },\n];"
       },
       "position": [
-        -800,
-        -2512
+        -1024,
+        -2544
       ],
       "type": "n8n-nodes-base.code",
       "typeVersion": 2
@@ -1714,8 +1757,8 @@
         "responseBody": "={\n  \"sucesso\": {{ !$('[GET] Consultar eventos by Agenda').item.json.error }},\n  \"agendamentos\": {{ JSON.stringify($json.events) }}\n}"
       },
       "position": [
-        -576,
-        -2512
+        -800,
+        -2544
       ],
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5
@@ -1746,8 +1789,8 @@
         "timeMin": "={{ $json.periodo.inicio }}"
       },
       "position": [
-        -1024,
-        -2512
+        -1248,
+        -2544
       ],
       "type": "n8n-nodes-base.googleCalendar",
       "typeVersion": 1.3
@@ -1781,8 +1824,8 @@
         "timeMin": "={{ $json.periodo_solicitado.inicio }}"
       },
       "position": [
-        -1024,
-        -2128
+        -1248,
+        -2160
       ],
       "type": "n8n-nodes-base.googleCalendar",
       "typeVersion": 1.3
@@ -1796,8 +1839,8 @@
         "responseBody": "={\n  \"sucesso\": true,\n  \"disponivel\": {{ $json.available }},\n  \"profissional_uuid\": {{ JSON.stringify($('[SET] Dados Busca Disponibilidade').item.json.profissional_uuid) }},\n  \"periodo_solicitado\": {{ JSON.stringify($('[SET] Dados Busca Disponibilidade').item.json.periodo_solicitado) }},\n  \"alternativas_disponiveis\": [],\n  \"busca_esgotada\": false\n}"
       },
       "position": [
-        -576,
-        -2320
+        -800,
+        -2352
       ],
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5
@@ -1888,8 +1931,8 @@
         }
       },
       "position": [
-        -800,
-        -2144
+        -1024,
+        -2176
       ],
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4
@@ -1903,8 +1946,8 @@
         "responseBody": "={\n  \"sucesso\": false,\n  \"profissional_uuid\": {{ JSON.stringify($('[SET] Dados Busca Disponibilidade').item.json.profissional_uuid) }},\n  \"periodo\": {{ JSON.stringify($('[SET] Dados Busca Disponibilidade').item.json.periodo_solicitado) }}\n}"
       },
       "position": [
-        -576,
-        -2128
+        -800,
+        -2160
       ],
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5
@@ -1916,8 +1959,8 @@
         "jsCode": "const entrada = $(\"[SET] Dados Busca Disponibilidade\").first().json;\nconst itensGoogle = $(\"[GET] Eventos próximos Dias\").all();\n\nconst timezone = entrada.timezone ?? \"America/Sao_Paulo\";\nconst quantidade = entrada.quantidade_alternativas ?? 3;\nconst diasBusca = entrada.dias_busca ?? 7;\nconst duracaoMinutos = entrada.duracao_sessao_minutos ?? 60;\n\nconst eventosGoogle = itensGoogle.flatMap((item) => {\n  if (Array.isArray(item.json.items)) {\n    return item.json.items;\n  }\n\n  return Object.keys(item.json).length\n    ? [item.json]\n    : [];\n});\n\nfunction obterDataEvento(evento, propriedade) {\n  const valor = evento[propriedade];\n\n  if (typeof valor === \"string\") {\n    return valor;\n  }\n\n  return valor?.dateTime ?? valor?.date ?? null;\n}\n\nconst ocupados = eventosGoogle\n  .filter((evento) => evento.status !== \"cancelled\")\n  .map((evento) => {\n    const inicio = obterDataEvento(evento, \"start\");\n    const fim = obterDataEvento(evento, \"end\");\n\n    return {\n      inicio: inicio\n        ? DateTime.fromISO(inicio, { zone: timezone }).toMillis()\n        : NaN,\n\n      fim: fim\n        ? DateTime.fromISO(fim, { zone: timezone }).toMillis()\n        : NaN,\n    };\n  })\n  .filter(\n    (evento) =>\n      Number.isFinite(evento.inicio) &&\n      Number.isFinite(evento.fim) &&\n      evento.fim > evento.inicio,\n  );\n\nfunction extrairHorario(valor) {\n  /*\n   * Aceita tanto:\n   *\n   * \"08:00\"\n   *\n   * quanto:\n   *\n   * \"2026-08-12T08:00:00-03:00\"\n   */\n  const resultado = valor.match(\n    /(?:T)?(\\d{2}):(\\d{2})(?::(\\d{2}))?/,\n  );\n\n  if (!resultado) {\n    throw new Error(`Horário inválido: ${valor}`);\n  }\n\n  return {\n    hora: Number(resultado[1]),\n    minuto: Number(resultado[2]),\n    segundo: Number(resultado[3] ?? 0),\n  };\n}\n\nconst regrasPorDia = new Map();\n\nfor (const janela of entrada.janelas_atendimento ?? []) {\n  const diaSemana = Number(\n    janela.dia_semana,\n  );\n\n  regrasPorDia.set(diaSemana, {\n    inicio: extrairHorario(janela.inicio),\n    fim: extrairHorario(janela.fim),\n  });\n}\n\nfunction possuiConflito(inicio, fim) {\n  const inicioMillis = inicio.toMillis();\n  const fimMillis = fim.toMillis();\n\n  return ocupados.some(\n    (ocupado) =>\n      inicioMillis < ocupado.fim &&\n      fimMillis > ocupado.inicio,\n  );\n}\n\nconst inicioBusca = DateTime\n  .fromISO(entrada.periodo_solicitado.fim, {\n    setZone: true,\n  })\n  .setZone(timezone);\n\nif (!inicioBusca.isValid) {\n  throw new Error(\n    \"periodo_solicitado.fim é inválido.\",\n  );\n}\n\nconst fimBusca = inicioBusca.plus({\n  days: diasBusca,\n});\n\nconst alternativas = [];\n\nlet diaAtual = inicioBusca.startOf(\"day\");\n\nwhile (\n  diaAtual < fimBusca &&\n  alternativas.length < quantidade\n) {\n  const regra = regrasPorDia.get(diaAtual.weekday);\n\n  /*\n   * Se não existir regra para o dia, a clínica está\n   * fechada. Por exemplo, domingo.\n   */\n  if (regra) {\n    const abertura = diaAtual.set({\n      hour: regra.inicio.hora,\n      minute: regra.inicio.minuto,\n      second: regra.inicio.segundo,\n      millisecond: 0,\n    });\n\n    const fechamento = diaAtual.set({\n      hour: regra.fim.hora,\n      minute: regra.fim.minuto,\n      second: regra.fim.segundo,\n      millisecond: 0,\n    });\n\n    /*\n     * No primeiro dia, começa no fim do período recusado.\n     * Nos próximos dias, começa na abertura da clínica.\n     */\n    let candidato =\n      inicioBusca > abertura\n        ? inicioBusca\n        : abertura;\n\n    while (\n      candidato.plus({\n        minutes: duracaoMinutos,\n      }) <= fechamento &&\n      candidato < fimBusca &&\n      alternativas.length < quantidade\n    ) {\n      const candidatoFim = candidato.plus({\n        minutes: duracaoMinutos,\n      });\n\n      if (!possuiConflito(candidato, candidatoFim)) {\n        alternativas.push({\n          inicio: candidato.toISO(),\n          fim: candidatoFim.toISO(),\n        });\n      }\n\n      /*\n       * Para manter simples, a duração também funciona\n       * como intervalo entre possíveis horários.\n       */\n      candidato = candidato.plus({\n        minutes: duracaoMinutos,\n      });\n    }\n  }\n\n  diaAtual = diaAtual.plus({\n    days: 1,\n  });\n}\n\nreturn [\n  {\n    json: {\n      sucesso: true,\n      disponivel: false,\n      codigo: \"horario_indisponivel\",\n      timezone,\n      profissional_uuid:\n        entrada.profissional_uuid,\n      periodo_solicitado:\n        entrada.periodo_solicitado,\n      alternativas,\n      busca_esgotada:\n        alternativas.length < quantidade,\n    },\n  },\n];"
       },
       "position": [
-        -352,
-        -1936
+        -576,
+        -1968
       ],
       "type": "n8n-nodes-base.code",
       "typeVersion": 2
@@ -1948,8 +1991,8 @@
         "timeMin": "={{ $('[SET] Dados Busca Disponibilidade').item.json.periodo_solicitado.fim.toDateTime() }}"
       },
       "position": [
-        -576,
-        -1936
+        -800,
+        -1968
       ],
       "type": "n8n-nodes-base.googleCalendar",
       "typeVersion": 1.3
@@ -1963,11 +2006,82 @@
         "responseBody": "={\n  \"sucesso\": {{ $json.sucesso }},\n  \"disponivel\": {{ $json.disponivel }},\n  \"codigo\": {{ JSON.stringify($json.codigo) }},\n  \"profissional_uuid\": {{ JSON.stringify($json.profissional_uuid) }},\n  \"periodo_solicitado\": {{ JSON.stringify($json.periodo_solicitado) }},\n  \"alternativas_disponiveis\": {{ JSON.stringify($json.alternativas) }},\n  \"busca_esgotada\": {{ $json.busca_esgotada }}\n}"
       },
       "position": [
-        -128,
-        -1936
+        -352,
+        -1968
       ],
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5
+    },
+    {
+      "id": "6a75c7cd-3e3c-4983-b2bd-7470bdebbb6d",
+      "name": "[SET] Evento p/ Excluir",
+      "parameters": {
+        "jsCode": "const payload = $(\"[CRUD] Agend.AI\").first().json.body;\n\nconst dadosEvento = payload.evento;\nconst dadosProfissional = payload.profissional;\nconst dadosCliente = payload.cliente;\n\nconst titulo = `${dadosCliente.nome} - ${dadosProfissional.procedimento}`;\nconst descricao = dadosEvento.motivo_contato;\nconst event_id = dadosEvento.id_evento_calendar;\n\nreturn [{\n  json: {\n    id_agendamento: dadosEvento.uuid,\n    id_calendar: dadosProfissional.id_calendar,\n    event_id: event_id,\n    titulo: titulo,\n    descricao: descricao,\n    inicio: dadosEvento.hora_inicio,\n    fim: dadosEvento.hora_fim\n  }\n}];\n"
+      },
+      "position": [
+        -1472,
+        -2352
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "TbTbx7HkF2IEC13L",
+          "name": "[calendar] administradorchatwoot@gmail.com"
+        }
+      },
+      "id": "81877732-4298-4afb-8de7-7c1f85fb32f5",
+      "name": "[POST] Criar Indisponibilidade",
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "additionalFields": {
+          "repeatFrecuency": "Daily",
+          "repeatHowManyTimes": 1,
+          "repeatUntil": ""
+        },
+        "calendar": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $json.id_calendar }}"
+        }
+      },
+      "position": [
+        -1952,
+        -2096
+      ],
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3
+    },
+    {
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "TbTbx7HkF2IEC13L",
+          "name": "[calendar] administradorchatwoot@gmail.com"
+        }
+      },
+      "disabled": true,
+      "id": "8714599e-e05e-4268-9b02-b4a716f822ff",
+      "name": "[DELETE] Excluir Evento",
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $json.id_calendar }}"
+        },
+        "operation": "delete",
+        "options": {}
+      },
+      "position": [
+        -1248,
+        -2352
+      ],
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3
     }
   ],
   "pinData": {
