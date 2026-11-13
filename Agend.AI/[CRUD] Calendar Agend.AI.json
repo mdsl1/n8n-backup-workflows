@@ -1027,13 +1027,24 @@
     },
     "[CRUD] Agend.AI": {
       "main": [
-        [],
-        [],
-        [],
         [
           {
             "index": 0,
             "node": "[POST] Operacoes",
+            "type": "main"
+          }
+        ],
+        [],
+        [],
+        []
+      ]
+    },
+    "[DELETE] Excluir Evento": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[SET] Response3",
             "type": "main"
           }
         ]
@@ -1120,14 +1131,21 @@
         [
           {
             "index": 0,
-            "node": "[SET] Dados Busca Disponibilidade",
+            "node": "[SET] Evento p/ Excluir",
             "type": "main"
           }
         ],
         [
           {
             "index": 0,
-            "node": "[SET] Evento p/ Excluir",
+            "node": "[SET] Dados Evento1",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "node": "[SET] Dados Busca Disponibilidade",
             "type": "main"
           }
         ]
@@ -1182,6 +1200,17 @@
         ]
       ]
     },
+    "[SET] Dados Evento1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[POST] Criar Indisponibilidade",
+            "type": "main"
+          }
+        ]
+      ]
+    },
     "[SET] Evento p/ Excluir": {
       "main": [
         [
@@ -1221,6 +1250,17 @@
           {
             "index": 0,
             "node": "[RETURN] Agendamentos Response",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[SET] Response3": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[RETURN] Exclusão Evento Response",
             "type": "main"
           }
         ]
@@ -1330,20 +1370,14 @@
       "name": "[CRUD] Agend.AI",
       "parameters": {
         "authentication": "headerAuth",
-        "httpMethod": [
-          "GET",
-          "DELETE",
-          "PATCH",
-          "POST"
-        ],
-        "multipleMethods": true,
+        "httpMethod": "POST",
         "options": {},
         "path": "8c6ff736-f915-4a03-9a44-5292a7f61fea",
         "responseMode": "responseNode"
       },
       "position": [
         -1920,
-        -2576
+        -2544
       ],
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
@@ -1435,6 +1469,56 @@
                 "combinator": "and",
                 "conditions": [
                   {
+                    "id": "4f1353ce-ff78-439b-80dc-0b0cd35c5218",
+                    "leftValue": "={{ $json.body.operacao}}",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "excluir_evento"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                }
+              },
+              "outputKey": "excluir_evento",
+              "renameOutput": true
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "5efa3948-7833-4009-a075-314980bfdd40",
+                    "leftValue": "={{ $json.body.operacao}}",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "criar_indisponibilidade"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                }
+              },
+              "outputKey": "criar_indisponibilidade",
+              "renameOutput": true
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
                     "id": "57e52fae-30e8-49cf-a4e9-249ec6f9a7db",
                     "leftValue": "={{ $json.body.operacao}}",
                     "operator": {
@@ -1453,31 +1537,6 @@
                 }
               },
               "outputKey": "consultar_disponibilidade",
-              "renameOutput": true
-            },
-            {
-              "conditions": {
-                "combinator": "and",
-                "conditions": [
-                  {
-                    "id": "4f1353ce-ff78-439b-80dc-0b0cd35c5218",
-                    "leftValue": "={{ $json.body.operacao}}",
-                    "operator": {
-                      "name": "filter.operator.equals",
-                      "operation": "equals",
-                      "type": "string"
-                    },
-                    "rightValue": "excluir_agendamento"
-                  }
-                ],
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 3
-                }
-              },
-              "outputKey": "excluir_agendamento",
               "renameOutput": true
             }
           ]
@@ -1730,7 +1789,7 @@
       },
       "position": [
         -1472,
-        -2160
+        -1968
       ],
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4
@@ -1825,7 +1884,7 @@
       },
       "position": [
         -1248,
-        -2160
+        -1968
       ],
       "type": "n8n-nodes-base.googleCalendar",
       "typeVersion": 1.3
@@ -1840,7 +1899,7 @@
       },
       "position": [
         -800,
-        -2352
+        -2160
       ],
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5
@@ -1932,7 +1991,7 @@
       },
       "position": [
         -1024,
-        -2176
+        -1984
       ],
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4
@@ -1947,7 +2006,7 @@
       },
       "position": [
         -800,
-        -2160
+        -1968
       ],
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5
@@ -1960,7 +2019,7 @@
       },
       "position": [
         -576,
-        -1968
+        -1776
       ],
       "type": "n8n-nodes-base.code",
       "typeVersion": 2
@@ -1992,7 +2051,7 @@
       },
       "position": [
         -800,
-        -1968
+        -1776
       ],
       "type": "n8n-nodes-base.googleCalendar",
       "typeVersion": 1.3
@@ -2007,7 +2066,7 @@
       },
       "position": [
         -352,
-        -1968
+        -1776
       ],
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5
@@ -2016,7 +2075,7 @@
       "id": "6a75c7cd-3e3c-4983-b2bd-7470bdebbb6d",
       "name": "[SET] Evento p/ Excluir",
       "parameters": {
-        "jsCode": "const payload = $(\"[CRUD] Agend.AI\").first().json.body;\n\nconst dadosEvento = payload.evento;\nconst dadosProfissional = payload.profissional;\nconst dadosCliente = payload.cliente;\n\nconst titulo = `${dadosCliente.nome} - ${dadosProfissional.procedimento}`;\nconst descricao = dadosEvento.motivo_contato;\nconst event_id = dadosEvento.id_evento_calendar;\n\nreturn [{\n  json: {\n    id_agendamento: dadosEvento.uuid,\n    id_calendar: dadosProfissional.id_calendar,\n    event_id: event_id,\n    titulo: titulo,\n    descricao: descricao,\n    inicio: dadosEvento.hora_inicio,\n    fim: dadosEvento.hora_fim\n  }\n}];\n"
+        "jsCode": "const payload = $(\"[CRUD] Agend.AI\").first().json.body;\n\nconst dadosEvento = payload.evento;\nconst dadosProfissional = payload.profissional;\n\nconst event_id = dadosEvento.id_evento_calendar.includes(\"_\") ?\n  dadosEvento.id_evento_calendar.split(\"_\")[0]\n  : dadosEvento.id_evento_calendar;\n\nreturn [{\n  json: {\n    agendamento_uuid: dadosEvento.uuid || null,\n    id_calendar: dadosProfissional.id_calendar,\n    event_id: event_id,\n    profissional_uuid: dadosProfissional.uuid\n  }\n}];\n"
       },
       "position": [
         -1472,
@@ -2038,9 +2097,10 @@
       "onError": "continueRegularOutput",
       "parameters": {
         "additionalFields": {
-          "repeatFrecuency": "Daily",
-          "repeatHowManyTimes": 1,
-          "repeatUntil": ""
+          "description": "=",
+          "repeatFrecuency": "=Daily",
+          "repeatHowManyTimes": "={{ 1 }}",
+          "summary": ""
         },
         "calendar": {
           "__rl": true,
@@ -2049,8 +2109,8 @@
         }
       },
       "position": [
-        -1952,
-        -2096
+        -1248,
+        -2160
       ],
       "type": "n8n-nodes-base.googleCalendar",
       "typeVersion": 1.3
@@ -2063,22 +2123,122 @@
           "name": "[calendar] administradorchatwoot@gmail.com"
         }
       },
-      "disabled": true,
       "id": "8714599e-e05e-4268-9b02-b4a716f822ff",
       "name": "[DELETE] Excluir Evento",
-      "onError": "continueRegularOutput",
       "parameters": {
         "calendar": {
           "__rl": true,
           "mode": "id",
           "value": "={{ $json.id_calendar }}"
         },
+        "eventId": "52egngqjfjkqc5lognqe2vuhqt",
         "operation": "delete",
         "options": {}
       },
       "position": [
         -1248,
         -2352
+      ],
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3
+    },
+    {
+      "id": "49ee79f1-a120-460c-9955-78b4e18d1817",
+      "name": "[SET] Response3",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "918bef3b-bfd3-442e-9bdd-60c399551bc2",
+              "name": "sucess",
+              "type": "boolean",
+              "value": "={{ !$json.error }}"
+            },
+            {
+              "id": "abf0223f-9475-4b75-93f6-66f584a31b5f",
+              "name": "id_event",
+              "type": "string",
+              "value": "={{ $('[SET] Evento p/ Excluir').item.json.event_id }}"
+            },
+            {
+              "id": "355b969e-4a48-4e8f-8856-f9d119625c9a",
+              "name": "agendamento_uuid",
+              "type": "string",
+              "value": "={{ $('[SET] Evento p/ Excluir').item.json.agendamento_uuid }}"
+            },
+            {
+              "id": "84f80865-23ed-4250-92e9-0f649a0ff302",
+              "name": "profissional_uuid",
+              "type": "string",
+              "value": "={{ $('[SET] Evento p/ Excluir').item.json.profissional_uuid }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        -1024,
+        -2352
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "f1fdfc1f-cfd7-4f3b-a267-6aae74aedc24",
+      "name": "[RETURN] Exclusão Evento Response",
+      "parameters": {
+        "options": {},
+        "respondWith": "json",
+        "responseBody": "={\n  \"sucesso\": {{ $json.sucess }},\n  \"id_event\": {{ JSON.stringify($json.id_event) }},\n  \"agendamento_uuid\": {{ JSON.stringify($json.agendamento_uuid) }},\n  \"profissional_uuid\": {{ JSON.stringify($json.profissional_uuid) }}\n} "
+      },
+      "position": [
+        -800,
+        -2352
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5
+    },
+    {
+      "id": "f9866141-2bfc-4d0d-ade9-fd930baf08d0",
+      "name": "[SET] Dados Evento1",
+      "parameters": {
+        "jsCode": "const payload = $(\"[CRUD] Agend.AI\").first().json.body;\n\nconst dadosEvento = payload.evento;\nconst dadosProfissional = payload.profissional;\nconst dadosCliente = payload.cliente;\n\nconst titulo = `${dadosCliente.nome} - ${dadosProfissional.procedimento}`;\nconst descricao = dadosEvento.motivo_contato;\nconst event_id = dadosEvento.id_evento_calendar;\n\nreturn [{\n  json: {\n    id_agendamento: dadosEvento.uuid,\n    id_calendar: dadosProfissional.id_calendar,\n    event_id: event_id,\n    titulo: titulo,\n    descricao: descricao,\n    inicio: dadosEvento.hora_inicio,\n    fim: dadosEvento.hora_fim\n  }\n}];\n"
+      },
+      "position": [
+        -1472,
+        -2160
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "TbTbx7HkF2IEC13L",
+          "name": "[calendar] administradorchatwoot@gmail.com"
+        }
+      },
+      "id": "e6941983-3956-4d45-b260-3f2723ed67ba",
+      "name": "[GET] Consultar eventos by Agenda1",
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "cachedResultName": "Dr. Paulo Plínio",
+          "mode": "list",
+          "value": "79cc0f395833998dfa4cdbfdb226b19cbd715e9754f056b1c59691053878f4f3@group.calendar.google.com"
+        },
+        "operation": "getAll",
+        "options": {
+          "orderBy": "startTime"
+        },
+        "returnAll": true,
+        "timeMax": "={{ $now.plus(1, \"week\") }}"
+      },
+      "position": [
+        -2256,
+        -1872
       ],
       "type": "n8n-nodes-base.googleCalendar",
       "typeVersion": 1.3
@@ -2089,78 +2249,42 @@
       {
         "json": {
           "body": {
-            "janelas_atendimento": [
-              {
-                "dia_semana": 1,
-                "fim": "2026-08-17T18:00:00-03:00",
-                "inicio": "2026-08-17T08:00:00-03:00"
-              },
-              {
-                "dia_semana": 2,
-                "fim": "2026-08-17T18:00:00-03:00",
-                "inicio": "2026-08-17T08:00:00-03:00"
-              },
-              {
-                "dia_semana": 3,
-                "fim": "2026-08-17T18:00:00-03:00",
-                "inicio": "2026-08-17T08:00:00-03:00"
-              },
-              {
-                "dia_semana": 4,
-                "fim": "2026-08-17T18:00:00-03:00",
-                "inicio": "2026-08-17T08:00:00-03:00"
-              },
-              {
-                "dia_semana": 5,
-                "fim": "2026-08-17T18:00:00-03:00",
-                "inicio": "2026-08-17T08:00:00-03:00"
-              },
-              {
-                "dia_semana": 6,
-                "fim": "2026-08-17T12:00:00-03:00",
-                "inicio": "2026-08-17T08:00:00-03:00"
-              }
-            ],
-            "opcoes": {
-              "dias_busca": 7,
-              "duracao_sessao_minutos": 30,
-              "quantidade_alternativas": 3
+            "evento": {
+              "id_evento_calendar": "52egngqjfjkqc5lognqe2vuhqt_20261116T010000Z",
+              "uuid": "ff6af2e3-f745-4208-bc7e-3c4cb72009be"
             },
-            "operacao": "consultar_disponibilidade",
-            "periodo_solicitado": {
-              "fim": "2026-08-17T16:30:00-03:00",
-              "inicio": "2026-08-17T16:00:00-03:00"
-            },
+            "operacao": "excluir_evento",
             "profissional": {
               "id_calendar": "79cc0f395833998dfa4cdbfdb226b19cbd715e9754f056b1c59691053878f4f3@group.calendar.google.com",
-              "uuid": "09329f2a-3683-4321-a8ba-bd5deab26f3b"
-            },
-            "timezone": "America/Sao_Paulo"
+              "uuid": "5b0554eb-f9c9-4432-ba0c-3bc259820fd5"
+            }
           },
-          "executionMode": "production",
+          "executionMode": "test",
           "headers": {
+            "accept": "*/*",
             "accept-encoding": "gzip, br",
+            "cache-control": "no-cache",
             "cdn-loop": "cloudflare; loops=1",
-            "cf-connecting-ip": "191.242.51.72",
+            "cf-connecting-ip": "2804:1254:20a9:6571:6d08:f740:2670:45df",
             "cf-ipcountry": "BR",
-            "cf-ray": "a37a1f285c720e8a-GRU",
+            "cf-ray": "a59a00620aae91dd-GRU",
             "cf-visitor": "{\"scheme\":\"https\"}",
             "connection": "upgrade",
-            "content-length": "969",
-            "content-type": "application/json; charset=utf-8",
+            "content-length": "404",
+            "content-type": "application/json",
             "host": "n8n.mdsl1.com",
-            "traceparent": "00-7130a653c3f9dbc781bc491d5c1a7bee-8cb3d12e6db2596d-00",
+            "postman-token": "ec911cd5-7824-4622-a5b8-28e36632dbe7",
+            "user-agent": "PostmanRuntime/2.16.1",
             "x-agendai-api-key": "07cd6beba3ebedd5050227c6f4beba8f59a2d53acc6db1519da9d0bbda570b8e",
-            "x-forwarded-for": "191.242.51.72, 104.22.10.178",
+            "x-forwarded-for": "2804:1254:20a9:6571:6d08:f740:2670:45df, 104.22.182.59",
             "x-forwarded-proto": "http",
-            "x-real-ip": "104.22.10.178"
+            "x-real-ip": "104.22.182.59"
           },
           "params": {},
           "query": {},
-          "webhookUrl": "https://n8n.mdsl1.com/webhook/8c6ff736-f915-4a03-9a44-5292a7f61fea"
+          "webhookUrl": "https://n8n.mdsl1.com/webhook-test/8c6ff736-f915-4a03-9a44-5292a7f61fea"
         },
         "pairedItem": {
-          "input": 3,
           "item": 0
         }
       }
