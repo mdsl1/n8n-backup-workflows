@@ -4,12 +4,28 @@
     "authors": "Marcos Lima",
     "autosaved": true,
     "connections": {
+      "Merge": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Switch",
+              "type": "main"
+            }
+          ]
+        ]
+      },
       "Schedule Trigger": {
         "main": [
           [
             {
               "index": 0,
               "node": "[POST] logs portfolio_mdsl1",
+              "type": "main"
+            },
+            {
+              "index": 0,
+              "node": "[POST] logs n8n_mdsl1",
               "type": "main"
             }
           ]
@@ -41,7 +57,7 @@
           ]
         ]
       },
-      "[POST] logs n8n_mdsl1": {
+      "[DELETE] Limpar Logs Antigos": {
         "main": [
           [
             {
@@ -52,12 +68,78 @@
           ]
         ]
       },
-      "[POST] logs portfolio_mdsl1": {
+      "[DELETE] Limpar Logs Antigos1": {
         "main": [
           [
             {
               "index": 0,
               "node": "[SET] Portfolio",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[GET] Select by Id": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[DELETE] Limpar Logs Antigos1",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[GET] Select by Id1": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[DELETE] Limpar Logs Antigos",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[POST] logs n8n_mdsl1": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[SET] Id1",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[POST] logs portfolio_mdsl1": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[SET] Id",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[SET] Id": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[GET] Select by Id",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "[SET] Id1": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "[GET] Select by Id1",
               "type": "main"
             }
           ]
@@ -101,7 +183,7 @@
           [
             {
               "index": 0,
-              "node": "[POST] logs n8n_mdsl1",
+              "node": "Merge",
               "type": "main"
             }
           ]
@@ -111,17 +193,17 @@
         "main": [
           [
             {
-              "index": 0,
-              "node": "Switch",
+              "index": 1,
+              "node": "Merge",
               "type": "main"
             }
           ]
         ]
       }
     },
-    "createdAt": "2026-11-10T15:08:57.891Z",
+    "createdAt": "2026-11-18T19:08:07.399Z",
     "description": "",
-    "name": "10112026.01",
+    "name": "18112026.01",
     "nodeGroups": [],
     "nodes": [
       {
@@ -137,8 +219,8 @@
           }
         },
         "position": [
-          -112,
-          160
+          -288,
+          672
         ],
         "type": "n8n-nodes-base.scheduleTrigger",
         "typeVersion": 1.3
@@ -165,13 +247,14 @@
           "useCustomSchema": true
         },
         "position": [
-          112,
-          160
+          -64,
+          576
         ],
         "type": "n8n-nodes-base.supabase",
         "typeVersion": 1
       },
       {
+        "executeOnce": true,
         "id": "b73a570b-ca36-4607-99c1-638dd243547e",
         "name": "Switch",
         "parameters": {
@@ -184,7 +267,7 @@
                   "conditions": [
                     {
                       "id": "af15d0d5-1fc7-4db1-b531-ea05e8c1575e",
-                      "leftValue": "={{ $json['n8n-mdsl1'].sucesso && $('[SET] Portfolio').item.json.portfolio_mdsl1.sucesso }}",
+                      "leftValue": "={{ $json['n8n-mdsl1'].sucesso && $json.portfolio_mdsl1.sucesso}}",
                       "operator": {
                         "operation": "true",
                         "singleValue": true,
@@ -209,7 +292,7 @@
                   "conditions": [
                     {
                       "id": "14d31db1-1f69-4654-b24f-782bd2259385",
-                      "leftValue": "={{ !$json['n8n-mdsl1'].sucesso && $('[SET] Portfolio').item.json.portfolio_mdsl1.sucesso }}",
+                      "leftValue": "={{ !$json['n8n-mdsl1'].sucesso && $json.portfolio_mdsl1.sucesso }}",
                       "operator": {
                         "operation": "true",
                         "singleValue": true,
@@ -234,7 +317,7 @@
                   "conditions": [
                     {
                       "id": "cce7998f-7c0f-49ad-be86-7c398e08b22f",
-                      "leftValue": "={{ $json['n8n-mdsl1'].sucesso && !$('[SET] Portfolio').item.json.portfolio_mdsl1.sucesso }}",
+                      "leftValue": "={{ $json['n8n-mdsl1'].sucesso && !$json.portfolio_mdsl1.sucesso }}",
                       "operator": {
                         "operation": "true",
                         "singleValue": true,
@@ -259,7 +342,7 @@
                   "conditions": [
                     {
                       "id": "5365a767-e8f8-436e-916e-853ae2f292ce",
-                      "leftValue": "={{ !$json['n8n-mdsl1'].sucesso && !$('[SET] Portfolio').item.json.portfolio_mdsl1.sucesso }}",
+                      "leftValue": "={{ !$json['n8n-mdsl1'].sucesso && !$json.portfolio_mdsl1.sucesso }}",
                       "operator": {
                         "operation": "true",
                         "singleValue": true,
@@ -282,41 +365,14 @@
           }
         },
         "position": [
-          1008,
-          128
+          1232,
+          640
         ],
         "type": "n8n-nodes-base.switch",
         "typeVersion": 3.4
       },
       {
-        "credentials": {
-          "supabaseApi": {
-            "id": "EpeV2iMisV7hQHf3",
-            "name": "[marcos.d.s.lima1408@gmail.com] db_n8n_mdsl1"
-          }
-        },
-        "id": "05bcd7db-f91f-4d79-a03d-aa56b0fc6463",
-        "name": "[POST] logs n8n_mdsl1",
-        "parameters": {
-          "fieldsUi": {
-            "fieldValues": [
-              {
-                "fieldId": "data_criacao",
-                "fieldValue": "={{ $now }}"
-              }
-            ]
-          },
-          "tableId": "log_ativo",
-          "useCustomSchema": true
-        },
-        "position": [
-          560,
-          160
-        ],
-        "type": "n8n-nodes-base.supabase",
-        "typeVersion": 1
-      },
-      {
+        "executeOnce": true,
         "id": "288c6747-1ead-4b6b-806a-dc608a42b99f",
         "name": "[SET] Portfolio",
         "parameters": {
@@ -326,38 +382,15 @@
                 "id": "65b8f277-6b51-420f-847d-8e07e0c65314",
                 "name": "portfolio_mdsl1.sucesso",
                 "type": "boolean",
-                "value": "={{ !!$json.id }}"
+                "value": "={{ !!$('[POST] logs portfolio_mdsl1').item.json.id }}"
               }
             ]
           },
           "options": {}
         },
         "position": [
-          336,
-          160
-        ],
-        "type": "n8n-nodes-base.set",
-        "typeVersion": 3.4
-      },
-      {
-        "id": "b04c090f-3f45-4458-ad07-de4b81cbb495",
-        "name": "[SET] n8n",
-        "parameters": {
-          "assignments": {
-            "assignments": [
-              {
-                "id": "65b8f277-6b51-420f-847d-8e07e0c65314",
-                "name": "n8n-mdsl1.sucesso",
-                "type": "boolean",
-                "value": "={{ !!$json.id }}"
-              }
-            ]
-          },
-          "options": {}
-        },
-        "position": [
-          784,
-          160
+          832,
+          576
         ],
         "type": "n8n-nodes-base.set",
         "typeVersion": 3.4
@@ -379,8 +412,8 @@
           "options": {}
         },
         "position": [
-          1232,
-          -32
+          1456,
+          480
         ],
         "type": "n8n-nodes-base.set",
         "typeVersion": 3.4
@@ -402,8 +435,8 @@
           "options": {}
         },
         "position": [
-          1232,
-          160
+          1456,
+          672
         ],
         "type": "n8n-nodes-base.set",
         "typeVersion": 3.4
@@ -425,8 +458,8 @@
           "options": {}
         },
         "position": [
-          1232,
-          352
+          1456,
+          864
         ],
         "type": "n8n-nodes-base.set",
         "typeVersion": 3.4
@@ -449,26 +482,275 @@
           "text": "=⚠️ <b>Erro no Cronjob • Logs Ativos Supabase</b>\n\nOcorreu um erro durante a rotina de registro de logs no Supabase:\n───────────────────────\n📝 Banco(s) afetado(s): {{ $json.db_erro }}\n📅 Data Registro: {{ $now.format('yyyy-MM-dd, hh:mm:ss') }}"
         },
         "position": [
-          1456,
-          160
+          1680,
+          672
         ],
         "type": "n8n-nodes-base.telegram",
         "typeVersion": 1.2,
         "webhookId": "cb4edf78-2420-44a4-a449-6ce282eed646"
+      },
+      {
+        "credentials": {
+          "supabaseApi": {
+            "id": "EpeV2iMisV7hQHf3",
+            "name": "[marcos.d.s.lima1408@gmail.com] db_n8n_mdsl1"
+          }
+        },
+        "id": "ff48a880-f85a-42af-8423-172c7f95884b",
+        "name": "[POST] logs n8n_mdsl1",
+        "parameters": {
+          "fieldsUi": {
+            "fieldValues": [
+              {
+                "fieldId": "data_criacao",
+                "fieldValue": "={{ $now }}"
+              }
+            ]
+          },
+          "tableId": "log_ativo",
+          "useCustomSchema": true
+        },
+        "position": [
+          -64,
+          768
+        ],
+        "type": "n8n-nodes-base.supabase",
+        "typeVersion": 1
+      },
+      {
+        "executeOnce": true,
+        "id": "e0485abe-5cec-4dee-82b4-27d586781133",
+        "name": "[SET] n8n",
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "65b8f277-6b51-420f-847d-8e07e0c65314",
+                "name": "n8n-mdsl1.sucesso",
+                "type": "boolean",
+                "value": "={{ !!$('[POST] logs n8n_mdsl1').item.json.id }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "position": [
+          832,
+          768
+        ],
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
+      },
+      {
+        "id": "931b1c11-a8e6-4b8d-ac2d-eea2b5a54307",
+        "name": "[SET] Id",
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "4055273e-4e2c-4eaf-bea8-f94e1668f080",
+                "name": "id",
+                "type": "number",
+                "value": "={{ $json.id }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "position": [
+          160,
+          576
+        ],
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
+      },
+      {
+        "id": "650a9bcf-6763-4848-8172-cdec15ae5166",
+        "name": "[SET] Id1",
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "4055273e-4e2c-4eaf-bea8-f94e1668f080",
+                "name": "id",
+                "type": "number",
+                "value": "={{ $json.id }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "position": [
+          160,
+          768
+        ],
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4
+      },
+      {
+        "credentials": {
+          "supabaseApi": {
+            "id": "w7DkROHYyZgiqhsQ",
+            "name": "[marcos.d.s.lima1408@gmail.com] db_portfolio_mdsl1"
+          }
+        },
+        "id": "e1fecc4b-d041-41cf-b2c4-023e1a94f810",
+        "name": "[GET] Select by Id",
+        "parameters": {
+          "filters": {
+            "conditions": [
+              {
+                "keyName": "id",
+                "keyValue": "={{ $json.id }}"
+              }
+            ]
+          },
+          "operation": "get",
+          "tableId": "log_ativo"
+        },
+        "position": [
+          384,
+          576
+        ],
+        "type": "n8n-nodes-base.supabase",
+        "typeVersion": 1
+      },
+      {
+        "credentials": {
+          "supabaseApi": {
+            "id": "EpeV2iMisV7hQHf3",
+            "name": "[marcos.d.s.lima1408@gmail.com] db_n8n_mdsl1"
+          }
+        },
+        "id": "9e1ac6f6-744e-4709-8afe-8e530d16ef5d",
+        "name": "[GET] Select by Id1",
+        "parameters": {
+          "filters": {
+            "conditions": [
+              {
+                "keyName": "id",
+                "keyValue": "={{ $json.id }}"
+              }
+            ]
+          },
+          "operation": "get",
+          "tableId": "log_ativo",
+          "useCustomSchema": true
+        },
+        "position": [
+          384,
+          768
+        ],
+        "type": "n8n-nodes-base.supabase",
+        "typeVersion": 1
+      },
+      {
+        "alwaysOutputData": true,
+        "credentials": {
+          "supabaseApi": {
+            "id": "w7DkROHYyZgiqhsQ",
+            "name": "[marcos.d.s.lima1408@gmail.com] db_portfolio_mdsl1"
+          }
+        },
+        "id": "e516b3cc-eedb-499e-ba12-1825e9771e43",
+        "name": "[DELETE] Limpar Logs Antigos",
+        "parameters": {
+          "filters": {
+            "conditions": [
+              {
+                "condition": "lt",
+                "keyName": "data_criacao",
+                "keyValue": "={{ $now.minus(1, \"month\")}}"
+              }
+            ]
+          },
+          "matchType": "allFilters",
+          "operation": "delete",
+          "tableId": "log_ativo"
+        },
+        "position": [
+          608,
+          768
+        ],
+        "type": "n8n-nodes-base.supabase",
+        "typeVersion": 1
+      },
+      {
+        "alwaysOutputData": true,
+        "credentials": {
+          "supabaseApi": {
+            "id": "w7DkROHYyZgiqhsQ",
+            "name": "[marcos.d.s.lima1408@gmail.com] db_portfolio_mdsl1"
+          }
+        },
+        "id": "e4a59f5c-b33e-45c2-9b6f-b9471fe488c5",
+        "name": "[DELETE] Limpar Logs Antigos1",
+        "parameters": {
+          "filters": {
+            "conditions": [
+              {
+                "condition": "lt",
+                "keyName": "data_criacao",
+                "keyValue": "={{ $now.minus(1, \"month\")}}"
+              }
+            ]
+          },
+          "matchType": "allFilters",
+          "operation": "delete",
+          "tableId": "log_ativo"
+        },
+        "position": [
+          608,
+          576
+        ],
+        "type": "n8n-nodes-base.supabase",
+        "typeVersion": 1
+      },
+      {
+        "executeOnce": true,
+        "id": "c7ce4c46-785d-4a6a-a7f6-24f3910644bd",
+        "name": "Merge",
+        "parameters": {
+          "combineBy": "combineByPosition",
+          "mode": "combine",
+          "options": {}
+        },
+        "position": [
+          1056,
+          672
+        ],
+        "type": "n8n-nodes-base.merge",
+        "typeVersion": 3.2
       }
     ],
-    "updatedAt": "2026-11-10T15:09:10.000Z",
-    "versionId": "2a9debe0-e8cb-47a0-848c-cba8c508bdba",
+    "updatedAt": "2026-11-18T19:08:29.000Z",
+    "versionId": "557f4797-b1e6-49d4-8a66-559f48d17bab",
     "workflowId": "k8zwMprwVHxg0wru"
   },
-  "activeVersionId": "2a9debe0-e8cb-47a0-848c-cba8c508bdba",
+  "activeVersionId": "557f4797-b1e6-49d4-8a66-559f48d17bab",
   "connections": {
+    "Merge": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Switch",
+            "type": "main"
+          }
+        ]
+      ]
+    },
     "Schedule Trigger": {
       "main": [
         [
           {
             "index": 0,
             "node": "[POST] logs portfolio_mdsl1",
+            "type": "main"
+          },
+          {
+            "index": 0,
+            "node": "[POST] logs n8n_mdsl1",
             "type": "main"
           }
         ]
@@ -500,7 +782,7 @@
         ]
       ]
     },
-    "[POST] logs n8n_mdsl1": {
+    "[DELETE] Limpar Logs Antigos": {
       "main": [
         [
           {
@@ -511,12 +793,78 @@
         ]
       ]
     },
-    "[POST] logs portfolio_mdsl1": {
+    "[DELETE] Limpar Logs Antigos1": {
       "main": [
         [
           {
             "index": 0,
             "node": "[SET] Portfolio",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[GET] Select by Id": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[DELETE] Limpar Logs Antigos1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[GET] Select by Id1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[DELETE] Limpar Logs Antigos",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[POST] logs n8n_mdsl1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[SET] Id1",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[POST] logs portfolio_mdsl1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[SET] Id",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[SET] Id": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[GET] Select by Id",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "[SET] Id1": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "[GET] Select by Id1",
             "type": "main"
           }
         ]
@@ -560,7 +908,7 @@
         [
           {
             "index": 0,
-            "node": "[POST] logs n8n_mdsl1",
+            "node": "Merge",
             "type": "main"
           }
         ]
@@ -570,8 +918,8 @@
       "main": [
         [
           {
-            "index": 0,
-            "node": "Switch",
+            "index": 1,
+            "node": "Merge",
             "type": "main"
           }
         ]
@@ -598,8 +946,8 @@
         }
       },
       "position": [
-        -112,
-        160
+        -288,
+        672
       ],
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.3
@@ -626,13 +974,14 @@
         "useCustomSchema": true
       },
       "position": [
-        112,
-        160
+        -64,
+        576
       ],
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1
     },
     {
+      "executeOnce": true,
       "id": "b73a570b-ca36-4607-99c1-638dd243547e",
       "name": "Switch",
       "parameters": {
@@ -645,7 +994,7 @@
                 "conditions": [
                   {
                     "id": "af15d0d5-1fc7-4db1-b531-ea05e8c1575e",
-                    "leftValue": "={{ $json['n8n-mdsl1'].sucesso && $('[SET] Portfolio').item.json.portfolio_mdsl1.sucesso }}",
+                    "leftValue": "={{ $json['n8n-mdsl1'].sucesso && $json.portfolio_mdsl1.sucesso}}",
                     "operator": {
                       "operation": "true",
                       "singleValue": true,
@@ -670,7 +1019,7 @@
                 "conditions": [
                   {
                     "id": "14d31db1-1f69-4654-b24f-782bd2259385",
-                    "leftValue": "={{ !$json['n8n-mdsl1'].sucesso && $('[SET] Portfolio').item.json.portfolio_mdsl1.sucesso }}",
+                    "leftValue": "={{ !$json['n8n-mdsl1'].sucesso && $json.portfolio_mdsl1.sucesso }}",
                     "operator": {
                       "operation": "true",
                       "singleValue": true,
@@ -695,7 +1044,7 @@
                 "conditions": [
                   {
                     "id": "cce7998f-7c0f-49ad-be86-7c398e08b22f",
-                    "leftValue": "={{ $json['n8n-mdsl1'].sucesso && !$('[SET] Portfolio').item.json.portfolio_mdsl1.sucesso }}",
+                    "leftValue": "={{ $json['n8n-mdsl1'].sucesso && !$json.portfolio_mdsl1.sucesso }}",
                     "operator": {
                       "operation": "true",
                       "singleValue": true,
@@ -720,7 +1069,7 @@
                 "conditions": [
                   {
                     "id": "5365a767-e8f8-436e-916e-853ae2f292ce",
-                    "leftValue": "={{ !$json['n8n-mdsl1'].sucesso && !$('[SET] Portfolio').item.json.portfolio_mdsl1.sucesso }}",
+                    "leftValue": "={{ !$json['n8n-mdsl1'].sucesso && !$json.portfolio_mdsl1.sucesso }}",
                     "operator": {
                       "operation": "true",
                       "singleValue": true,
@@ -743,41 +1092,14 @@
         }
       },
       "position": [
-        1008,
-        128
+        1232,
+        640
       ],
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4
     },
     {
-      "credentials": {
-        "supabaseApi": {
-          "id": "EpeV2iMisV7hQHf3",
-          "name": "[marcos.d.s.lima1408@gmail.com] db_n8n_mdsl1"
-        }
-      },
-      "id": "05bcd7db-f91f-4d79-a03d-aa56b0fc6463",
-      "name": "[POST] logs n8n_mdsl1",
-      "parameters": {
-        "fieldsUi": {
-          "fieldValues": [
-            {
-              "fieldId": "data_criacao",
-              "fieldValue": "={{ $now }}"
-            }
-          ]
-        },
-        "tableId": "log_ativo",
-        "useCustomSchema": true
-      },
-      "position": [
-        560,
-        160
-      ],
-      "type": "n8n-nodes-base.supabase",
-      "typeVersion": 1
-    },
-    {
+      "executeOnce": true,
       "id": "288c6747-1ead-4b6b-806a-dc608a42b99f",
       "name": "[SET] Portfolio",
       "parameters": {
@@ -787,38 +1109,15 @@
               "id": "65b8f277-6b51-420f-847d-8e07e0c65314",
               "name": "portfolio_mdsl1.sucesso",
               "type": "boolean",
-              "value": "={{ !!$json.id }}"
+              "value": "={{ !!$('[POST] logs portfolio_mdsl1').item.json.id }}"
             }
           ]
         },
         "options": {}
       },
       "position": [
-        336,
-        160
-      ],
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4
-    },
-    {
-      "id": "b04c090f-3f45-4458-ad07-de4b81cbb495",
-      "name": "[SET] n8n",
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "65b8f277-6b51-420f-847d-8e07e0c65314",
-              "name": "n8n-mdsl1.sucesso",
-              "type": "boolean",
-              "value": "={{ !!$json.id }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "position": [
-        784,
-        160
+        832,
+        576
       ],
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4
@@ -840,8 +1139,8 @@
         "options": {}
       },
       "position": [
-        1232,
-        -32
+        1456,
+        480
       ],
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4
@@ -863,8 +1162,8 @@
         "options": {}
       },
       "position": [
-        1232,
-        160
+        1456,
+        672
       ],
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4
@@ -886,8 +1185,8 @@
         "options": {}
       },
       "position": [
-        1232,
-        352
+        1456,
+        864
       ],
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4
@@ -910,12 +1209,245 @@
         "text": "=⚠️ <b>Erro no Cronjob • Logs Ativos Supabase</b>\n\nOcorreu um erro durante a rotina de registro de logs no Supabase:\n───────────────────────\n📝 Banco(s) afetado(s): {{ $json.db_erro }}\n📅 Data Registro: {{ $now.format('yyyy-MM-dd, hh:mm:ss') }}"
       },
       "position": [
-        1456,
-        160
+        1680,
+        672
       ],
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "webhookId": "cb4edf78-2420-44a4-a449-6ce282eed646"
+    },
+    {
+      "credentials": {
+        "supabaseApi": {
+          "id": "EpeV2iMisV7hQHf3",
+          "name": "[marcos.d.s.lima1408@gmail.com] db_n8n_mdsl1"
+        }
+      },
+      "id": "ff48a880-f85a-42af-8423-172c7f95884b",
+      "name": "[POST] logs n8n_mdsl1",
+      "parameters": {
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "data_criacao",
+              "fieldValue": "={{ $now }}"
+            }
+          ]
+        },
+        "tableId": "log_ativo",
+        "useCustomSchema": true
+      },
+      "position": [
+        -64,
+        768
+      ],
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1
+    },
+    {
+      "executeOnce": true,
+      "id": "e0485abe-5cec-4dee-82b4-27d586781133",
+      "name": "[SET] n8n",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "65b8f277-6b51-420f-847d-8e07e0c65314",
+              "name": "n8n-mdsl1.sucesso",
+              "type": "boolean",
+              "value": "={{ !!$('[POST] logs n8n_mdsl1').item.json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        832,
+        768
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "931b1c11-a8e6-4b8d-ac2d-eea2b5a54307",
+      "name": "[SET] Id",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4055273e-4e2c-4eaf-bea8-f94e1668f080",
+              "name": "id",
+              "type": "number",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        160,
+        576
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "id": "650a9bcf-6763-4848-8172-cdec15ae5166",
+      "name": "[SET] Id1",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4055273e-4e2c-4eaf-bea8-f94e1668f080",
+              "name": "id",
+              "type": "number",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        160,
+        768
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4
+    },
+    {
+      "credentials": {
+        "supabaseApi": {
+          "id": "w7DkROHYyZgiqhsQ",
+          "name": "[marcos.d.s.lima1408@gmail.com] db_portfolio_mdsl1"
+        }
+      },
+      "id": "e1fecc4b-d041-41cf-b2c4-023e1a94f810",
+      "name": "[GET] Select by Id",
+      "parameters": {
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "keyValue": "={{ $json.id }}"
+            }
+          ]
+        },
+        "operation": "get",
+        "tableId": "log_ativo"
+      },
+      "position": [
+        384,
+        576
+      ],
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1
+    },
+    {
+      "credentials": {
+        "supabaseApi": {
+          "id": "EpeV2iMisV7hQHf3",
+          "name": "[marcos.d.s.lima1408@gmail.com] db_n8n_mdsl1"
+        }
+      },
+      "id": "9e1ac6f6-744e-4709-8afe-8e530d16ef5d",
+      "name": "[GET] Select by Id1",
+      "parameters": {
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "keyValue": "={{ $json.id }}"
+            }
+          ]
+        },
+        "operation": "get",
+        "tableId": "log_ativo",
+        "useCustomSchema": true
+      },
+      "position": [
+        384,
+        768
+      ],
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1
+    },
+    {
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "w7DkROHYyZgiqhsQ",
+          "name": "[marcos.d.s.lima1408@gmail.com] db_portfolio_mdsl1"
+        }
+      },
+      "id": "e516b3cc-eedb-499e-ba12-1825e9771e43",
+      "name": "[DELETE] Limpar Logs Antigos",
+      "parameters": {
+        "filters": {
+          "conditions": [
+            {
+              "condition": "lt",
+              "keyName": "data_criacao",
+              "keyValue": "={{ $now.minus(1, \"month\")}}"
+            }
+          ]
+        },
+        "matchType": "allFilters",
+        "operation": "delete",
+        "tableId": "log_ativo"
+      },
+      "position": [
+        608,
+        768
+      ],
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1
+    },
+    {
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "w7DkROHYyZgiqhsQ",
+          "name": "[marcos.d.s.lima1408@gmail.com] db_portfolio_mdsl1"
+        }
+      },
+      "id": "e4a59f5c-b33e-45c2-9b6f-b9471fe488c5",
+      "name": "[DELETE] Limpar Logs Antigos1",
+      "parameters": {
+        "filters": {
+          "conditions": [
+            {
+              "condition": "lt",
+              "keyName": "data_criacao",
+              "keyValue": "={{ $now.minus(1, \"month\")}}"
+            }
+          ]
+        },
+        "matchType": "allFilters",
+        "operation": "delete",
+        "tableId": "log_ativo"
+      },
+      "position": [
+        608,
+        576
+      ],
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1
+    },
+    {
+      "executeOnce": true,
+      "id": "c7ce4c46-785d-4a6a-a7f6-24f3910644bd",
+      "name": "Merge",
+      "parameters": {
+        "combineBy": "combineByPosition",
+        "mode": "combine",
+        "options": {}
+      },
+      "position": [
+        1056,
+        672
+      ],
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2
     }
   ],
   "pinData": {},
