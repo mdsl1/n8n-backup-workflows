@@ -583,9 +583,9 @@
         ]
       }
     },
-    "createdAt": "2026-09-25T05:12:26.828Z",
+    "createdAt": "2026-10-20T23:39:27.966Z",
     "description": "",
-    "name": "25092026.01",
+    "name": "23112026.01",
     "nodeGroups": [],
     "nodes": [
       {
@@ -3090,11 +3090,11 @@
         "typeVersion": 4.4
       }
     ],
-    "updatedAt": "2026-09-25T05:17:03.000Z",
-    "versionId": "68cee0c1-22f6-4f78-b9ae-8e78442058d0",
+    "updatedAt": "2026-11-24T01:03:04.000Z",
+    "versionId": "3a11f636-7177-438e-a388-a026f402ea3f",
     "workflowId": "h17JOGGPRsypJRKf"
   },
-  "activeVersionId": "68cee0c1-22f6-4f78-b9ae-8e78442058d0",
+  "activeVersionId": "3a11f636-7177-438e-a388-a026f402ea3f",
   "connections": {
     "Agrupa msgs enviadas": {
       "main": [
