@@ -224,7 +224,7 @@
     },
     "createdAt": "2026-10-21T00:18:24.784Z",
     "description": "",
-    "name": "Version ca3d3cd4",
+    "name": "23112026.01",
     "nodeGroups": [],
     "nodes": [
       {
@@ -742,7 +742,7 @@
         "typeVersion": 1.1
       }
     ],
-    "updatedAt": "2026-10-21T00:18:33.000Z",
+    "updatedAt": "2026-11-24T01:01:03.000Z",
     "versionId": "ca3d3cd4-8905-40ce-b84e-5c5992b7b9f7",
     "workflowId": "4MljINNgEhpEnMlV"
   },
@@ -1488,36 +1488,7 @@
       "typeVersion": 1.1
     }
   ],
-  "pinData": {
-    "Telegram Trigger": [
-      {
-        "json": {
-          "message": {
-            "chat": {
-              "first_name": "Marcos",
-              "id": 6329122319,
-              "last_name": "Lima",
-              "type": "private"
-            },
-            "date": 1787850851,
-            "from": {
-              "first_name": "Marcos",
-              "id": 6329122319,
-              "is_bot": false,
-              "language_code": "pt-br",
-              "last_name": "Lima"
-            },
-            "message_id": 170,
-            "text": "Em quanto está minha fatura?"
-          },
-          "update_id": 836196853
-        },
-        "pairedItem": {
-          "item": 0
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "settings": {
     "availableInMCP": false,
     "binaryMode": "separate",
