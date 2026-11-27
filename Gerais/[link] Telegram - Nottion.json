@@ -1,0 +1,55 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {},
+  "id": "KDb0KhGil2XkhEA6",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "[link] Telegram - Nottion",
+  "nodes": [
+    {
+      "credentials": {
+        "telegramApi": {
+          "id": "IvZ7I7au9XWrIVZ1",
+          "name": "[bot] T.A.C.O."
+        }
+      },
+      "id": "b6f5bf11-8656-4a7f-b9c1-faa872d27537",
+      "name": "Telegram Trigger",
+      "parameters": {
+        "additionalFields": {},
+        "updates": [
+          "message"
+        ]
+      },
+      "position": [
+        0,
+        0
+      ],
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.3,
+      "webhookId": "75299529-c54a-4266-9af4-5207c8f486bb"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "availableInMCP": false,
+    "binaryMode": "separate",
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-11-26T17:24:56.981Z",
+      "projectId": "kCVHFkXvuUipUeFN",
+      "role": "workflow:owner",
+      "updatedAt": "2026-11-26T17:24:56.981Z",
+      "workflowId": "KDb0KhGil2XkhEA6"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0
+}
